@@ -178,8 +178,10 @@ export default function ChatPage() {
   };
 
   const handleSend = (text: string) => {
-    let convId = currentId;
-    if (!convId) {
+    let convId: string;
+    if (currentId) {
+      convId = currentId;
+    } else {
       convId = randomId();
       const newConv: Conversation = {
         id: convId,
