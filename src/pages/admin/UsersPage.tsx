@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { exportToCSV } from "@/lib/export";
 import { Users } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -121,7 +122,18 @@ export default function UsersPage() {
             variant="outline"
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => toast.info("已请求导出用户列表")}
+            onClick={() =>
+              exportToCSV(filtered, "users.csv", [
+                { key: "id", label: "ID" },
+                { key: "username", label: "账号" },
+                { key: "name", label: "姓名" },
+                { key: "email", label: "邮箱" },
+                { key: "role", label: "角色" },
+                { key: "status", label: "状态" },
+                { key: "department", label: "部门" },
+                { key: "registeredAt", label: "注册时间" },
+              ])
+            }
           >
             导出
           </Button>

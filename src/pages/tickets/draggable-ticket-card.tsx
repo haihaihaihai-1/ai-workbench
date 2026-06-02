@@ -1,22 +1,59 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import type { Ticket } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
 import { TICKET_PRIORITY_INFO, TICKET_TYPE_INFO } from "./mock-data";
 import { SlaIndicator } from "./sla-indicator";
 
 type Props = { ticket: Ticket; onClick?: () => void };
 
-export function TicketCard({ ticket, onClick }: Props) {
+export function DraggableTicketCard({ ticket, onClick }: Props) {
   const t = TICKET_TYPE_INFO[ticket.type];
   const p = TICKET_PRIORITY_INFO[ticket.priority];
+  const isLocked = ticket.status === "closed";
+
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: ticket.id,
+    data: { type: "ticket", status: ticket.status },
+    disabled: isLocked,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
     <button
+      ref={setNodeRef}
+      style={style}
       type="button"
-      onClick={onClick}
-      className="group flex w-full flex-col gap-2 rounded-md border border-border bg-card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-sm"
+      onClick={isDragging ? undefined : onClick}
+      aria-label={`工单 ${ticket.code} ${ticket.title}`}
+      className={cn(
+        "group relative flex w-full flex-col gap-2 rounded-md border border-border bg-card p-3 text-left",
+        "transition-all hover:border-primary/50 hover:shadow-sm",
+        isDragging && "z-50 cursor-grabbing border-primary opacity-50 shadow-lg",
+        isDragging && "rotate-2 scale-105",
+        isLocked && "cursor-not-allowed opacity-70",
+        !isDragging && !isLocked && "cursor-grab",
+      )}
+      {...attributes}
+      {...listeners}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
+          <GripVertical
+            className={cn(
+              "h-3.5 w-3.5 text-muted-foreground/40 transition-colors",
+              "group-hover:text-muted-foreground",
+              isLocked && "hidden",
+            )}
+            aria-hidden
+          />
           <span className="text-base">{t.icon}</span>
           <span className="font-mono text-[10px] text-muted-foreground">{ticket.code}</span>
         </div>

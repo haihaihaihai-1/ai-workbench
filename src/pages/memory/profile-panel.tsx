@@ -3,8 +3,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { exportToJSON } from "@/lib/export";
 import { Brain, Sparkles } from "lucide-react";
 import { MEMORY_TYPE_INFO } from "./mock-data";
+
+// 静态画像数据 - 导出用
+const PROFILE = {
+  name: "许泉兴",
+  department: "CS",
+  grade: "大三",
+  gpa: 3.7,
+  interests: ["AI/ML", "Python", "PyTorch", "算法", "升学", "结构化笔记", "夜猫子"],
+  summary:
+    "计算机科学专业大三学生，对 AI/ML 方向感兴趣。偏好结构化笔记和 Python。近期面临升学决策，承受一定压力。晚上活跃度高。",
+  memoryDistribution: { fact: 42, preference: 31, event: 28, skill: 23 },
+};
 
 export function ProfilePanel() {
   return (
@@ -71,7 +84,17 @@ export function ProfilePanel() {
           </div>
         </div>
 
-        <Button variant="outline" size="sm" className="w-full gap-1.5">
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full gap-1.5"
+          onClick={() =>
+            exportToJSON(
+              [{ ...PROFILE, exportedAt: new Date().toISOString() }],
+              "user-profile.json",
+            )
+          }
+        >
           <Brain className="h-3.5 w-3.5" />
           导出画像（JSON）
         </Button>

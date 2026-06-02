@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { AgentDomain, ChatMessage, Conversation, SourceRef, ToolCall } from "@/lib/types";
 import { randomId } from "@/lib/utils";
+import { useChatStore } from "@/stores/chat-store";
 import {
   ChevronsLeft,
   ChevronsRight,
@@ -20,20 +21,6 @@ import { MessageBubble } from "./message-bubble";
 import { AGENTS, type ModelId, createMockStream, getMockResponse } from "./mock-data";
 import { SourcesPanel } from "./sources-panel";
 import { CrisisBanner, TracePanel } from "./trace-panel";
-
-const SAMPLE_CONVERSATIONS: Conversation[] = [
-  {
-    id: "c1",
-    title: "数据结构知识图谱",
-    domain: "academic",
-    updatedAt: Date.now() - 3_600_000,
-    pinned: true,
-  },
-  { id: "c2", title: "睡眠改善建议", domain: "emotional", updatedAt: Date.now() - 86_400_000 },
-  { id: "c3", title: "请假超过 3 天的流程", domain: "affairs", updatedAt: Date.now() - 86_400_000 },
-  { id: "c4", title: "周末怎么安排", domain: "general", updatedAt: Date.now() - 172_800_000 },
-  { id: "c5", title: "线性代数复习", domain: "academic", updatedAt: Date.now() - 7 * 86_400_000 },
-];
 
 const INITIAL_MESSAGES: Record<string, ChatMessage[]> = {
   c1: [
@@ -58,8 +45,12 @@ type RightPanel = "trace" | "sources" | null;
 export default function ChatPage() {
   const [agent, setAgent] = useState<AgentDomain>("academic");
   const [model, setModel] = useState<ModelId>("claude-sonnet-4.5");
-  const [conversations, setConversations] = useState<Conversation[]>(SAMPLE_CONVERSATIONS);
-  const [currentId, setCurrentId] = useState<string | null>("c1");
+  // 会话列表与当前选中来自持久化 store
+  const conversations = useChatStore((s) => s.conversations);
+  const currentId = useChatStore((s) => s.currentId);
+  const setCurrentId = useChatStore((s) => s.setCurrentId);
+  const addConversation = useChatStore((s) => s.addConversation);
+  const updateConversation = useChatStore((s) => s.updateConversation);
   const [messages, setMessages] = useState<Record<string, ChatMessage[]>>(INITIAL_MESSAGES);
   const [streaming, setStreaming] = useState(false);
   const [rightPanel, setRightPanel] = useState<RightPanel>("trace");
@@ -68,12 +59,12 @@ export default function ChatPage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const openCommand = useCommandPalette((s) => s.toggle);
 
-  // 路由第一个对话
+  // 持久化数据为空时回退到第一个示例会话
   useEffect(() => {
     if (!currentId && conversations.length > 0) {
       setCurrentId(conversations[0].id);
     }
-  }, [currentId, conversations]);
+  }, [currentId, conversations, setCurrentId]);
 
   // 自动滚到底
   useEffect(() => {
@@ -189,7 +180,7 @@ export default function ChatPage() {
         domain: agent,
         updatedAt: Date.now(),
       };
-      setConversations((prev) => [newConv, ...prev]);
+      addConversation(newConv);
       setCurrentId(convId);
       setMessages((prev) => ({ ...prev, [convId]: [] }));
     }
@@ -201,9 +192,7 @@ export default function ChatPage() {
         { id: randomId(), role: "user", content: text, createdAt: Date.now() },
       ],
     }));
-    setConversations((prev) =>
-      prev.map((c) => (c.id === convId ? { ...c, updatedAt: Date.now() } : c)),
-    );
+    updateConversation(convId, { updatedAt: Date.now() });
 
     // 启动 AI 流式
     setTimeout(() => startStream(convId, agent), 200);

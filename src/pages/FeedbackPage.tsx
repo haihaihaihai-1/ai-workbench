@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { exportToCSV } from "@/lib/export";
 import { cn, formatDate, relativeTime } from "@/lib/utils";
 import { CheckCircle2, Clock, Download, FileText, Star, ThumbsUp } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -77,7 +78,18 @@ export default function FeedbackPage() {
             variant="outline"
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => toast.success("已导出 86 条反馈")}
+            onClick={() =>
+              exportToCSV(FEEDBACKS, "feedbacks.csv", [
+                { key: "id", label: "ID" },
+                { key: "user", label: "用户" },
+                { key: "domain", label: "领域" },
+                { key: "rating", label: "评分" },
+                { key: "tags", label: "标签" },
+                { key: "comment", label: "评论" },
+                { key: "status", label: "状态" },
+                { key: "createdAt", label: "时间" },
+              ])
+            }
           >
             <Download className="h-3.5 w-3.5" />
             导出 CSV

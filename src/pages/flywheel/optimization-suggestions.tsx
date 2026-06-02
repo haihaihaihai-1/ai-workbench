@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { exportToCSV } from "@/lib/export";
 import { cn } from "@/lib/utils";
 import { Download, Sparkles, Wand2 } from "lucide-react";
 import { useState } from "react";
@@ -22,9 +23,21 @@ export function OptimizationSuggestions() {
   };
 
   const handleExport = () => {
-    toast.success("优化建议已导出", {
-      description: `${filtered.length} 条建议已生成 Markdown 文件。`,
-    });
+    // 导出当前筛选后的建议, 字段映射成中文列名
+    const rows = filtered.map((s) => ({
+      ...s,
+      priorityLabel: PRIORITY_INFO[s.priority].name,
+      categoryLabel: CATEGORY_INFO[s.category].name,
+    }));
+    exportToCSV(rows, "optimization-suggestions.csv", [
+      { key: "id", label: "ID" },
+      { key: "title", label: "标题" },
+      { key: "detail", label: "说明" },
+      { key: "priorityLabel", label: "优先级" },
+      { key: "categoryLabel", label: "类别" },
+      { key: "effort", label: "工作量" },
+      { key: "impact", label: "预期收益" },
+    ]);
   };
 
   const handleApply = (id: string) => {

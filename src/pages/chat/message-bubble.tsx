@@ -1,9 +1,11 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { messageEnter } from "@/lib/motion-presets";
 import type { ChatMessage, SourceRef, ToolCall } from "@/lib/types";
 import { cn, relativeTime } from "@/lib/utils";
 import { Bot, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
+import { motion } from "motion/react";
 import { toast } from "sonner";
 import { AGENTS } from "./mock-data";
 
@@ -24,7 +26,13 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
   };
 
   return (
-    <div className={cn("flex gap-3", isUser && "flex-row-reverse")}>
+    <motion.div
+      key={message.id}
+      initial={messageEnter.initial}
+      animate={messageEnter.animate}
+      transition={messageEnter.transition}
+      className={cn("flex gap-3", isUser && "flex-row-reverse")}
+    >
       <Avatar className="h-8 w-8 shrink-0">
         {isUser ? (
           <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground text-xs">
@@ -131,7 +139,7 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { exportToCSV } from "@/lib/export";
 import { cn, relativeTime } from "@/lib/utils";
 import { AlertTriangle, Download, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -241,7 +242,18 @@ export default function SafetyPage() {
             variant="outline"
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => toast.success("已导出安全事件")}
+            onClick={() =>
+              exportToCSV(filtered, "safety-events.csv", [
+                { key: "id", label: "ID" },
+                { key: "type", label: "类型" },
+                { key: "severity", label: "严重级别" },
+                { key: "content", label: "内容" },
+                { key: "user", label: "用户" },
+                { key: "action", label: "处理" },
+                { key: "context", label: "上下文" },
+                { key: "createdAt", label: "时间" },
+              ])
+            }
           >
             <Download className="h-3.5 w-3.5" />
             导出

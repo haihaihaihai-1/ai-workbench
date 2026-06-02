@@ -6,6 +6,7 @@ import { routes } from "./routes";
 
 export default function App() {
   const resolvedTheme = useThemeStore((s) => s.resolvedTheme);
+  const theme = useThemeStore((s) => s.theme);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -14,7 +15,13 @@ export default function App() {
     } else {
       root.classList.remove("dark");
     }
+    root.style.setProperty("color-scheme", resolvedTheme);
   }, [resolvedTheme]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.themeMode = theme;
+  }, [theme]);
 
   return (
     <AppShell>

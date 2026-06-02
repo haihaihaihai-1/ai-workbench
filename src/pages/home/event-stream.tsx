@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { slideInRight } from "@/lib/motion-presets";
 import { cn, relativeTime } from "@/lib/utils";
 import { Activity } from "lucide-react";
+import { motion } from "motion/react";
 import { type HomeEvent, RECENT_EVENTS } from "./mock-data";
 
 const TYPE_TONE: Record<HomeEvent["type"], { ring: string; text: string; bg: string }> = {
@@ -30,8 +32,11 @@ export function EventStream() {
             {RECENT_EVENTS.map((e) => {
               const tone = TYPE_TONE[e.type];
               return (
-                <div
+                <motion.div
                   key={e.id}
+                  initial={slideInRight.initial}
+                  animate={slideInRight.animate}
+                  transition={slideInRight.transition}
                   className={cn(
                     "group flex items-start gap-2.5 rounded-md border border-transparent p-2 transition-colors hover:border-border hover:bg-muted/30",
                   )}
@@ -58,7 +63,7 @@ export function EventStream() {
                       </p>
                     )}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

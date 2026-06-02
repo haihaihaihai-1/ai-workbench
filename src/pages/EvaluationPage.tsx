@@ -1,12 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { exportToJSON } from "@/lib/export";
 import { cn } from "@/lib/utils";
 import { Download, FileText, Play, Target } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { EvalTable } from "./evaluation/eval-table";
 import { HistoryPanel, PassRateTrend } from "./evaluation/history-panel";
-import { TEST_SETS, type TestSet } from "./evaluation/mock-data";
+import { QUALITY_METRICS, TEST_SETS, type TestSet } from "./evaluation/mock-data";
 import { QualityMetrics } from "./evaluation/quality-metrics";
 import { TestsetSelector } from "./evaluation/testset-selector";
 
@@ -40,9 +41,13 @@ export default function EvaluationPage() {
   };
 
   const handleExport = () => {
-    toast.success("评估报告已生成", {
-      description: "Markdown 与 JSON 已下载。",
-    });
+    // 导出当前测试集与质量指标的 JSON 报告
+    const report = {
+      generatedAt: new Date().toISOString(),
+      testSet: current,
+      qualityMetrics: QUALITY_METRICS,
+    };
+    exportToJSON([report], `evaluation-${current.id}.json`);
   };
 
   return (

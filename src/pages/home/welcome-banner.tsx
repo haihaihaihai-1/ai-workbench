@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { fadeInUp, listItem } from "@/lib/motion-presets";
 import { cn, formatDate } from "@/lib/utils";
 import { Brain, MessageSquare, Sparkles, Timer, Waves } from "lucide-react";
+import { motion } from "motion/react";
 import { HOME_OVERVIEW } from "./mock-data";
 
 type Metric = {
@@ -64,49 +66,59 @@ export function WelcomeBanner() {
   ];
 
   return (
-    <Card className="relative overflow-hidden border-primary/20">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          background:
-            "radial-gradient(800px circle at 100% 0%, hsl(var(--primary) / 0.18), transparent 50%)",
-        }}
-      />
-      <CardContent className="relative flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              {greeting}，许泉兴 <span className="text-primary">👋</span>
-            </h1>
+    <motion.div
+      initial={fadeInUp.initial}
+      animate={fadeInUp.animate}
+      transition={fadeInUp.transition}
+    >
+      <Card className="relative overflow-hidden border-primary/20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-30"
+          style={{
+            background:
+              "radial-gradient(800px circle at 100% 0%, hsl(var(--primary) / 0.18), transparent 50%)",
+          }}
+        />
+        <CardContent className="relative flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                {greeting}，许泉兴 <span className="text-primary">👋</span>
+              </h1>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              <Sparkles className="mr-1 inline h-3.5 w-3.5 text-primary" />
+              欢迎回到 AI 协作工作台 · {today}
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            <Sparkles className="mr-1 inline h-3.5 w-3.5 text-primary" />
-            欢迎回到 AI 协作工作台 · {today}
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-          {metrics.map((m) => {
-            const Icon = m.icon;
-            return (
-              <div
-                key={m.label}
-                className="flex items-center gap-2.5 rounded-md border border-border bg-card/60 px-3 py-2"
-              >
-                <div className={cn("rounded-md p-1.5", m.bg, m.tone)}>
-                  <Icon className="h-3.5 w-3.5" />
-                </div>
-                <div>
-                  <div className="text-[10px] text-muted-foreground">{m.label}</div>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-sm font-semibold tabular-nums">{m.value}</span>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+            {metrics.map((m, i) => {
+              const Icon = m.icon;
+              const item = listItem(0.05 + i * 0.05);
+              return (
+                <motion.div
+                  key={m.label}
+                  initial={item.initial}
+                  animate={item.animate}
+                  transition={item.transition}
+                  className="flex items-center gap-2.5 rounded-md border border-border bg-card/60 px-3 py-2"
+                >
+                  <div className={cn("rounded-md p-1.5", m.bg, m.tone)}>
+                    <Icon className="h-3.5 w-3.5" />
                   </div>
-                  <div className="text-[9px] text-muted-foreground">{m.hint}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </CardContent>
-    </Card>
+                  <div>
+                    <div className="text-[10px] text-muted-foreground">{m.label}</div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-sm font-semibold tabular-nums">{m.value}</span>
+                    </div>
+                    <div className="text-[9px] text-muted-foreground">{m.hint}</div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }

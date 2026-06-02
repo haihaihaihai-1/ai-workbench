@@ -118,10 +118,11 @@ export default function MemoryPage() {
                   <span className="font-mono text-[10px]">({list.length})</span>
                 </h2>
                 <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                  {list.map((m) => (
+                  {list.map((m, i) => (
                     <MemoryCard
                       key={m.id}
                       memory={m}
+                      index={i}
                       onDelete={handleDelete}
                       onTogglePin={handleTogglePin}
                     />

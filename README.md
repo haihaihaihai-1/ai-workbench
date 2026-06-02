@@ -21,11 +21,12 @@
 
 ```bash
 pnpm install
-pnpm dev      # 启动 http://127.0.0.1:5173
-pnpm build    # 生产构建
-pnpm preview  # 预览生产构建
-pnpm lint     # Lint 检查
+pnpm dev          # 启动 http://127.0.0.1:5173
+pnpm build        # 生产构建
+pnpm preview      # 预览生产构建
+pnpm lint         # Lint 检查
 pnpm typecheck
+pnpm test:e2e     # Playwright E2E 测试
 ```
 
 ## 目录结构
@@ -82,3 +83,24 @@ src/
 - [设计文档](docs/DESIGN.md)
 - [架构文档](docs/ARCHITECTURE.md)
 - [实施计划](docs/plans/2026-06-02-ai-workbench-v7.md)
+
+## E2E 测试
+
+使用 [Playwright](https://playwright.dev) 覆盖核心路径（导航 / 首页 / 对话 / 命令面板 / 主题切换）。
+
+```bash
+# 首次运行需要安装浏览器二进制（约 200MB）
+pnpm exec playwright install chromium
+
+# 跑全部 E2E（自动启动 pnpm dev 作为 webServer）
+pnpm test:e2e
+
+# 打开 Playwright UI 调试
+pnpm test:e2e:ui
+```
+
+测试位于 `tests/e2e/`，配置见 `playwright.config.ts`：
+- `testDir: ./tests/e2e` — 测试目录
+- `baseURL: http://127.0.0.1:5173` — Vite dev server
+- `webServer: pnpm dev` — 自动启动 + 复用现有 server
+- 失败时自动保留 trace / 截图

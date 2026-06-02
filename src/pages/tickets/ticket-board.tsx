@@ -1,13 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Ticket, TicketStatus } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
-import { TicketCard } from "./ticket-card";
+import {
+  DndContext,
+  type DragEndEvent,
+  PointerSensor,
+  closestCorners,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { DraggableTicketCard } from "./draggable-ticket-card";
+import { DroppableColumn } from "./droppable-column";
 
 type Props = {
   grouped: Record<TicketStatus, Ticket[]>;
   onSelect: (t: Ticket) => void;
+  onStatusChange: (id: string, status: TicketStatus) => void;
 };
 
 const COLUMNS: { key: TicketStatus; title: string; color: string; description: string }[] = [
@@ -17,41 +23,63 @@ const COLUMNS: { key: TicketStatus; title: string; color: string; description: s
   { key: "closed", title: "已取消", color: "#6B7280", description: "归档" },
 ];
 
-export function TicketBoard({ grouped, onSelect }: Props) {
+const STATUS_SET = new Set<TicketStatus>(["open", "in_progress", "resolved", "closed"]);
+
+export function isColumnStatus(id: string | number): id is TicketStatus {
+  return typeof id === "string" && STATUS_SET.has(id as TicketStatus);
+}
+
+export function TicketBoard({ grouped, onSelect, onStatusChange }: Props) {
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+  const ticketIndex: Record<string, TicketStatus> = {};
+  (Object.keys(grouped) as TicketStatus[]).forEach((s) => {
+    grouped[s].forEach((t) => {
+      ticketIndex[t.id] = s;
+    });
+  });
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+    if (!over) return;
+    const ticketId = String(active.id);
+    const overId = String(over.id);
+    const currentStatus = ticketIndex[ticketId];
+    if (!currentStatus) return;
+
+    let targetStatus: TicketStatus | null = null;
+    if (isColumnStatus(overId)) {
+      targetStatus = overId;
+    } else {
+      const s = ticketIndex[overId];
+      if (s) targetStatus = s;
+    }
+    if (!targetStatus || targetStatus === currentStatus) return;
+    onStatusChange(ticketId, targetStatus);
+  };
+
   return (
-    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-      {COLUMNS.map((col) => {
-        const list = grouped[col.key] ?? [];
-        return (
-          <div key={col.key} className="flex flex-col rounded-lg border border-border bg-card/30">
-            <div className="flex items-center justify-between border-b border-border p-3">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: col.color }} />
-                <h3 className="text-sm font-semibold">{col.title}</h3>
-                <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-                  {list.length}
-                </span>
-              </div>
-              <Button variant="ghost" size="icon" className="h-6 w-6" aria-label="新建工单">
-                <Plus className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-            <p className="px-3 pt-2 text-[10px] text-muted-foreground">{col.description}</p>
-            <ScrollArea className="h-[calc(100vh-26rem)]">
-              <div className="flex flex-col gap-2 p-2">
-                {list.map((t) => (
-                  <TicketCard key={t.id} ticket={t} onClick={() => onSelect(t)} />
-                ))}
-                {list.length === 0 && (
-                  <div className={cn("py-8 text-center text-xs text-muted-foreground")}>
-                    暂无工单
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-          </div>
-        );
-      })}
-    </div>
+    <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {COLUMNS.map((col) => {
+          const list = grouped[col.key] ?? [];
+          return (
+            <DroppableColumn
+              key={col.key}
+              id={col.key}
+              title={col.title}
+              count={list.length}
+              color={col.color}
+              description={col.description}
+              items={list.map((t) => t.id)}
+            >
+              {list.map((t) => (
+                <DraggableTicketCard key={t.id} ticket={t} onClick={() => onSelect(t)} />
+              ))}
+            </DroppableColumn>
+          );
+        })}
+      </div>
+    </DndContext>
   );
 }

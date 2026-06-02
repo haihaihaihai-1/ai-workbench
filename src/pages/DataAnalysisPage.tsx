@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { exportToCSV, exportToJSON } from "@/lib/export";
 import { Activity, Download } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { ActivityHeatmap } from "./analysis/activity-heatmap";
 import { AgentDistribution } from "./analysis/agent-distribution";
 import { FeedbackAnalysis } from "./analysis/feedback-analysis";
 import { IntentHeatmap } from "./analysis/intent-heatmap";
+import { OVERVIEW_METRICS } from "./analysis/mock-data";
 import { OverviewMetrics } from "./analysis/overview-metrics";
 import { SessionDistribution } from "./analysis/session-distribution";
 import { UserFunnel } from "./analysis/user-funnel";
@@ -18,13 +19,50 @@ const ranges = [
   { id: "90d", label: "90 天" },
 ];
 
+// 把 4 个总览指标摊平为可导出行
+function buildMetricsRows() {
+  return [
+    {
+      metric: "活跃用户",
+      value: OVERVIEW_METRICS.activeUsers,
+      previous: OVERVIEW_METRICS.prevActiveUsers,
+    },
+    { metric: "会话数", value: OVERVIEW_METRICS.sessions, previous: OVERVIEW_METRICS.prevSessions },
+    {
+      metric: "平均时长(分钟)",
+      value: OVERVIEW_METRICS.avgDurationMin,
+      previous: OVERVIEW_METRICS.prevAvgDurationMin,
+    },
+    {
+      metric: "7 天留存(%)",
+      value: OVERVIEW_METRICS.retention7d,
+      previous: OVERVIEW_METRICS.prevRetention7d,
+    },
+  ];
+}
+
 export default function DataAnalysisPage() {
   const [range, setRange] = useState("30d");
 
-  const handleExport = (fmt: "csv" | "excel" | "pdf") => {
-    toast.success(`数据已导出为 ${fmt.toUpperCase()}`, {
-      description: `范围 ${range} · 已下载到本地。`,
-    });
+  // CSV: 导出当前总览指标
+  const handleExportCSV = () => {
+    const data = buildMetricsRows().map((r) => ({ ...r, range }));
+    exportToCSV(data, `analysis-${range}.csv`, [
+      { key: "metric", label: "指标" },
+      { key: "value", label: "当前" },
+      { key: "previous", label: "上期" },
+      { key: "range", label: "范围" },
+    ]);
+  };
+
+  // JSON: 导出带元数据的完整结构, 模拟 "Excel" 报告
+  const handleExportExcel = () => {
+    const payload = {
+      range,
+      generatedAt: new Date().toISOString(),
+      overview: OVERVIEW_METRICS,
+    };
+    exportToJSON([payload], `analysis-${range}.json`);
   };
 
   return (
@@ -51,21 +89,11 @@ export default function DataAnalysisPage() {
             </TabsList>
           </Tabs>
           <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleExport("csv")}
-              className="h-8 gap-1"
-            >
+            <Button variant="outline" size="sm" onClick={handleExportCSV} className="h-8 gap-1">
               <Download className="h-3.5 w-3.5" />
               CSV
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleExport("excel")}
-              className="h-8 gap-1"
-            >
+            <Button variant="outline" size="sm" onClick={handleExportExcel} className="h-8 gap-1">
               <Download className="h-3.5 w-3.5" />
               Excel
             </Button>

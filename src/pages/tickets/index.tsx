@@ -14,6 +14,7 @@ import type { Ticket, TicketStatus } from "@/lib/types";
 import { relativeTime } from "@/lib/utils";
 import { LayoutGrid, List, Plus, RefreshCw, Ticket as TicketIcon } from "lucide-react";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   MOCK_TICKETS,
   TICKET_PRIORITY_INFO,
@@ -27,6 +28,18 @@ import { TicketDetail } from "./ticket-detail";
 import { type FilterState, TicketFilters } from "./ticket-filters";
 import { TicketStats } from "./ticket-stats";
 
+const ALLOWED_TRANSITIONS: Record<TicketStatus, TicketStatus[]> = {
+  open: ["in_progress", "closed"],
+  in_progress: ["open", "resolved", "closed"],
+  resolved: ["open", "closed"],
+  closed: [],
+};
+
+function canTransition(from: TicketStatus, to: TicketStatus): boolean {
+  if (from === to) return false;
+  return ALLOWED_TRANSITIONS[from]?.includes(to) ?? false;
+}
+
 export default function TicketsPage() {
   const [view, setView] = useState<"list" | "board">("list");
   const [filters, setFilters] = useState<FilterState>({
@@ -36,9 +49,10 @@ export default function TicketsPage() {
     type: "all",
   });
   const [selected, setSelected] = useState<Ticket | null>(null);
+  const [tickets, setTickets] = useState<Ticket[]>(MOCK_TICKETS);
 
   const filtered = useMemo(() => {
-    return MOCK_TICKETS.filter((t) => {
+    return tickets.filter((t) => {
       if (filters.q) {
         const q = filters.q.toLowerCase();
         if (
@@ -54,7 +68,7 @@ export default function TicketsPage() {
       if (filters.type !== "all" && t.type !== filters.type) return false;
       return true;
     });
-  }, [filters]);
+  }, [tickets, filters]);
 
   const grouped = useMemo(() => {
     const g: Record<TicketStatus, Ticket[]> = {
@@ -66,6 +80,31 @@ export default function TicketsPage() {
     filtered.forEach((t) => g[t.status].push(t));
     return g;
   }, [filtered]);
+
+  const liveStats = useMemo(() => {
+    const now = Date.now();
+    const open = tickets.filter((t) => t.status === "open").length;
+    const inProgress = tickets.filter((t) => t.status === "in_progress").length;
+    const resolved = tickets.filter((t) => t.status === "resolved").length;
+    const closed = tickets.filter((t) => t.status === "closed").length;
+    const breached = tickets.filter((t) => t.slaDueAt < now && t.status !== "closed").length;
+    return { open, inProgress, resolved, closed, breached };
+  }, [tickets]);
+
+  const handleStatusChange = (id: string, newStatus: TicketStatus) => {
+    const target = tickets.find((t) => t.id === id);
+    if (!target) return;
+    if (!canTransition(target.status, newStatus)) {
+      toast.error(
+        `无法将 ${target.code} 从「${TICKET_STATUS_INFO[target.status].name}」移到「${TICKET_STATUS_INFO[newStatus].name}」`,
+      );
+      return;
+    }
+    setTickets((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, status: newStatus, updatedAt: Date.now() } : t)),
+    );
+    toast.success(`已将 ${target.code} 移到「${TICKET_STATUS_INFO[newStatus].name}」`);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -105,7 +144,16 @@ export default function TicketsPage() {
       </header>
 
       {/* 统计 */}
-      <TicketStats stats={TICKET_STATS} />
+      <TicketStats
+        stats={{
+          ...TICKET_STATS,
+          open: liveStats.open,
+          inProgress: liveStats.inProgress,
+          resolved: liveStats.resolved,
+          closed: liveStats.closed,
+          breached: liveStats.breached,
+        }}
+      />
 
       {/* 筛选 */}
       <Card>
@@ -113,7 +161,7 @@ export default function TicketsPage() {
           <TicketFilters
             value={filters}
             onChange={setFilters}
-            total={MOCK_TICKETS.length}
+            total={tickets.length}
             filtered={filtered.length}
           />
         </CardContent>
@@ -200,7 +248,11 @@ export default function TicketsPage() {
               </Table>
             </Card>
           ) : (
-            <TicketBoard grouped={grouped} onSelect={setSelected} />
+            <TicketBoard
+              grouped={grouped}
+              onSelect={setSelected}
+              onStatusChange={handleStatusChange}
+            />
           )}
         </div>
 
