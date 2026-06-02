@@ -16,6 +16,9 @@ export default defineConfig({
   build: {
     target: "es2020",
     chunkSizeWarningLimit: 800,
+    cssCodeSplit: true,
+    reportCompressedSize: false,
+    modulePreload: { polyfill: false },
     rollupOptions: {
       output: {
         manualChunks(id) {

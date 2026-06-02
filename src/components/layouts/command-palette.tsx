@@ -8,6 +8,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useCommandPalette } from "./command-palette-context";
 import { commandPaletteItems } from "./nav-config";
@@ -16,6 +17,7 @@ export function CommandPalette() {
   const open = useCommandPalette((s) => s.open);
   const setOpen = useCommandPalette((s) => s.setOpen);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // ⌘K / Ctrl+K 快捷键
   useEffect(() => {
@@ -31,27 +33,26 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="输入命令、页面或功能..." />
+      <CommandInput placeholder={t("command.placeholder")} />
       <CommandList>
-        <CommandEmpty>未找到匹配项</CommandEmpty>
+        <CommandEmpty>{t("command.empty")}</CommandEmpty>
         {commandPaletteItems.map((group) => (
-          <CommandGroup key={group.group} heading={group.group}>
+          <CommandGroup key={group.groupKey} heading={t(group.groupKey)}>
             {group.items.map((item) => {
               const Icon = item.icon;
+              const title = t(item.titleKey);
               return (
                 <CommandItem
                   key={item.id}
-                  value={`${item.title} ${item.url}`}
+                  value={`${title} ${item.url}`}
                   onSelect={() => {
                     navigate(item.url);
                     setOpen(false);
                   }}
                 >
                   <Icon className="text-muted-foreground" />
-                  <span>{item.title}</span>
-                  {"shortcut" in item && item.shortcut && (
-                    <CommandShortcut>{item.shortcut}</CommandShortcut>
-                  )}
+                  <span>{title}</span>
+                  {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
                 </CommandItem>
               );
             })}

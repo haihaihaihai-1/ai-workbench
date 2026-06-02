@@ -23,97 +23,126 @@ import {
 import type { ComponentType } from "react";
 
 export type NavItem = {
-  title: string;
+  titleKey: string;
   url: string;
   icon: LucideIcon | ComponentType<{ className?: string }>;
-  badge?: string;
+  badgeKey?: string;
 };
 
 export type NavGroup = {
-  label: string;
+  labelKey: string;
   items: NavItem[];
 };
 
 export const navGroups: NavGroup[] = [
   {
-    label: "工作区",
+    labelKey: "nav.group.workspace",
     items: [
-      { title: "首页", url: "/", icon: LayoutDashboard },
-      { title: "对话工作台", url: "/chat", icon: MessageSquare, badge: "核心" },
-      { title: "记忆中心", url: "/memory", icon: Brain, badge: "核心" },
+      { titleKey: "nav.home", url: "/", icon: LayoutDashboard },
+      { titleKey: "nav.chat", url: "/chat", icon: MessageSquare, badgeKey: "badge.core" },
+      { titleKey: "nav.memory", url: "/memory", icon: Brain, badgeKey: "badge.core" },
     ],
   },
   {
-    label: "可观测",
+    labelKey: "nav.group.observability",
     items: [
-      { title: "实时监控", url: "/monitor", icon: Gauge, badge: "核心" },
-      { title: "数据飞轮", url: "/flywheel", icon: ChartLine },
-      { title: "数据分析", url: "/analysis", icon: Activity },
-      { title: "系统评估", url: "/evaluation", icon: Target },
+      { titleKey: "nav.monitor", url: "/monitor", icon: Gauge, badgeKey: "badge.core" },
+      { titleKey: "nav.flywheel", url: "/flywheel", icon: ChartLine },
+      { titleKey: "nav.analysis", url: "/analysis", icon: Activity },
+      { titleKey: "nav.evaluation", url: "/evaluation", icon: Target },
     ],
   },
   {
-    label: "工单与协作",
+    labelKey: "nav.group.ticketsCollab",
     items: [
-      { title: "工单中心", url: "/tickets", icon: Ticket, badge: "核心" },
-      { title: "服务大厅", url: "/services", icon: ListChecks },
-      { title: "反馈管理", url: "/feedback", icon: FileText },
+      { titleKey: "nav.tickets", url: "/tickets", icon: Ticket, badgeKey: "badge.core" },
+      { titleKey: "nav.services", url: "/services", icon: ListChecks },
+      { titleKey: "nav.feedback", url: "/feedback", icon: FileText },
     ],
   },
   {
-    label: "管理后台",
+    labelKey: "nav.group.admin",
     items: [
-      { title: "用户管理", url: "/admin/users", icon: Users },
-      { title: "技能管理", url: "/admin/skills", icon: Wrench },
-      { title: "技能市场", url: "/skills", icon: Sparkles },
-      { title: "安全监控", url: "/admin/safety", icon: ShieldCheck },
-      { title: "系统设置", url: "/admin/settings", icon: Settings },
+      { titleKey: "nav.adminUsers", url: "/admin/users", icon: Users },
+      { titleKey: "nav.adminSkills", url: "/admin/skills", icon: Wrench },
+      { titleKey: "nav.skillsMarket", url: "/skills", icon: Sparkles },
+      { titleKey: "nav.adminSafety", url: "/admin/safety", icon: ShieldCheck },
+      { titleKey: "nav.adminSettings", url: "/admin/settings", icon: Settings },
     ],
   },
 ];
 
-export const commandPaletteItems = [
+export type CommandItem = {
+  id: string;
+  titleKey: string;
+  url: string;
+  icon: LucideIcon | ComponentType<{ className?: string }>;
+  shortcut?: string;
+};
+
+export type CommandGroup = {
+  groupKey: string;
+  items: CommandItem[];
+};
+
+export const commandPaletteItems: CommandGroup[] = [
   {
-    group: "对话",
+    groupKey: "command.group.chat",
     items: [
-      { id: "chat", title: "新建对话", url: "/chat", icon: MessageSquare, shortcut: "⌘ N" },
-      { id: "chat-history", title: "对话历史", url: "/chat", icon: History, shortcut: "⌘ H" },
+      { id: "chat", titleKey: "chat.newChat", url: "/chat", icon: MessageSquare, shortcut: "⌘ N" },
+      {
+        id: "chat-history",
+        titleKey: "chat.chatHistory",
+        url: "/chat",
+        icon: History,
+        shortcut: "⌘ H",
+      },
     ],
   },
   {
-    group: "页面",
+    groupKey: "command.group.pages",
     items: [
-      { id: "home", title: "首页", url: "/", icon: LayoutDashboard },
-      { id: "monitor", title: "实时监控", url: "/monitor", icon: Gauge },
-      { id: "tickets", title: "工单中心", url: "/tickets", icon: Ticket },
-      { id: "memory", title: "记忆中心", url: "/memory", icon: Brain },
-      { id: "flywheel", title: "数据飞轮", url: "/flywheel", icon: ChartLine },
-      { id: "evaluation", title: "系统评估", url: "/evaluation", icon: Target },
-      { id: "analysis", title: "数据分析", url: "/analysis", icon: Activity },
-      { id: "skills-market", title: "技能市场", url: "/skills", icon: Sparkles },
-      { id: "services", title: "服务大厅", url: "/services", icon: ListChecks },
-      { id: "profile", title: "个人中心", url: "/profile", icon: UserCog },
+      { id: "home", titleKey: "nav.home", url: "/", icon: LayoutDashboard },
+      { id: "monitor", titleKey: "nav.monitor", url: "/monitor", icon: Gauge },
+      { id: "tickets", titleKey: "nav.tickets", url: "/tickets", icon: Ticket },
+      { id: "memory", titleKey: "nav.memory", url: "/memory", icon: Brain },
+      { id: "flywheel", titleKey: "nav.flywheel", url: "/flywheel", icon: ChartLine },
+      { id: "evaluation", titleKey: "nav.evaluation", url: "/evaluation", icon: Target },
+      { id: "analysis", titleKey: "nav.analysis", url: "/analysis", icon: Activity },
+      { id: "skills-market", titleKey: "nav.skillsMarket", url: "/skills", icon: Sparkles },
+      { id: "services", titleKey: "nav.services", url: "/services", icon: ListChecks },
+      { id: "profile", titleKey: "nav.profile", url: "/profile", icon: UserCog },
     ],
   },
   {
-    group: "管理",
+    groupKey: "command.group.admin",
     items: [
-      { id: "admin-users", title: "用户管理", url: "/admin/users", icon: Users },
-      { id: "admin-skills", title: "技能管理", url: "/admin/skills", icon: Wrench },
-      { id: "admin-safety", title: "安全监控", url: "/admin/safety", icon: ShieldCheck },
-      { id: "admin-settings", title: "系统设置", url: "/admin/settings", icon: Settings },
+      { id: "admin-users", titleKey: "nav.adminUsers", url: "/admin/users", icon: Users },
+      { id: "admin-skills", titleKey: "nav.adminSkills", url: "/admin/skills", icon: Wrench },
+      { id: "admin-safety", titleKey: "nav.adminSafety", url: "/admin/safety", icon: ShieldCheck },
+      {
+        id: "admin-settings",
+        titleKey: "nav.adminSettings",
+        url: "/admin/settings",
+        icon: Settings,
+      },
     ],
   },
   {
-    group: "操作",
+    groupKey: "command.group.actions",
     items: [
       {
         id: "action-crisis",
-        title: "模拟危机干预",
+        titleKey: "command.action.crisis",
         url: "/tickets?type=crisis",
         icon: CircleAlert,
       },
-      { id: "action-train", title: "训练意图分类器", url: "/flywheel", icon: GraduationCap },
+      {
+        id: "action-train",
+        titleKey: "command.action.train",
+        url: "/flywheel",
+        icon: GraduationCap,
+      },
     ],
   },
 ];

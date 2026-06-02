@@ -1,4 +1,5 @@
 import { useCommandPalette } from "@/components/layouts/command-palette-context";
+import { LocaleSwitcher } from "@/components/layouts/locale-switcher";
 import { NotificationCenter } from "@/components/layouts/notification-center";
 import { ThemeSwitcher } from "@/components/layouts/theme-switcher";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -7,11 +8,13 @@ import { Button } from "@/components/ui/button";
 import { useNotifications } from "@/hooks/use-notifications";
 import { Bell, Search } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function Topbar() {
   const openCommand = useCommandPalette((s) => s.toggle);
   const [notifOpen, setNotifOpen] = useState(false);
   const unreadCount = useNotifications((s) => s.unreadCount);
+  const { t } = useTranslation();
   const badgeText = unreadCount > 99 ? "99+" : String(unreadCount);
 
   return (
@@ -23,7 +26,7 @@ export function Topbar() {
           className="group flex h-9 w-full max-w-xl items-center gap-2 rounded-md border border-input bg-background/60 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:bg-background"
         >
           <Search className="h-4 w-4" />
-          <span className="flex-1 text-left">搜索页面、功能、对话...</span>
+          <span className="flex-1 text-left">{t("common.search")}</span>
           <kbd className="hidden items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-flex">
             <span className="text-xs">⌘</span>K
           </kbd>
@@ -33,16 +36,17 @@ export function Topbar() {
 
         <Badge variant="success" className="hidden gap-1.5 md:inline-flex">
           <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-success" />
-          所有服务正常
+          {t("common.allServicesHealthy")}
         </Badge>
 
         <ThemeSwitcher />
+        <LocaleSwitcher />
 
         <Button
           variant="ghost"
           size="icon"
           className="relative"
-          aria-label="通知"
+          aria-label={t("common.notifications")}
           onClick={() => setNotifOpen(true)}
         >
           <Bell className="h-4 w-4" />
@@ -55,7 +59,7 @@ export function Topbar() {
 
         <Avatar className="h-8 w-8">
           <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground text-xs">
-            许
+            {t("footer.user").charAt(0)}
           </AvatarFallback>
         </Avatar>
       </header>

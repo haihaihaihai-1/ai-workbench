@@ -120,12 +120,12 @@ export default function MonitorPage() {
             <Gauge className="h-6 w-6 text-primary" />
             可观测中心
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
             实时指标 · Agent 路由 · LLM 追踪 · 工具健康度 · 安全监控
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="hidden text-xs text-muted-foreground sm:inline">
             最后更新{" "}
             <span className="font-mono text-foreground">{formatDate(lastRefresh, "HH:mm:ss")}</span>
           </span>
@@ -428,8 +428,8 @@ export default function MonitorPage() {
               工具健康度 TOP
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <Table>
+          <CardContent className="overflow-x-auto">
+            <Table className="min-w-[480px]">
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-[10px]">工具</TableHead>
@@ -569,8 +569,8 @@ export default function MonitorPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <Table>
+        <CardContent className="overflow-x-auto">
+          <Table className="min-w-[640px]">
             <TableHeader>
               <TableRow>
                 <TableHead className="text-[10px]">时间</TableHead>

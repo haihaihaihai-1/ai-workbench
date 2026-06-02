@@ -1,8 +1,10 @@
 import { useCommandPalette } from "@/components/layouts/command-palette-context";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useIsMobile } from "@/hooks/use-media-query";
 import type { AgentDomain, ChatMessage, Conversation, SourceRef, ToolCall } from "@/lib/types";
-import { randomId } from "@/lib/utils";
+import { cn, randomId } from "@/lib/utils";
 import { useChatStore } from "@/stores/chat-store";
 import {
   ChevronsLeft,
@@ -43,6 +45,7 @@ const INITIAL_MESSAGES: Record<string, ChatMessage[]> = {
 type RightPanel = "trace" | "sources" | null;
 
 export default function ChatPage() {
+  const isMobile = useIsMobile();
   const [agent, setAgent] = useState<AgentDomain>("academic");
   const [model, setModel] = useState<ModelId>("claude-sonnet-4.5");
   // 会话列表与当前选中来自持久化 store
@@ -54,10 +57,16 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Record<string, ChatMessage[]>>(INITIAL_MESSAGES);
   const [streaming, setStreaming] = useState(false);
   const [rightPanel, setRightPanel] = useState<RightPanel>("trace");
-  const [leftCollapsed, setLeftCollapsed] = useState(false);
+  // 移动端默认折叠会话列表（仅图标），桌面端默认展开
+  const [leftCollapsed, setLeftCollapsed] = useState<boolean>(isMobile);
   const stopRef = useRef<(() => void) | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const openCommand = useCommandPalette((s) => s.toggle);
+
+  // 移动端 / 桌面端切换时同步默认折叠状态
+  useEffect(() => {
+    setLeftCollapsed(isMobile);
+  }, [isMobile]);
 
   // 持久化数据为空时回退到第一个示例会话
   useEffect(() => {
@@ -226,26 +235,48 @@ export default function ChatPage() {
   );
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem-3rem)] gap-0 overflow-hidden rounded-lg border border-border bg-card/30">
-      {/* 左侧会话列表 */}
-      <ConversationList
-        conversations={conversations}
-        currentId={currentId}
-        onSelect={setCurrentId}
-        onCreate={() => {
-          setCurrentId(null);
-        }}
-        collapsed={leftCollapsed}
-      />
+    <div
+      className={cn(
+        "flex gap-0 overflow-hidden rounded-lg border border-border bg-card/30",
+        // 桌面端固定高度（视口 - topbar - main padding），移动端交给内容自然撑高
+        "h-[calc(100vh-3.5rem-3rem)] md:h-[calc(100vh-3.5rem-3rem)]",
+        isMobile && "h-[calc(100vh-3.5rem-3.5rem-0.5rem)]",
+      )}
+    >
+      {/* 左侧会话列表 - 移动端彻底隐藏（图标也省了），桌面端保留折叠/展开 */}
+      <div className={cn("hidden md:flex", isMobile ? "hidden" : "")}>
+        <ConversationList
+          conversations={conversations}
+          currentId={currentId}
+          onSelect={setCurrentId}
+          onCreate={() => {
+            setCurrentId(null);
+          }}
+          collapsed={leftCollapsed}
+        />
+      </div>
 
       {/* 中间对话流 */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* 顶部：Agent 切换 + 操作 */}
-        <div className="flex h-14 items-center gap-2 border-b border-border bg-card/50 px-4">
+        <div className="flex h-14 items-center gap-1 border-b border-border bg-card/50 px-2 md:gap-2 md:px-4">
+          {/* 移动端：会话列表入口按钮（唤起 MobileConvSheet） */}
+          <MobileConvSheet
+            conversations={conversations}
+            currentId={currentId}
+            onSelect={(id) => {
+              setCurrentId(id);
+            }}
+            onCreate={() => {
+              setCurrentId(null);
+            }}
+          />
+
+          {/* 桌面端：折叠/展开侧栏按钮 */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8"
+            className="hidden h-8 w-8 md:inline-flex"
             onClick={() => setLeftCollapsed((v) => !v)}
             aria-label="切换会话列表"
           >
@@ -255,6 +286,7 @@ export default function ChatPage() {
               <ChevronsLeft className="h-4 w-4" />
             )}
           </Button>
+
           <AgentSwitcher
             current={agent}
             onChange={setAgent}
@@ -267,7 +299,7 @@ export default function ChatPage() {
             variant="ghost"
             size="sm"
             onClick={() => openCommand()}
-            className="h-8 gap-1.5 text-muted-foreground"
+            className="hidden h-8 gap-1.5 text-muted-foreground md:inline-flex"
           >
             <Sparkles className="h-3.5 w-3.5" />
             <span className="hidden md:inline">命令面板</span>
@@ -304,7 +336,7 @@ export default function ChatPage() {
 
         {/* 消息流 */}
         <ScrollArea className="flex-1" ref={scrollRef}>
-          <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
+          <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-4 md:p-6">
             {list.length === 0 ? (
               <div className="flex h-full min-h-[400px] flex-col items-center justify-center gap-3 text-center">
                 <div className="text-5xl">{AGENTS[agent].emoji}</div>
@@ -353,8 +385,8 @@ export default function ChatPage() {
         <Composer onSend={handleSend} streaming={streaming} onStop={handleStop} agent={agent} />
       </div>
 
-      {/* 右侧面板 */}
-      {rightPanel && (
+      {/* 右侧面板 - 桌面端侧栏 / 移动端底部 Sheet */}
+      {rightPanel && !isMobile && (
         <div className="hidden w-80 shrink-0 border-l border-border bg-card/30 lg:flex lg:flex-col">
           <div className="flex h-14 items-center justify-between border-b border-border px-4">
             <span className="text-sm font-semibold">
@@ -376,7 +408,7 @@ export default function ChatPage() {
           )}
         </div>
       )}
-      {!rightPanel && (
+      {!rightPanel && !isMobile && (
         <Button
           variant="outline"
           size="icon"
@@ -386,6 +418,104 @@ export default function ChatPage() {
           <PanelRightOpen className="h-3.5 w-3.5" />
         </Button>
       )}
+
+      {/* 移动端右侧面板 - 底部 Sheet */}
+      {isMobile && (
+        <Dialog open={rightPanel !== null} onOpenChange={(o) => !o && setRightPanel(null)}>
+          <DialogContent
+            className={cn(
+              "fixed bottom-0 left-0 right-0 top-auto z-50 max-h-[80vh] w-full -translate-x-0 -translate-y-0 gap-0 rounded-t-xl border-t border-border p-0",
+              "data-[state=open]:animate-in data-[state=closed]:animate-out",
+              "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+              "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+              "duration-300",
+            )}
+          >
+            <DialogTitle className="sr-only">
+              {rightPanel === "trace" ? "执行追踪" : "引用来源"}
+            </DialogTitle>
+            <div className="flex h-12 items-center justify-between border-b border-border px-4">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-8 rounded-full bg-muted" />
+                <span className="text-sm font-semibold">
+                  {rightPanel === "trace" ? "执行追踪" : "引用来源"}
+                </span>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setRightPanel(null)}
+                aria-label="关闭"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            {rightPanel === "trace" ? (
+              <TracePanel tools={toolsForConv} />
+            ) : (
+              <SourcesPanel sources={sourcesForConv} />
+            )}
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
+  );
+}
+
+// 移动端会话列表 - 左侧滑入的 Drawer
+// 仅在 < 768px 渲染（父级控制显示）
+function MobileConvSheet({
+  conversations,
+  currentId,
+  onSelect,
+  onCreate,
+}: {
+  conversations: Conversation[];
+  currentId: string | null;
+  onSelect: (id: string) => void;
+  onCreate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 md:hidden"
+        onClick={() => setOpen(true)}
+        aria-label="打开会话列表"
+      >
+        <ListTree className="h-4 w-4" />
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className={cn(
+            "fixed left-0 top-0 z-50 h-full w-[80vw] max-w-[320px] -translate-x-0 -translate-y-0 gap-0 rounded-none border-r border-border p-0",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out",
+            "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left",
+            "duration-300",
+            "[&>button.absolute]:hidden",
+          )}
+        >
+          <DialogTitle className="sr-only">会话列表</DialogTitle>
+          <ConversationList
+            conversations={conversations}
+            currentId={currentId}
+            onSelect={(id) => {
+              onSelect(id);
+              setOpen(false);
+            }}
+            onCreate={() => {
+              onCreate();
+              setOpen(false);
+            }}
+            collapsed={false}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

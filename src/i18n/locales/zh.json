@@ -1,0 +1,315 @@
+{
+  "common": {
+    "appName": "AI Workbench",
+    "tagline": "协作工作台",
+    "version": "v7 · 协作工作台",
+    "search": "搜索页面、功能、对话...",
+    "commandPanel": "命令面板",
+    "commandPanelShortcut": "打开命令面板",
+    "allServicesHealthy": "所有服务正常",
+    "notifications": "通知",
+    "close": "关闭",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "delete": "删除",
+    "create": "新建",
+    "edit": "编辑",
+    "loading": "加载中...",
+    "noData": "暂无数据",
+    "openCommandPanel": "打开命令面板"
+  },
+  "actions": {
+    "create": "新建",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "cancel": "取消",
+    "confirm": "确认",
+    "submit": "提交",
+    "search": "搜索",
+    "refresh": "刷新",
+    "export": "导出",
+    "import": "导入",
+    "merge": "合并",
+    "add": "添加",
+    "remove": "移除",
+    "view": "查看",
+    "more": "更多"
+  },
+  "nav": {
+    "home": "首页",
+    "chat": "对话工作台",
+    "memory": "记忆中心",
+    "monitor": "实时监控",
+    "flywheel": "数据飞轮",
+    "analysis": "数据分析",
+    "evaluation": "系统评估",
+    "tickets": "工单中心",
+    "services": "服务大厅",
+    "feedback": "反馈管理",
+    "adminUsers": "用户管理",
+    "adminSkills": "技能管理",
+    "skillsMarket": "技能市场",
+    "adminSafety": "安全监控",
+    "adminSettings": "系统设置",
+    "profile": "个人中心",
+    "group": {
+      "workspace": "工作区",
+      "observability": "可观测",
+      "ticketsCollab": "工单与协作",
+      "admin": "管理后台"
+    }
+  },
+  "home": {
+    "title": "欢迎回到 AI 协作工作台",
+    "greetingMorning": "早上好",
+    "greetingNoon": "中午好",
+    "greetingAfternoon": "下午好",
+    "greetingEvening": "晚上好",
+    "greetingLateNight": "凌晨好",
+    "metric": {
+      "todayChats": "今日对话",
+      "totalChats": "总会话",
+      "avgResponse": "平均响应",
+      "flywheelHealth": "飞轮健康度"
+    },
+    "hint": {
+      "vsYesterday": "较昨日 +12%",
+      "cumulative": "累计 1248 条",
+      "p50Latency": "P50 延迟",
+      "good": "良好"
+    }
+  },
+  "chat": {
+    "title": "对话工作台",
+    "commandPalette": "命令面板",
+    "trace": "追踪",
+    "sources": "引用",
+    "startChat": "开始与 {{agent}} 对话",
+    "openPaletteHint": "按 ⌘K 打开命令面板跳转到任意页面",
+    "thinking": "{{agent}} 正在思考...",
+    "traceTitle": "执行追踪",
+    "sourcesTitle": "引用来源",
+    "toggleList": "切换会话列表",
+    "emptyHint": "输入消息开始对话",
+    "send": "发送",
+    "stop": "停止",
+    "inputPlaceholder": "输入消息，回车发送",
+    "agent": {
+      "academic": "学业助手",
+      "emotional": "心理助手",
+      "affairs": "教务助手",
+      "general": "通用助手",
+      "academicDesc": "课程辅导、学习方法、学术规划",
+      "emotionalDesc": "情绪疏导、压力管理、心理支持",
+      "affairsDesc": "请假、选课、学籍、奖学金",
+      "generalDesc": "友好、全面的校园 AI 助手"
+    },
+    "newChat": "新建对话",
+    "chatHistory": "对话历史"
+  },
+  "monitor": {
+    "title": "可观测中心",
+    "subtitle": "实时指标 · Agent 路由 · LLM 追踪 · 工具健康度 · 安全监控",
+    "lastUpdated": "最后更新",
+    "autoRefreshOn": "30s 自动",
+    "autoRefreshOff": "已暂停",
+    "metric": {
+      "qps": "QPS",
+      "latency": "平均延迟",
+      "errorRate": "错误率",
+      "activeSessions": "活跃会话",
+      "qpsUnit": "req/s",
+      "latencyUnit": "ms",
+      "errorRateUnit": "%",
+      "qpsDesc": "每请求数",
+      "latencyDesc": "P50 响应时间",
+      "errorRateDesc": "5xx + 工具失败",
+      "activeSessionsDesc": "30 分钟内活跃"
+    },
+    "chart": {
+      "requestTrend": "请求趋势",
+      "latencyError": "延迟 / 错误率",
+      "agentRouting": "Agent 路由分布",
+      "llmCalls": "LLM 模型调用",
+      "hitl": "HITL 自动化率",
+      "toolHealth": "工具健康度 TOP",
+      "intentDist": "意图分布",
+      "traceTimeline": "最新 Trace 时间线",
+      "safety": "安全监控",
+      "realtime": "实时",
+      "fullyAuto": "全自动处理"
+    },
+    "tool": {
+      "name": "工具",
+      "calls": "调用",
+      "errors": "错误",
+      "reliability": "可靠性"
+    },
+    "safety": {
+      "time": "时间",
+      "type": "类型",
+      "severity": "严重级别",
+      "content": "内容",
+      "user": "用户",
+      "action": "处置",
+      "pii": "PII",
+      "injection": "提示注入",
+      "violation": "内容违规",
+      "critical": "严重",
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "timeRange": {
+      "1h": "1 小时",
+      "6h": "6 小时",
+      "24h": "24 小时",
+      "7d": "7 天"
+    }
+  },
+  "tickets": {
+    "title": "工单中心",
+    "subtitle": "HITL 升级 · 危机干预 · 投诉反馈 · 用户反馈 · SLA 管理",
+    "newTicket": "新建工单",
+    "refresh": "刷新",
+    "view": {
+      "list": "列表",
+      "board": "看板"
+    },
+    "column": {
+      "code": "工单",
+      "type": "类型",
+      "priority": "优先级",
+      "status": "状态",
+      "assignee": "受理人",
+      "sla": "SLA",
+      "updated": "更新"
+    },
+    "empty": "暂无符合条件的工单",
+    "transitionError": "无法将 {{code}} 从「{{from}}」移到「{{to}}」",
+    "transitionSuccess": "已将 {{code}} 移到「{{to}}」"
+  },
+  "memory": {
+    "title": "记忆中心",
+    "subtitle": "长期记忆 · 用户画像 · 知识管理 · 跨会话召回",
+    "merge": "合并相似记忆",
+    "addManually": "手动添加",
+    "deleted": "记忆已删除",
+    "empty": "暂无符合条件的记忆"
+  },
+  "notification": {
+    "title": "通知中心",
+    "description": "查看系统、工单、反馈与危机通知",
+    "unreadCount": "{{count}} 条未读",
+    "allRead": "全部已读",
+    "close": "关闭通知",
+    "empty": {
+      "title": "暂无新通知",
+      "hint": "有新消息时会自动出现在这里"
+    }
+  },
+  "shortcuts": {
+    "title": "快捷键",
+    "description": "常用键盘快捷键",
+    "commandPalette": "打开命令面板",
+    "toggleSidebar": "切换侧边栏",
+    "newChat": "新建对话",
+    "navigate": "跳转到页面",
+    "help": "显示快捷键"
+  },
+  "placeholder": {
+    "flywheel": {
+      "title": "数据飞轮",
+      "description": "分析意图覆盖率、工具调用健康度、训练新数据"
+    },
+    "analysis": {
+      "title": "数据分析",
+      "description": "深度分析用户行为、对话质量、模型表现"
+    },
+    "evaluation": {
+      "title": "系统评估",
+      "description": "管理测试集、对比模型版本、跟踪质量指标"
+    },
+    "services": {
+      "title": "服务大厅",
+      "description": "服务申请、审批、状态跟踪"
+    },
+    "feedback": {
+      "title": "反馈管理",
+      "description": "用户反馈聚合、分类、跟进处理"
+    },
+    "skills": {
+      "title": "技能市场",
+      "description": "浏览、安装、发布 AI 技能"
+    },
+    "profile": {
+      "title": "个人中心",
+      "description": "个人信息、偏好设置、账户安全"
+    },
+    "adminUsers": {
+      "title": "用户管理",
+      "description": "管理用户账号、角色、权限"
+    },
+    "adminSkills": {
+      "title": "技能管理",
+      "description": "管理平台技能、版本、权限"
+    },
+    "adminSafety": {
+      "title": "安全监控",
+      "description": "监控异常事件、危机干预、合规审计"
+    },
+    "adminSettings": {
+      "title": "系统设置",
+      "description": "平台配置、模型参数、通知规则"
+    },
+    "notFound": {
+      "title": "页面未找到",
+      "description": "请检查地址是否正确，或返回首页"
+    },
+    "userProfile": {
+      "title": "用户画像",
+      "description": "查看用户的详细画像与历史"
+    },
+    "comingSoon": "敬请期待",
+    "backHome": "返回首页"
+  },
+  "command": {
+    "placeholder": "输入命令、页面或功能...",
+    "empty": "未找到匹配项",
+    "group": {
+      "chat": "对话",
+      "pages": "页面",
+      "admin": "管理",
+      "actions": "操作"
+    },
+    "action": {
+      "crisis": "模拟危机干预",
+      "train": "训练意图分类器"
+    }
+  },
+  "locale": {
+    "switch": "切换语言",
+    "zh": "中文",
+    "en": "English",
+    "changed": "已切换到 {{lang}}"
+  },
+  "footer": {
+    "user": "许泉兴",
+    "sessions": "会话 {{count}}",
+    "support": "支持",
+    "help": "帮助",
+    "collapseSidebar": "折叠侧边栏",
+    "expandSidebar": "展开侧边栏"
+  },
+  "badge": {
+    "core": "核心"
+  },
+  "time": {
+    "1h": "1 小时",
+    "6h": "6 小时",
+    "24h": "24 小时",
+    "7d": "7 天"
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "common": {
+    "appName": "AI Workbench",
+    "tagline": "Workbench",
+    "version": "v7 · Workbench",
+    "search": "Search pages, features, chats...",
+    "commandPanel": "Command Palette",
+    "commandPanelShortcut": "Open command palette",
+    "allServicesHealthy": "All services healthy",
+    "notifications": "Notifications",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "create": "New",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "noData": "No data",
+    "openCommandPalette": "Open command palette"
+  },
+  "actions": {
+    "create": "New",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "search": "Search",
+    "refresh": "Refresh",
+    "export": "Export",
+    "import": "Import",
+    "merge": "Merge",
+    "add": "Add",
+    "remove": "Remove",
+    "view": "View",
+    "more": "More"
+  },
+  "nav": {
+    "home": "Home",
+    "chat": "Chat",
+    "memory": "Memory",
+    "monitor": "Monitor",
+    "flywheel": "Data Flywheel",
+    "analysis": "Analytics",
+    "evaluation": "Evaluation",
+    "tickets": "Tickets",
+    "services": "Services",
+    "feedback": "Feedback",
+    "adminUsers": "Users",
+    "adminSkills": "Skill Admin",
+    "skillsMarket": "Skill Market",
+    "adminSafety": "Safety",
+    "adminSettings": "Settings",
+    "profile": "Profile",
+    "group": {
+      "workspace": "Workspace",
+      "observability": "Observability",
+      "ticketsCollab": "Tickets & Collab",
+      "admin": "Admin"
+    }
+  },
+  "home": {
+    "title": "Welcome back to AI Workbench",
+    "greetingMorning": "Good morning",
+    "greetingNoon": "Good afternoon",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "greetingLateNight": "Hello",
+    "metric": {
+      "todayChats": "Today's Chats",
+      "totalChats": "Total Chats",
+      "avgResponse": "Avg Response",
+      "flywheelHealth": "Flywheel Health"
+    },
+    "hint": {
+      "vsYesterday": "+12% vs yesterday",
+      "cumulative": "1,248 total",
+      "p50Latency": "P50 latency",
+      "good": "Healthy"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "commandPalette": "Command Palette",
+    "trace": "Trace",
+    "sources": "Sources",
+    "startChat": "Start a chat with {{agent}}",
+    "openPaletteHint": "Press ⌘K to open the command palette",
+    "thinking": "{{agent}} is thinking...",
+    "traceTitle": "Execution Trace",
+    "sourcesTitle": "Citations",
+    "toggleList": "Toggle conversation list",
+    "emptyHint": "Type a message to start chatting",
+    "send": "Send",
+    "stop": "Stop",
+    "inputPlaceholder": "Type a message, press Enter to send",
+    "agent": {
+      "academic": "Academic Assistant",
+      "emotional": "Emotional Assistant",
+      "affairs": "Affairs Assistant",
+      "general": "General Assistant",
+      "academicDesc": "Course tutoring, study methods, academic planning",
+      "emotionalDesc": "Emotional support, stress management, mental wellness",
+      "affairsDesc": "Leave, course selection, enrollment, scholarships",
+      "generalDesc": "Friendly, comprehensive campus AI assistant"
+    },
+    "newChat": "New Chat",
+    "chatHistory": "Chat History"
+  },
+  "monitor": {
+    "title": "Observability Center",
+    "subtitle": "Realtime metrics · Agent routing · LLM tracing · Tool health · Safety",
+    "lastUpdated": "Last updated",
+    "autoRefreshOn": "Auto 30s",
+    "autoRefreshOff": "Paused",
+    "metric": {
+      "qps": "QPS",
+      "latency": "Avg Latency",
+      "errorRate": "Error Rate",
+      "activeSessions": "Active Sessions",
+      "qpsUnit": "req/s",
+      "latencyUnit": "ms",
+      "errorRateUnit": "%",
+      "qpsDesc": "Queries per second",
+      "latencyDesc": "P50 response time",
+      "errorRateDesc": "5xx + tool failures",
+      "activeSessionsDesc": "Active in last 30 min"
+    },
+    "chart": {
+      "requestTrend": "Request Trend",
+      "latencyError": "Latency / Error Rate",
+      "agentRouting": "Agent Routing",
+      "llmCalls": "LLM Calls",
+      "hitl": "HITL Automation",
+      "toolHealth": "Top Tool Health",
+      "intentDist": "Intent Distribution",
+      "traceTimeline": "Latest Trace Timeline",
+      "safety": "Safety Monitor",
+      "realtime": "Live",
+      "fullyAuto": "Fully automated"
+    },
+    "tool": {
+      "name": "Tool",
+      "calls": "Calls",
+      "errors": "Errors",
+      "reliability": "Reliability"
+    },
+    "safety": {
+      "time": "Time",
+      "type": "Type",
+      "severity": "Severity",
+      "content": "Content",
+      "user": "User",
+      "action": "Action",
+      "pii": "PII",
+      "injection": "Prompt Injection",
+      "violation": "Content Violation",
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "timeRange": {
+      "1h": "1 hour",
+      "6h": "6 hours",
+      "24h": "24 hours",
+      "7d": "7 days"
+    }
+  },
+  "tickets": {
+    "title": "Tickets",
+    "subtitle": "HITL escalation · Crisis intervention · Complaints · Feedback · SLA",
+    "newTicket": "New Ticket",
+    "refresh": "Refresh",
+    "view": {
+      "list": "List",
+      "board": "Board"
+    },
+    "column": {
+      "code": "Ticket",
+      "type": "Type",
+      "priority": "Priority",
+      "status": "Status",
+      "assignee": "Assignee",
+      "sla": "SLA",
+      "updated": "Updated"
+    },
+    "empty": "No tickets match the current filters",
+    "transitionError": "Cannot move {{code}} from \"{{from}}\" to \"{{to}}\"",
+    "transitionSuccess": "{{code}} moved to \"{{to}}\""
+  },
+  "memory": {
+    "title": "Memory Center",
+    "subtitle": "Long-term memory · User profile · Knowledge · Cross-session recall",
+    "merge": "Merge Similar",
+    "addManually": "Add Manually",
+    "deleted": "Memory deleted",
+    "empty": "No memories match the current filters"
+  },
+  "notification": {
+    "title": "Notifications",
+    "description": "View system, ticket, feedback and crisis notifications",
+    "unreadCount": "{{count}} unread",
+    "allRead": "Mark all read",
+    "close": "Close notifications",
+    "empty": {
+      "title": "No new notifications",
+      "hint": "New messages will appear here automatically"
+    }
+  },
+  "shortcuts": {
+    "title": "Shortcuts",
+    "description": "Common keyboard shortcuts",
+    "commandPalette": "Open command palette",
+    "toggleSidebar": "Toggle sidebar",
+    "newChat": "New chat",
+    "navigate": "Navigate to page",
+    "help": "Show shortcuts"
+  },
+  "placeholder": {
+    "flywheel": {
+      "title": "Data Flywheel",
+      "description": "Analyze intent coverage, tool health, train on new data"
+    },
+    "analysis": {
+      "title": "Analytics",
+      "description": "Deep analysis of user behavior, chat quality, model performance"
+    },
+    "evaluation": {
+      "title": "Evaluation",
+      "description": "Manage test sets, compare model versions, track quality metrics"
+    },
+    "services": {
+      "title": "Service Hall",
+      "description": "Service requests, approvals, status tracking"
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "Aggregate, classify and follow up on user feedback"
+    },
+    "skills": {
+      "title": "Skill Market",
+      "description": "Browse, install, publish AI skills"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Personal info, preferences, account security"
+    },
+    "adminUsers": {
+      "title": "User Management",
+      "description": "Manage user accounts, roles, permissions"
+    },
+    "adminSkills": {
+      "title": "Skill Management",
+      "description": "Manage platform skills, versions, permissions"
+    },
+    "adminSafety": {
+      "title": "Safety Monitor",
+      "description": "Monitor anomalies, crisis intervention, compliance audits"
+    },
+    "adminSettings": {
+      "title": "System Settings",
+      "description": "Platform config, model parameters, notification rules"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Check the URL or return to home"
+    },
+    "userProfile": {
+      "title": "User Profile",
+      "description": "View detailed user profile and history"
+    },
+    "comingSoon": "Coming Soon",
+    "backHome": "Back to Home"
+  },
+  "command": {
+    "placeholder": "Type a command, page, or feature...",
+    "empty": "No matching results",
+    "group": {
+      "chat": "Chat",
+      "pages": "Pages",
+      "admin": "Admin",
+      "actions": "Actions"
+    },
+    "action": {
+      "crisis": "Simulate Crisis Intervention",
+      "train": "Train Intent Classifier"
+    }
+  },
+  "locale": {
+    "switch": "Switch language",
+    "zh": "中文",
+    "en": "English",
+    "changed": "Switched to {{lang}}"
+  },
+  "footer": {
+    "user": "Xu Quanxing",
+    "sessions": "{{count}} sessions",
+    "support": "Support",
+    "help": "Help",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar"
+  },
+  "badge": {
+    "core": "Core"
+  },
+  "time": {
+    "1h": "1 hour",
+    "6h": "6 hours",
+    "24h": "24 hours",
+    "7d": "7 days"
+  }
+}

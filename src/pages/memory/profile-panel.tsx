@@ -21,7 +21,7 @@ const PROFILE = {
 
 export function ProfilePanel() {
   return (
-    <Card className="sticky top-4">
+    <Card className="lg:sticky lg:top-4">
       <CardHeader>
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
           <Sparkles className="h-4 w-4 text-primary" />

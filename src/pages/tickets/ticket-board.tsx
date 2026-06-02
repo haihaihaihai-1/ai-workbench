@@ -60,23 +60,31 @@ export function TicketBoard({ grouped, onSelect, onStatusChange }: Props) {
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {/*
+        移动端: flex 横滑, 每列 80vw (snappy scroll-snap)
+        桌面端: 4 列 grid (md 断点 768)
+       */}
+      <div className="flex w-full snap-x snap-mandatory gap-3 overflow-x-auto pb-2 md:grid md:w-auto md:grid-cols-2 md:overflow-visible md:pb-0 xl:grid-cols-4">
         {COLUMNS.map((col) => {
           const list = grouped[col.key] ?? [];
           return (
-            <DroppableColumn
+            <div
               key={col.key}
-              id={col.key}
-              title={col.title}
-              count={list.length}
-              color={col.color}
-              description={col.description}
-              items={list.map((t) => t.id)}
+              className="w-[80vw] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none md:shrink"
             >
-              {list.map((t) => (
-                <DraggableTicketCard key={t.id} ticket={t} onClick={() => onSelect(t)} />
-              ))}
-            </DroppableColumn>
+              <DroppableColumn
+                id={col.key}
+                title={col.title}
+                count={list.length}
+                color={col.color}
+                description={col.description}
+                items={list.map((t) => t.id)}
+              >
+                {list.map((t) => (
+                  <DraggableTicketCard key={t.id} ticket={t} onClick={() => onSelect(t)} />
+                ))}
+              </DroppableColumn>
+            </div>
           );
         })}
       </div>

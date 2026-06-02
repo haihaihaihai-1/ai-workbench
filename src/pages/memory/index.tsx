@@ -133,9 +133,15 @@ export default function MemoryPage() {
           )}
         </div>
 
+        {/* 桌面端: 右侧 sticky 画像; 移动端: 内容下方的折叠区 */}
         <div className="hidden lg:block">
           <ProfilePanel />
         </div>
+      </div>
+
+      {/* 移动端: 画像移到内容下方 */}
+      <div className="lg:hidden">
+        <ProfilePanel />
       </div>
     </div>
   );
