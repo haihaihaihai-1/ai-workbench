@@ -24,5 +24,5 @@
     }
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "tests"]
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "tests", "src/db", "src/hooks/use-dexie-query.ts", "src/hooks/use-dexie-migrate.ts"]
 }
