@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
+import { cn, relativeTime } from "@/lib/utils";
 import {
   Activity,
   Bell,
@@ -18,6 +18,7 @@ import {
   Shield,
   Star,
   TrendingUp,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -31,10 +32,19 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { toast } from "sonner";
 import { AGENT_VISUAL } from "./home/mock-data";
-import { recentConversations } from "./profile/mock-data";
+import { myFeedbacks, myFavorites, recentConversations } from "./profile/mock-data";
 
 export default function ProfilePage() {
+  const [feedbacks] = useState(myFeedbacks);
+  const [favorites, setFavorites] = useState(myFavorites);
+
+  const removeFavorite = (id: string) => {
+    setFavorites((prev) => prev.filter((f) => f.id !== id));
+    toast.success("已取消收藏");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <ProfileHeader />
@@ -98,20 +108,122 @@ export default function ProfilePage() {
 
         <TabsContent value="feedbacks">
           <Card>
-            <CardContent className="p-6 text-center text-sm text-muted-foreground">
-              <Star className="mx-auto mb-2 h-8 w-8 opacity-30" />
-              我的反馈记录
-              <p className="mt-2 text-xs">这里将显示你对 AI 回复的所有评分与评论</p>
+            <CardContent className="p-3">
+              {feedbacks.length === 0 ? (
+                <div className="py-8 text-center text-sm text-muted-foreground">
+                  <Star className="mx-auto mb-2 h-8 w-8 opacity-30" />
+                  暂无反馈记录
+                  <p className="mt-1 text-xs">对话结束后即可对 AI 回复评分</p>
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  {feedbacks.map((fb) => {
+                    const v = AGENT_VISUAL[fb.domain];
+                    return (
+                      <div
+                        key={fb.id}
+                        className="flex items-start gap-3 rounded-md border border-border bg-card/40 p-2.5"
+                      >
+                        <span className="mt-0.5 text-lg">{v.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-sm font-medium">{fb.conversationTitle}</span>
+                            <Badge variant="outline" className="h-4 px-1.5 text-[9px]">
+                              {v.name}
+                            </Badge>
+                          </div>
+                          <div className="mt-0.5 flex items-center gap-1">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star
+                                key={i}
+                                className={cn(
+                                  "h-3 w-3",
+                                  i < fb.rating
+                                    ? "fill-amber-400 text-amber-400"
+                                    : "text-muted-foreground/30",
+                                )}
+                              />
+                            ))}
+                          </div>
+                          <p className="mt-1 line-clamp-1 text-[11px] text-muted-foreground">
+                            {fb.comment}
+                          </p>
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {fb.tags.map((t) => (
+                              <Badge key={t} variant="secondary" className="h-4 px-1.5 text-[9px]">
+                                {t}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-1">
+                          <Badge
+                            variant={fb.status === "processed" ? "success" : "warning"}
+                            className="text-[9px]"
+                          >
+                            {fb.status === "processed" ? "已处理" : "待处理"}
+                          </Badge>
+                          <span className="text-[10px] text-muted-foreground">
+                            {relativeTime(fb.createdAt)}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="favorites">
           <Card>
-            <CardContent className="p-6 text-center text-sm text-muted-foreground">
-              <BookMarked className="mx-auto mb-2 h-8 w-8 opacity-30" />
-              收藏的回复
-              <p className="mt-2 text-xs">点击 AI 回复右上角的星标即可收藏</p>
+            <CardContent className="p-3">
+              {favorites.length === 0 ? (
+                <div className="py-8 text-center text-sm text-muted-foreground">
+                  <BookMarked className="mx-auto mb-2 h-8 w-8 opacity-30" />
+                  暂无收藏内容
+                  <p className="mt-1 text-xs">点击 AI 回复右上角的星标即可收藏</p>
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  {favorites.map((fav) => {
+                    const v = AGENT_VISUAL[fav.domain];
+                    return (
+                      <div
+                        key={fav.id}
+                        className="flex items-start gap-3 rounded-md border border-border bg-card/40 p-2.5"
+                      >
+                        <span className="mt-0.5 text-lg">{v.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-sm font-medium">{fav.title}</span>
+                            <Badge variant="outline" className="h-4 px-1.5 text-[9px]">
+                              {v.name}
+                            </Badge>
+                          </div>
+                          <p className="mt-0.5 line-clamp-2 text-[11px] text-muted-foreground">
+                            {fav.excerpt}
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="xs"
+                            className="h-5 w-5 p-0 text-muted-foreground hover:text-destructive"
+                            onClick={() => removeFavorite(fav.id)}
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                          <span className="text-[10px] text-muted-foreground">
+                            {relativeTime(fav.createdAt)}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
