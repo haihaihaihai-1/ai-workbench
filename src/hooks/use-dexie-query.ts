@@ -29,10 +29,10 @@ export function useDexieQuery<T>(
 
     const observable = liveQuery(query);
     const sub = observable.subscribe({
-      next: (value) => {
-        setData(value as T);
+      next: (value: T) => {
+        setData(value);
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.warn("[useDexieQuery] 查询错误", err);
       },
     });

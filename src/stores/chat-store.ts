@@ -110,5 +110,5 @@ function syncConversationsToDexie(conversations: Conversation[]) {
   if (!aiDb) return;
   void aiDb.conversations
     .bulkPut(conversations as never[])
-    .catch((err) => console.warn("[chat-store] sync dexie 失败", err));
+    .catch((err: unknown) => console.warn("[chat-store] sync dexie 失败", err));
 }
