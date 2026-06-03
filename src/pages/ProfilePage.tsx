@@ -34,7 +34,7 @@ import {
 } from "recharts";
 import { toast } from "sonner";
 import { AGENT_VISUAL } from "./home/mock-data";
-import { myFeedbacks, myFavorites, recentConversations } from "./profile/mock-data";
+import { myFavorites, myFeedbacks, recentConversations } from "./profile/mock-data";
 
 export default function ProfilePage() {
   const [feedbacks] = useState(myFeedbacks);
