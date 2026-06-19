@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./styles/tokens.css";
+
 /* ===========================
    Design Tokens · 线性紫 #5E6AD2
+   （扩展品牌色 / 字体 / 缓动 / 阴影 见 ./styles/tokens.css）
    =========================== */
 
 @layer base {
