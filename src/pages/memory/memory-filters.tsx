@@ -1,3 +1,4 @@
+import { IconSearch, IconTag, IconX } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,7 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { MemoryType } from "@/lib/types";
-import { IconSearch, IconTag, IconX } from "@/components/icons"
 
 export type MemoryFilterState = {
   q: string;

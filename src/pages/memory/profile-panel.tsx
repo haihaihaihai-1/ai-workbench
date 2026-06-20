@@ -1,10 +1,10 @@
+import { IconBrain, IconSparkles } from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { exportToJSON } from "@/lib/export";
-import { IconBrain, IconSparkles } from "@/components/icons"
 import { MEMORY_TYPE_INFO } from "./mock-data";
 
 // 静态画像数据 - 导出用

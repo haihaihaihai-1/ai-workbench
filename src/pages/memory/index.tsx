@@ -1,8 +1,14 @@
+import {
+  IconDotsThree,
+  IconPlus,
+  IconShareNetwork,
+  IconSparkle,
+  IconStar,
+} from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Memory } from "@/lib/types";
-import { formatDate } from "@/lib/utils";
-import { IconBrain, IconPlus, IconWand2 } from "@/components/icons"
+import { formatDate, relativeTime } from "@/lib/utils";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MemoryCard } from "./memory-card";
@@ -61,28 +67,67 @@ export default function MemoryPage() {
     setMemories((prev) => prev.map((m) => (m.id === id ? { ...m, pinned: !m.pinned } : m)));
   };
 
+  const relativeDate = (ts?: number) => (ts ? relativeTime(ts) : "—");
+
   return (
-    <div className="flex flex-col gap-4">
-      {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconBrain className="h-6 w-6 text-primary" />
-            记忆中心
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            长期记忆 · 用户画像 · 知识管理 · 跨会话召回
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="h-8 gap-1.5">
-            <IconWand2 className="h-3.5 w-3.5" />
-            合并相似记忆
-          </Button>
-          <Button size="sm" className="h-8 gap-1.5">
-            <IconPlus className="h-3.5 w-3.5" />
-            手动添加
-          </Button>
+    <div className="flex flex-col gap-6">
+      {/* 顶部 · Notion 招牌：巨大 emoji + 衬线标题 + 面包屑 */}
+      <header className="space-y-3">
+        <nav
+          aria-label="面包屑"
+          className="flex items-center gap-1 text-[11px] text-muted-foreground"
+        >
+          <a href="/" className="hover:text-foreground">
+            工作台
+          </a>
+          <span className="opacity-50">/</span>
+          <span className="text-foreground">记忆中心</span>
+        </nav>
+
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="flex items-start gap-4">
+            <span
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#8463FF]/15 to-[#FF6B9D]/15 text-4xl"
+              aria-hidden
+            >
+              🧠
+            </span>
+            <div>
+              <h1 className="font-serif text-3xl font-bold tracking-tight text-foreground">
+                记忆中心
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                长期记忆 · 用户画像 · 知识管理 · 跨会话召回
+              </p>
+              <div className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <IconStar className="h-3 w-3" />
+                  {memories.filter((m) => m.pinned).length} 置顶
+                </span>
+                <span className="opacity-30">·</span>
+                <span>{memories.length} 条记忆</span>
+                <span className="opacity-30">·</span>
+                <span>最近更新 {relativeDate(memories[0]?.createdAt)}</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-muted-foreground">
+              <IconSparkle className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">AI 整理</span>
+            </Button>
+            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-muted-foreground">
+              <IconShareNetwork className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">分享</span>
+            </Button>
+            <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="更多">
+              <IconDotsThree className="h-4 w-4" />
+            </Button>
+            <Button size="sm" className="h-8 gap-1.5 shadow-notion">
+              <IconPlus className="h-3.5 w-3.5" />
+              新建记忆
+            </Button>
+          </div>
         </div>
       </header>
 
