@@ -1,9 +1,9 @@
+import { IconMessageSquare, IconPlus, IconSearch } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Conversation } from "@/lib/types";
 import { cn, relativeTime } from "@/lib/utils";
-import { IconMessageSquare, IconPlus, IconSearch } from "@/components/icons"
 import { useState } from "react";
 import { AGENTS } from "./mock-data";
 

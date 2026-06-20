@@ -1,3 +1,12 @@
+import {
+  IconChevronsLeft,
+  IconChevronsRight,
+  IconFileText,
+  IconListTree,
+  IconPanelRightOpen,
+  IconSparkles,
+  IconX,
+} from "@/components/icons";
 import { useCommandPalette } from "@/components/layouts/command-palette-context";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -6,7 +15,6 @@ import { useIsMobile } from "@/hooks/use-media-query";
 import type { AgentDomain, ChatMessage, Conversation, SourceRef, ToolCall } from "@/lib/types";
 import { cn, randomId } from "@/lib/utils";
 import { useChatStore } from "@/stores/chat-store";
-import { IconChevronsLeft, IconChevronsRight, IconFileText, IconListTree, IconPanelRightOpen, IconSparkles, IconX } from "@/components/icons"
 import { useEffect, useRef, useState } from "react";
 import { AgentSwitcher } from "./agent-switcher";
 import { Composer } from "./composer";
@@ -59,6 +67,32 @@ export default function ChatPage() {
   useEffect(() => {
     setLeftCollapsed(isMobile);
   }, [isMobile]);
+
+  /* ChatGPT 风格快捷键:
+   * - Cmd/Ctrl + Shift + O  →  新建对话
+   * - Cmd/Ctrl + Shift + S  →  切换左侧会话列表
+   * - Esc                   →  关闭右侧详情面板
+   */
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const meta = e.metaKey || e.ctrlKey;
+      if (!meta) return;
+      const k = e.key.toLowerCase();
+      if (k === "o" && e.shiftKey) {
+        e.preventDefault();
+        // TODO: 触发新建对话
+      } else if (k === "s" && e.shiftKey) {
+        e.preventDefault();
+        setLeftCollapsed((v) => !v);
+      } else if (k === "b" && e.shiftKey) {
+        // ChatGPT: Cmd+B 切侧边栏
+        e.preventDefault();
+        setLeftCollapsed((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   // 持久化数据为空时回退到第一个示例会话
   useEffect(() => {

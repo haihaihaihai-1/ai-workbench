@@ -1,6 +1,6 @@
+import { IconCheck, IconExternalLink } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import type { SourceRef } from "@/lib/types";
-import { IconCheck, IconExternalLink } from "@/components/icons"
 
 type Props = { sources: SourceRef[] };
 
