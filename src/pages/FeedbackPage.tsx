@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -10,18 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportToCSV } from "@/lib/export";
 import { cn, formatDate, relativeTime } from "@/lib/utils";
-import { IconCheckCircle2, IconClock, IconDownload, IconFileText, IconStar, IconThumbsUp } from "@/components/icons"
+import {
+  IconCheck,
+  IconCheckCircle2,
+  IconClock,
+  IconDownload,
+  IconFileText,
+  IconStar,
+  IconThumbsUp,
+} from "@/components/icons";
 import { useMemo, useState } from "react";
 import {
   Bar,
@@ -241,91 +241,87 @@ export default function FeedbackPage() {
         </CardContent>
       </Card>
 
-      {/* 表格 */}
-      <Card>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-[10px]">ID</TableHead>
-              <TableHead className="text-[10px]">用户</TableHead>
-              <TableHead className="text-[10px]">领域</TableHead>
-              <TableHead className="text-[10px]">评分</TableHead>
-              <TableHead className="text-[10px]">标签</TableHead>
-              <TableHead className="text-[10px] max-w-md">评论</TableHead>
-              <TableHead className="text-[10px]">时间</TableHead>
-              <TableHead className="text-[10px]">状态</TableHead>
-              <TableHead className="text-[10px]">操作</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      {/* 列表 · Linear 风格紧凑行 */}
+      <div className="overflow-hidden rounded-md border border-border/60 bg-card/30">
+        <div className="sticky top-0 z-10 grid grid-cols-[80px_120px_100px_80px_60px_minmax(0,1fr)_80px_80px] items-center gap-3 border-b border-border/60 bg-muted/30 px-4 py-1.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+          <span>ID</span>
+          <span>用户</span>
+          <span>领域</span>
+          <span>评分</span>
+          <span>状态</span>
+          <span>评论</span>
+          <span className="text-right">时间</span>
+          <span className="text-right">操作</span>
+        </div>
+
+        <ScrollArea className="max-h-[calc(100vh-30rem)]">
+          <div className="divide-y divide-border/40">
             {filtered.map((f) => {
               const v = AGENT_VISUAL[f.domain];
               return (
-                <TableRow key={f.id}>
-                  <TableCell className="py-2 font-mono text-[11px] text-muted-foreground">
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setSelected(f)}
+                  className={cn(
+                    "grid w-full grid-cols-[80px_120px_100px_80px_60px_minmax(0,1fr)_80px_80px] items-center gap-3 px-4 py-2 text-left",
+                    "transition-colors hover:bg-accent/40",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 focus-visible:ring-inset",
+                  )}
+                >
+                  <span className="truncate font-mono text-[10px] text-muted-foreground">
                     {f.id}
-                  </TableCell>
-                  <TableCell className="py-2 font-mono text-[11px]">{f.user}</TableCell>
-                  <TableCell className="py-2 text-xs">
-                    <Badge variant="outline" className="text-[10px]">
-                      {v.emoji} {v.name}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="py-2">
-                    <div className="flex items-center gap-0.5">
-                      {Array.from({ length: 5 }, (_, i) => (
-                        <IconStar
-                          key={i}
-                          className={cn(
-                            "h-3 w-3",
-                            i < f.rating ? "fill-warning text-warning" : "text-muted-foreground/30",
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="py-2">
-                    <div className="flex flex-wrap gap-0.5">
-                      {f.tags.slice(0, 2).map((t) => (
-                        <Badge key={t} variant="secondary" className="text-[9px]">
-                          {t}
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="py-2 max-w-md truncate text-xs text-muted-foreground">
-                    {f.comment}
-                  </TableCell>
-                  <TableCell className="py-2 text-[11px] text-muted-foreground">
-                    {relativeTime(f.createdAt)}
-                  </TableCell>
-                  <TableCell className="py-2">
-                    {f.status === "pending" ? (
-                      <Badge variant="warning" className="text-[10px]">
-                        待处理
-                      </Badge>
-                    ) : (
-                      <Badge variant="success" className="text-[10px]">
-                        已处理
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="py-2">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 text-xs"
-                      onClick={() => setSelected(f)}
+                  </span>
+                  <span className="truncate font-mono text-[10px]">{f.user}</span>
+                  <span className="truncate text-[10px] text-muted-foreground">
+                    {v.emoji} {v.name}
+                  </span>
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <IconStar
+                        key={i}
+                        className={cn(
+                          "h-2.5 w-2.5",
+                          i < f.rating
+                            ? "fill-warning text-warning"
+                            : "text-muted-foreground/30",
+                        )}
+                      />
+                    ))}
+                  </div>
+                  {f.status === "pending" ? (
+                    <span
+                      className="inline-flex w-fit items-center gap-1 rounded-md bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium text-amber-700"
                     >
-                      详情
-                    </Button>
-                  </TableCell>
-                </TableRow>
+                      <span className="h-1 w-1 rounded-full bg-amber-500" />
+                      待处理
+                    </span>
+                  ) : (
+                    <span
+                      className="inline-flex w-fit items-center gap-1 rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700"
+                    >
+                      <IconCheck className="h-2.5 w-2.5" />
+                      已处理
+                    </span>
+                  )}
+                  <span className="line-clamp-1 text-xs text-foreground/80">{f.comment}</span>
+                  <span className="text-right text-[10px] text-muted-foreground">
+                    {relativeTime(f.createdAt)}
+                  </span>
+                  <span className="text-right text-[10px] font-medium text-brand-500">
+                    查看 →
+                  </span>
+                </button>
               );
             })}
-          </TableBody>
-        </Table>
-      </Card>
+            {filtered.length === 0 && (
+              <div className="px-4 py-12 text-center text-sm text-muted-foreground">
+                暂无符合的反馈
+              </div>
+            )}
+          </div>
+        </ScrollArea>
+      </div>
 
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
         <DialogContent className="max-w-2xl">
