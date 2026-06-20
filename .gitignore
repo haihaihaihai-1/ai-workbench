@@ -33,3 +33,7 @@ pnpm-debug.log*
 # Vite
 .vite/
 .tmp/
+
+# Playwright (e2e 分支已有, 这里保险)
+test-results/
+playwright-report/
