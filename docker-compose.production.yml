@@ -1,0 +1,67 @@
+# ============================================================================
+# AI Workbench · 生产环境 Docker Compose
+# ----------------------------------------------------------------------------
+# 用法:
+#   docker compose -f docker-compose.production.yml --env-file .env.production up -d
+#   docker compose -f docker-compose.production.yml logs -f
+#   docker compose -f docker-compose.production.yml down
+#
+# 配合 deploy.sh 使用:
+#   deploy.sh production --tag v1.2.3
+# ============================================================================
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        ENV: production
+    image: ai-workbench/web:${TAG:-latest}
+    container_name: ai-workbench-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - app-data:/var/www/app-data
+    environment:
+      NODE_ENV: production
+      PUBLIC_URL: ${PUBLIC_URL:-https://ai-workbench.example.com}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - webnet
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: ai-workbench-watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_POLL_INTERVAL: "86400"
+      WATCHTOWER_MONITOR_ONLY: "true"
+    networks:
+      - webnet
+    profiles: ["monitoring"]
+
+volumes:
+  app-data:
+    name: ai-workbench-data
+
+networks:
+  webnet:
+    name: ai-workbench-net
+    driver: bridge

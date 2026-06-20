@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { exportToJSON } from "@/lib/export";
 import { cn } from "@/lib/utils";
-import { IconDownload, IconFileText, IconPlay, IconTarget } from "@/components/icons"
+import { IconDownload, IconFileText, IconPlay, IconTarget } from "@/components/icons";
 import { useState } from "react";
 import { toast } from "sonner";
 import { EvalTable } from "./evaluation/eval-table";
@@ -52,16 +52,20 @@ export default function EvaluationPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconTarget className="h-6 w-6 text-primary" />
-            系统评估
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            离线评估 · 测试集管理 · 通过率趋势 · 评估报告导出
-          </p>
+      {/* 顶部 · Langfuse 招牌：蓝色 (#3B82F6) logo + 紧凑监控 */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#3B82F6] text-white shadow-vercel">
+            <IconTarget className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">
+              Evaluation · Langfuse
+            </h1>
+            <p className="text-[11px] text-muted-foreground">
+              离线评估 · 测试集管理 · 通过率趋势 · 评估报告导出
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleExport} className="h-8 gap-1.5">
