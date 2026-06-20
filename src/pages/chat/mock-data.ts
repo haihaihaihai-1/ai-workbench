@@ -31,10 +31,10 @@ export const AGENTS: Record<
 };
 
 export const MODELS = [
-  { id: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", provider: "Anthropic" },
-  { id: "gpt-5", name: "GPT-5", provider: "OpenAI" },
-  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", provider: "Google" },
-  { id: "minimax-m3", name: "MiniMax M3", provider: "MiniMax" },
+  { id: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", provider: "Anthropic", context: "200K" },
+  { id: "gpt-5", name: "GPT-5", provider: "OpenAI", context: "128K" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", provider: "Google", context: "1M" },
+  { id: "minimax-m3", name: "MiniMax M3", provider: "MiniMax", context: "256K" },
 ] as const;
 
 export type ModelId = (typeof MODELS)[number]["id"];

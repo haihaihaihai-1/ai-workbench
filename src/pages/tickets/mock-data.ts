@@ -174,18 +174,69 @@ export const TICKET_STATS = {
   avgResolveHour: 8.5,
 };
 
-export const TICKET_STATUS_INFO = {
-  open: { name: "待处理", color: "#3B82F6" },
-  in_progress: { name: "处理中", color: "#F59E0B" },
-  resolved: { name: "已完成", color: "#10B981" },
-  closed: { name: "已取消", color: "#6B7280" },
+/**
+ * 状态色采用 Linear 风格（柔和饱和度 + 暗模式变体）
+ * Linear 实际用: open=#5E6AD2, in_progress=#F2C94C, done=#4FAA52, canceled=#7A7A7A
+ * 我们用自家 brand 色保持一致性
+ */
+export const TICKET_STATUS_INFO: Record<
+  string,
+  { name: string; color: string; bg: string; text: string }
+> = {
+  // Linear 招牌：状态点用实心圆，背景透明
+  open: {
+    name: "待处理",
+    color: "#5E6AD2", // Linear 紫
+    bg: "rgba(94, 106, 210, 0.12)",
+    text: "#3D478F",
+  },
+  in_progress: {
+    name: "处理中",
+    color: "#F2C94C", // Linear 黄
+    bg: "rgba(242, 201, 76, 0.15)",
+    text: "#9A7611",
+  },
+  resolved: {
+    name: "已完成",
+    color: "#4FAA52", // Linear 绿
+    bg: "rgba(79, 170, 82, 0.12)",
+    text: "#2D6A2F",
+  },
+  closed: {
+    name: "已取消",
+    color: "#7A7A7A",
+    bg: "rgba(122, 122, 122, 0.10)",
+    text: "#5A5A5A",
+  },
 };
 
-export const TICKET_PRIORITY_INFO = {
-  low: { name: "低", color: "#6B7280" },
-  medium: { name: "中", color: "#3B82F6" },
-  high: { name: "高", color: "#F59E0B" },
-  urgent: { name: "紧急", color: "#EF4444" },
+/**
+ * 优先级三圆点（Linear 招牌）
+ * urgent = ●●●  red
+ * high   = ●●○  orange
+ * medium = ●○○  yellow
+ * low    = ○○○  gray
+ */
+export const TICKET_PRIORITY_INFO: Record<
+  string,
+  { name: string; color: string; dots: number; bg: string; text: string }
+> = {
+  urgent: {
+    name: "紧急",
+    color: "#EF4444",
+    dots: 3,
+    bg: "rgba(239, 68, 68, 0.12)",
+    text: "#B91C1C",
+  },
+  high: { name: "高", color: "#F2994A", dots: 2, bg: "rgba(242, 153, 74, 0.12)", text: "#B45309" },
+  medium: {
+    name: "中",
+    color: "#F2C94C",
+    dots: 1,
+    bg: "rgba(242, 201, 76, 0.15)",
+    text: "#9A7611",
+  },
+  low: { name: "低", color: "#7A7A7A", dots: 0, bg: "rgba(122, 122, 122, 0.10)", text: "#5A5A5A" },
 };
 
 export const TICKET_TYPE_INFO = {

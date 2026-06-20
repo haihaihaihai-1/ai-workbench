@@ -1,3 +1,20 @@
+import {
+  IconActivity,
+  IconBell,
+  IconBookMarked,
+  IconBriefcase,
+  IconCalendar,
+  IconFileText,
+  IconLink,
+  IconMapPin,
+  IconMessageSquare,
+  IconPencil,
+  IconShield,
+  IconStar,
+  IconUsers,
+  IconX,
+  IconSettings as SettingsIcon,
+} from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,7 +24,6 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, relativeTime } from "@/lib/utils";
-import { IconActivity, IconBell, IconBookMarked, IconEdit3, IconFileText, IconMessageSquare, IconSettings as SettingsIcon, IconShield, IconStar, IconTrendingUp, IconX } from "@/components/icons"
 import { useState } from "react";
 import {
   Area,
@@ -22,6 +38,7 @@ import {
 } from "recharts";
 import { toast } from "sonner";
 import { AGENT_VISUAL } from "./home/mock-data";
+import { ContributionGraph } from "./profile/contribution-graph";
 import { myFavorites, myFeedbacks, recentConversations } from "./profile/mock-data";
 
 export default function ProfilePage() {
@@ -38,26 +55,48 @@ export default function ProfilePage() {
       <ProfileHeader />
       <StatsRow />
 
+      {/* 贡献热力图 · GitHub 招牌 */}
+      <Card>
+        <CardContent className="p-4">
+          <ContributionGraph />
+        </CardContent>
+      </Card>
+
       <Tabs defaultValue="conversations">
-        <TabsList>
-          <TabsTrigger value="conversations" className="gap-1.5">
-            <IconMessageSquare className="h-3.5 w-3.5" />
-            我的对话
+        <TabsList className="h-9 rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger
+            value="conversations"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-3 text-xs data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconMessageSquare className="mr-1.5 h-3.5 w-3.5" />
+            对话
           </TabsTrigger>
-          <TabsTrigger value="feedbacks" className="gap-1.5">
-            <IconStar className="h-3.5 w-3.5" />
-            我的反馈
+          <TabsTrigger
+            value="feedbacks"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-3 text-xs data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconStar className="mr-1.5 h-3.5 w-3.5" />
+            反馈
           </TabsTrigger>
-          <TabsTrigger value="favorites" className="gap-1.5">
-            <IconBookMarked className="h-3.5 w-3.5" />
+          <TabsTrigger
+            value="favorites"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-3 text-xs data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconBookMarked className="mr-1.5 h-3.5 w-3.5" />
             收藏
           </TabsTrigger>
-          <TabsTrigger value="usage" className="gap-1.5">
-            <IconActivity className="h-3.5 w-3.5" />
-            使用统计
+          <TabsTrigger
+            value="usage"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-3 text-xs data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconActivity className="mr-1.5 h-3.5 w-3.5" />
+            统计
           </TabsTrigger>
-          <TabsTrigger value="settings" className="gap-1.5">
-            <SettingsIcon className="h-3.5 w-3.5" />
+          <TabsTrigger
+            value="settings"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-3 text-xs data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <SettingsIcon className="mr-1.5 h-3.5 w-3.5" />
             设置
           </TabsTrigger>
         </TabsList>
@@ -333,64 +372,125 @@ export default function ProfilePage() {
   );
 }
 
+/**
+ * ProfileHeader · GitHub 风格个人头部
+ *
+ * 招牌布局：
+ * - 左侧：大圆形头像 + 名字（粗）+ handle（灰） + bio
+ * - 中间：Follow/Edit 按钮
+ * - meta 行：组织、位置、URL、加入时间
+ * - 右侧：3-4 个紧凑统计（repos/stars/followers/following）
+ */
 function ProfileHeader() {
   return (
-    <Card>
-      <CardContent className="flex flex-col items-start gap-4 p-5 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-4">
-          <Avatar className="h-16 w-16">
-            <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-lg text-primary-foreground">
-              许
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <h2 className="text-xl font-semibold">许泉兴</h2>
-            <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Badge variant="default">学生</Badge>
-              <span>·</span>
-              <span>计算机科学 · 大三</span>
-              <span>·</span>
-              <span>学号 2022****1234</span>
+    <Card className="overflow-hidden border-border">
+      {/* 顶部 banner · GitHub 招牌：极简色块 */}
+      <div className="h-24 bg-gradient-to-br from-[#5E6AD2] via-[#8463FF] to-[#FF6B9D]" />
+      <CardContent className="p-5">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          {/* 头像 + 名字区 */}
+          <div className="flex flex-col items-start gap-3 md:flex-row md:items-end">
+            <Avatar className="h-24 w-24 shrink-0 ring-4 ring-card -mt-12">
+              <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-3xl text-primary-foreground">
+                许
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0 flex-1 space-y-1">
+              <div className="flex flex-wrap items-baseline gap-2">
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">许泉兴</h2>
+                <span className="text-sm font-light text-muted-foreground">xuquanxing</span>
+                <Badge variant="default" className="h-5 px-1.5 text-[10px]">
+                  PRO
+                </Badge>
+              </div>
+              <p className="max-w-xl text-sm text-foreground/80">
+                计算机科学 · 大三 · 在用 AI 重塑学习与生活
+              </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <IconBriefcase className="h-3.5 w-3.5" />
+                  AI Workbench
+                </span>
+                <span className="flex items-center gap-1">
+                  <IconMapPin className="h-3.5 w-3.5" />
+                  Shanghai, China
+                </span>
+                <a href="#" className="flex items-center gap-1 hover:text-brand-500">
+                  <IconLink className="h-3.5 w-3.5" />
+                  xuquanxing.dev
+                </a>
+                <span className="flex items-center gap-1">
+                  <IconCalendar className="h-3.5 w-3.5" />
+                  Joined Sep 2024
+                </span>
+              </div>
             </div>
-            <div className="mt-1.5 text-[10px] text-muted-foreground">
-              加入于 2024-09-01 · 已使用 92 天
+          </div>
+
+          {/* 按钮 + 统计 */}
+          <div className="flex flex-col items-stretch gap-2 md:items-end">
+            <div className="flex items-center gap-1.5">
+              <Button variant="outline" size="sm" className="h-8 gap-1.5">
+                <IconPencil className="h-3.5 w-3.5" />
+                Edit profile
+              </Button>
+              <Button size="sm" className="h-8 gap-1.5">
+                <IconUsers className="h-3.5 w-3.5" />
+                Follow
+              </Button>
+            </div>
+            <div className="flex items-center gap-4 text-xs">
+              <StatPill label="followers" value="128" />
+              <span className="text-muted-foreground/30">·</span>
+              <StatPill label="following" value="42" />
+              <span className="text-muted-foreground/30">·</span>
+              <StatPill label="stars" value="86" />
             </div>
           </div>
         </div>
-        <Button variant="outline" size="sm" className="gap-1.5">
-          <IconEdit3 className="h-3.5 w-3.5" />
-          编辑资料
-        </Button>
       </CardContent>
     </Card>
   );
 }
 
+function StatPill({ label, value }: { label: string; value: string }) {
+  return (
+    <a href="#" className="flex items-center gap-1 hover:text-brand-500">
+      <span className="font-semibold text-foreground">{value}</span>
+      <span className="text-muted-foreground">{label}</span>
+    </a>
+  );
+}
+
+/**
+ * StatsRow · GitHub 风格数据概览
+ *
+ * 紧凑 4 列 · 大数字 + 小标签 + 趋势指示
+ */
 function StatsRow() {
   const items = [
-    { label: "总会话", value: 248, icon: IconMessageSquare, tone: "text-primary" },
-    { label: "总反馈", value: 86, icon: IconStar, tone: "text-warning" },
-    { label: "收藏数", value: 32, icon: IconBookMarked, tone: "text-success" },
-    { label: "使用天数", value: 92, icon: IconTrendingUp, tone: "text-info" },
+    { label: "总会话", value: "248", change: "+12 本周", tone: "text-foreground" },
+    { label: "反馈评分", value: "86", change: "4.6 平均", tone: "text-foreground" },
+    { label: "收藏", value: "32", change: "+3 本月", tone: "text-foreground" },
+    { label: "使用天数", value: "92", change: "92 连续", tone: "text-foreground" },
   ];
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-      {items.map((it) => {
-        const Icon = it.icon;
-        return (
-          <Card key={it.label}>
-            <CardContent className="flex items-center gap-3 p-3">
-              <div className={cn("rounded-md bg-muted p-2", it.tone)}>
-                <Icon className="h-4 w-4" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">{it.label}</div>
-                <div className="text-lg font-semibold tabular-nums">{it.value}</div>
-              </div>
-            </CardContent>
-          </Card>
-        );
-      })}
+      {items.map((it) => (
+        <Card key={it.label} className="hover:border-foreground/20 transition-colors">
+          <CardContent className="p-4">
+            <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              {it.label}
+            </div>
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className={cn("font-display text-2xl font-semibold tabular-nums", it.tone)}>
+                {it.value}
+              </span>
+              <span className="text-[10px] text-muted-foreground">{it.change}</span>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }

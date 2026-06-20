@@ -1,6 +1,12 @@
+import {
+  IconCheckCircle2,
+  IconCircleAlert,
+  IconLoader2,
+  IconWrench,
+  IconXCircle,
+} from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import type { ToolCall } from "@/lib/types";
-import { IconCheckCircle2, IconCircleAlert, IconLoader2, IconWrench, IconXCircle } from "@/components/icons"
 
 type Props = { tools: ToolCall[] };
 
@@ -46,7 +52,9 @@ export function TracePanel({ tools }: Props) {
                   {tool.status === "success" && (
                     <IconCheckCircle2 className="h-3.5 w-3.5 text-success" />
                   )}
-                  {tool.status === "error" && <IconXCircle className="h-3.5 w-3.5 text-destructive" />}
+                  {tool.status === "error" && (
+                    <IconXCircle className="h-3.5 w-3.5 text-destructive" />
+                  )}
                   <span className="font-mono text-xs font-medium">{tool.name}</span>
                 </div>
                 {tool.durationMs != null && (

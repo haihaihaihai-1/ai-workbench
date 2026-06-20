@@ -1,32 +1,22 @@
-import { Badge } from "@/components/ui/badge";
+import {
+  IconLayoutGrid,
+  IconList,
+  IconPlus,
+  IconRefreshCw,
+  IconTicket as TicketIcon,
+} from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-media-query";
 import type { Ticket, TicketStatus } from "@/lib/types";
-import { relativeTime } from "@/lib/utils";
-import { IconLayoutGrid, IconList, IconPlus, IconRefreshCw, IconTicket as TicketIcon } from "@/components/icons"
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import {
-  MOCK_TICKETS,
-  TICKET_PRIORITY_INFO,
-  TICKET_STATS,
-  TICKET_STATUS_INFO,
-  TICKET_TYPE_INFO,
-} from "./mock-data";
-import { SlaIndicator } from "./sla-indicator";
+import { MOCK_TICKETS, TICKET_STATS, TICKET_STATUS_INFO } from "./mock-data";
 import { TicketBoard } from "./ticket-board";
 import { TicketDetail } from "./ticket-detail";
 import { type FilterState, TicketFilters } from "./ticket-filters";
+import { TicketList } from "./ticket-list";
 import { TicketStats } from "./ticket-stats";
 
 const ALLOWED_TRANSITIONS: Record<TicketStatus, TicketStatus[]> = {
@@ -52,6 +42,35 @@ export default function TicketsPage() {
   });
   const [selected, setSelected] = useState<Ticket | null>(null);
   const [tickets, setTickets] = useState<Ticket[]>(MOCK_TICKETS);
+
+  /* Linear 招牌快捷键:
+   * - C          新建工单
+   * - /          聚焦搜索
+   * - Esc        关闭详情
+   */
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      // 忽略输入框内的按键
+      if (target?.matches("input, textarea, [contenteditable]")) return;
+
+      if (e.key === "c" || e.key === "C") {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        e.preventDefault();
+        toast.info("新建工单（演示）", {
+          description: "按 C 触发 · 实际项目里会打开创建对话框",
+        });
+      } else if (e.key === "/") {
+        e.preventDefault();
+        const search = document.querySelector<HTMLInputElement>('input[type="search"]');
+        search?.focus();
+      } else if (e.key === "Escape" && selected) {
+        setSelected(null);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [selected]);
 
   const filtered = useMemo(() => {
     return tickets.filter((t) => {
@@ -123,20 +142,36 @@ export default function TicketsPage() {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Tabs value={view} onValueChange={(v) => setView(v as typeof view)}>
-            <TabsList>
-              <TabsTrigger value="list" className="h-7 gap-1 text-xs">
-                <IconList className="h-3.5 w-3.5" />
+            <TabsList className="h-7">
+              <TabsTrigger value="list" className="h-6 gap-1 px-2 text-xs">
+                <IconList className="h-3 w-3" />
                 列表
               </TabsTrigger>
-              <TabsTrigger value="board" className="h-7 gap-1 text-xs">
-                <IconLayoutGrid className="h-3.5 w-3.5" />
+              <TabsTrigger value="board" className="h-6 gap-1 px-2 text-xs">
+                <IconLayoutGrid className="h-3 w-3" />
                 看板
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <Button variant="outline" size="sm" className="hidden h-7 gap-1.5 sm:inline-flex">
+          {/* Linear 风格快捷键提示 */}
+          <div className="hidden items-center gap-1 text-[10px] text-muted-foreground lg:flex">
+            <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
+              C
+            </kbd>
+            <span>新建</span>
+            <span className="mx-1 opacity-30">·</span>
+            <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
+              /
+            </kbd>
+            <span>搜索</span>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden h-7 w-7 sm:inline-flex"
+            aria-label="刷新"
+          >
             <IconRefreshCw className="h-3.5 w-3.5" />
-            刷新
           </Button>
           <Button size="sm" className="h-7 gap-1.5">
             <IconPlus className="h-3.5 w-3.5" />
@@ -174,85 +209,12 @@ export default function TicketsPage() {
       <div className="flex gap-4">
         <div className="min-w-0 flex-1">
           {view === "list" ? (
-            <Card className="overflow-hidden">
-              {/* 移动端：表格横向滚动容器 */}
-              <div className="overflow-x-auto">
-                <Table className="min-w-[640px]">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-[10px]">工单</TableHead>
-                      <TableHead className="text-[10px]">类型</TableHead>
-                      <TableHead className="text-[10px]">优先级</TableHead>
-                      <TableHead className="text-[10px]">状态</TableHead>
-                      <TableHead className="text-[10px]">受理人</TableHead>
-                      <TableHead className="text-[10px]">SLA</TableHead>
-                      <TableHead className="text-[10px]">更新</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filtered.map((t) => {
-                      const tp = TICKET_TYPE_INFO[t.type];
-                      const pr = TICKET_PRIORITY_INFO[t.priority];
-                      const st = TICKET_STATUS_INFO[t.status];
-                      return (
-                        <TableRow
-                          key={t.id}
-                          onClick={() => setSelected(t)}
-                          className="cursor-pointer"
-                        >
-                          <TableCell className="py-2">
-                            <div className="flex items-center gap-1.5">
-                              <span>{tp.icon}</span>
-                              <div>
-                                <div className="text-sm font-medium">{t.title}</div>
-                                <div className="font-mono text-[10px] text-muted-foreground">
-                                  {t.code}
-                                </div>
-                              </div>
-                            </div>
-                          </TableCell>
-                          <TableCell className="py-2 text-xs">{tp.name}</TableCell>
-                          <TableCell className="py-2">
-                            <Badge
-                              variant={
-                                t.priority === "urgent"
-                                  ? "destructive"
-                                  : t.priority === "high"
-                                    ? "warning"
-                                    : t.priority === "medium"
-                                      ? "info"
-                                      : "secondary"
-                              }
-                              className="text-[10px]"
-                            >
-                              {pr.name}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="py-2 text-xs">{st.name}</TableCell>
-                          <TableCell className="py-2 text-xs">{t.assignee ?? "—"}</TableCell>
-                          <TableCell className="py-2">
-                            <SlaIndicator dueAt={t.slaDueAt} compact />
-                          </TableCell>
-                          <TableCell className="py-2 text-[11px] text-muted-foreground">
-                            {relativeTime(t.updatedAt)}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                    {filtered.length === 0 && (
-                      <TableRow>
-                        <TableCell
-                          colSpan={7}
-                          className="py-12 text-center text-sm text-muted-foreground"
-                        >
-                          暂无符合条件的工单
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            </Card>
+            <TicketList
+              tickets={filtered}
+              selectedId={selected?.id}
+              onSelect={setSelected}
+              onStatusChange={handleStatusChange}
+            />
           ) : (
             <div className="flex flex-col gap-2">
               {isMobile && (

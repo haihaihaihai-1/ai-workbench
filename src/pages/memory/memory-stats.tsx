@@ -1,5 +1,12 @@
+import {
+  IconActivity,
+  IconBrain,
+  IconClock,
+  IconPin,
+  IconSparkles,
+  IconTrendingUp,
+} from "@/components/icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { IconActivity, IconBrain, IconClock, IconPin, IconSparkles, IconTrendingUp } from "@/components/icons"
 import {
   Area,
   AreaChart,
@@ -22,7 +29,13 @@ export function MemoryStats() {
         icon={IconBrain}
         tone="text-primary"
       />
-      <StatCard label="置顶" value={MEMORY_STATS.pinned} unit="条" icon={IconPin} tone="text-warning" />
+      <StatCard
+        label="置顶"
+        value={MEMORY_STATS.pinned}
+        unit="条"
+        icon={IconPin}
+        tone="text-warning"
+      />
       <StatCard
         label="平均置信度"
         value={Math.round(MEMORY_STATS.avgConfidence * 100)}
