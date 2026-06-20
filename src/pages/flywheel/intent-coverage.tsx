@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { shortNumber } from "@/lib/utils";
-import { PieChart as PieChartIcon } from "lucide-react";
+import { IconPieChart as PieChartIcon } from "@/components/icons"
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { INTENT_COVERAGE } from "./mock-data";
 

@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cardHover, listItem } from "@/lib/motion-presets";
 import type { Memory } from "@/lib/types";
 import { cn, relativeTime } from "@/lib/utils";
-import { BarChart3, Brain, Calendar, Pin, Tag, Trash2 } from "lucide-react";
+import { IconBarChart3, IconBrain, IconCalendar, IconPin, IconTag, IconTrash2 } from "@/components/icons"
 import { motion } from "motion/react";
 import { MEMORY_TYPE_INFO } from "./mock-data";
 
@@ -36,7 +36,7 @@ export function MemoryCard({ memory, index = 0, onDelete, onTogglePin }: Props) 
               >
                 {t.emoji} {t.name}
               </span>
-              {memory.pinned && <Pin className="h-3 w-3 fill-warning text-warning" />}
+              {memory.pinned && <IconPin className="h-3 w-3 fill-warning text-warning" />}
             </div>
             <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
               <Button
@@ -46,7 +46,7 @@ export function MemoryCard({ memory, index = 0, onDelete, onTogglePin }: Props) 
                 onClick={() => onTogglePin?.(memory.id)}
                 aria-label="置顶"
               >
-                <Pin className="h-3 w-3" />
+                <IconPin className="h-3 w-3" />
               </Button>
               <Button
                 variant="ghost"
@@ -55,7 +55,7 @@ export function MemoryCard({ memory, index = 0, onDelete, onTogglePin }: Props) 
                 onClick={() => onDelete?.(memory.id)}
                 aria-label="删除"
               >
-                <Trash2 className="h-3 w-3" />
+                <IconTrash2 className="h-3 w-3" />
               </Button>
             </div>
           </div>
@@ -63,7 +63,7 @@ export function MemoryCard({ memory, index = 0, onDelete, onTogglePin }: Props) 
           <div className="mt-2.5 flex flex-wrap items-center gap-1">
             {memory.tags.map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px]">
-                <Tag className="mr-0.5 h-2.5 w-2.5" />
+                <IconTag className="mr-0.5 h-2.5 w-2.5" />
                 {tag}
               </Badge>
             ))}
@@ -71,16 +71,16 @@ export function MemoryCard({ memory, index = 0, onDelete, onTogglePin }: Props) 
           <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2 text-[10px] text-muted-foreground">
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-0.5">
-                <Brain className="h-3 w-3" />
+                <IconBrain className="h-3 w-3" />
                 {memory.source}
               </span>
               <span className="flex items-center gap-0.5">
-                <Calendar className="h-3 w-3" />
+                <IconCalendar className="h-3 w-3" />
                 {relativeTime(memory.createdAt)}
               </span>
             </div>
             <div className="flex items-center gap-1">
-              <BarChart3 className="h-3 w-3" />
+              <IconBarChart3 className="h-3 w-3" />
               <span
                 className={cn(
                   "font-mono",

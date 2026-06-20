@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn, relativeTime } from "@/lib/utils";
-import { ChevronDown, History, TrendingUp } from "lucide-react";
+import { IconChevronDown, IconHistory, IconTrendingUp } from "@/components/icons"
 import { useState } from "react";
 import {
   CartesianGrid,
@@ -29,7 +29,7 @@ export function PassRateTrend() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <TrendingUp className="h-4 w-4 text-success" />
+            <IconTrendingUp className="h-4 w-4 text-success" />
             通过率趋势
           </CardTitle>
           <Badge variant="success" className="text-[10px]">
@@ -81,14 +81,14 @@ export function HistoryPanel() {
       <CardHeader className="cursor-pointer pb-2" onClick={() => setOpen((v) => !v)}>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <History className="h-4 w-4 text-info" />
+            <IconHistory className="h-4 w-4 text-info" />
             历史评估记录
             <Badge variant="info" className="ml-1 text-[10px]">
               {recent.length} / {EVAL_HISTORY.length}
             </Badge>
           </CardTitle>
           <Button variant="ghost" size="icon" className="h-6 w-6">
-            <ChevronDown className={cn("h-4 w-4 transition-transform", !open && "-rotate-90")} />
+            <IconChevronDown className={cn("h-4 w-4 transition-transform", !open && "-rotate-90")} />
           </Button>
         </div>
       </CardHeader>

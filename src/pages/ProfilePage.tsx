@@ -7,19 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, relativeTime } from "@/lib/utils";
-import {
-  Activity,
-  Bell,
-  BookMarked,
-  Edit3,
-  FileText,
-  MessageSquare,
-  Settings as SettingsIcon,
-  Shield,
-  Star,
-  TrendingUp,
-  X,
-} from "lucide-react";
+import { IconActivity, IconBell, IconBookMarked, IconEdit3, IconFileText, IconMessageSquare, IconSettings as SettingsIcon, IconShield, IconStar, IconTrendingUp, IconX } from "@/components/icons"
 import { useState } from "react";
 import {
   Area,
@@ -53,19 +41,19 @@ export default function ProfilePage() {
       <Tabs defaultValue="conversations">
         <TabsList>
           <TabsTrigger value="conversations" className="gap-1.5">
-            <MessageSquare className="h-3.5 w-3.5" />
+            <IconMessageSquare className="h-3.5 w-3.5" />
             我的对话
           </TabsTrigger>
           <TabsTrigger value="feedbacks" className="gap-1.5">
-            <Star className="h-3.5 w-3.5" />
+            <IconStar className="h-3.5 w-3.5" />
             我的反馈
           </TabsTrigger>
           <TabsTrigger value="favorites" className="gap-1.5">
-            <BookMarked className="h-3.5 w-3.5" />
+            <IconBookMarked className="h-3.5 w-3.5" />
             收藏
           </TabsTrigger>
           <TabsTrigger value="usage" className="gap-1.5">
-            <Activity className="h-3.5 w-3.5" />
+            <IconActivity className="h-3.5 w-3.5" />
             使用统计
           </TabsTrigger>
           <TabsTrigger value="settings" className="gap-1.5">
@@ -111,7 +99,7 @@ export default function ProfilePage() {
             <CardContent className="p-3">
               {feedbacks.length === 0 ? (
                 <div className="py-8 text-center text-sm text-muted-foreground">
-                  <Star className="mx-auto mb-2 h-8 w-8 opacity-30" />
+                  <IconStar className="mx-auto mb-2 h-8 w-8 opacity-30" />
                   暂无反馈记录
                   <p className="mt-1 text-xs">对话结束后即可对 AI 回复评分</p>
                 </div>
@@ -134,7 +122,7 @@ export default function ProfilePage() {
                           </div>
                           <div className="mt-0.5 flex items-center gap-1">
                             {Array.from({ length: 5 }).map((_, i) => (
-                              <Star
+                              <IconStar
                                 key={i}
                                 className={cn(
                                   "h-3 w-3",
@@ -181,7 +169,7 @@ export default function ProfilePage() {
             <CardContent className="p-3">
               {favorites.length === 0 ? (
                 <div className="py-8 text-center text-sm text-muted-foreground">
-                  <BookMarked className="mx-auto mb-2 h-8 w-8 opacity-30" />
+                  <IconBookMarked className="mx-auto mb-2 h-8 w-8 opacity-30" />
                   暂无收藏内容
                   <p className="mt-1 text-xs">点击 AI 回复右上角的星标即可收藏</p>
                 </div>
@@ -213,7 +201,7 @@ export default function ProfilePage() {
                             className="h-5 w-5 p-0 text-muted-foreground hover:text-destructive"
                             onClick={() => removeFavorite(fav.id)}
                           >
-                            <X className="h-3 w-3" />
+                            <IconX className="h-3 w-3" />
                           </Button>
                           <span className="text-[10px] text-muted-foreground">
                             {relativeTime(fav.createdAt)}
@@ -315,7 +303,7 @@ export default function ProfilePage() {
 
         <TabsContent value="settings">
           <div className="grid gap-3 lg:grid-cols-2">
-            <SettingsCard title="通知偏好" icon={Bell}>
+            <SettingsCard title="通知偏好" icon={IconBell}>
               <SettingRow label="新消息通知" defaultChecked />
               <SettingRow label="每日使用报告" defaultChecked />
               <SettingRow label="工单状态变更" />
@@ -326,12 +314,12 @@ export default function ProfilePage() {
               <SettingRow label="紧凑布局" />
               <SettingRow label="动画效果" defaultChecked />
             </SettingsCard>
-            <SettingsCard title="账户与安全" icon={Shield}>
+            <SettingsCard title="账户与安全" icon={IconShield}>
               <SettingRow label="两步验证" />
               <SettingRow label="会话超时自动登出" defaultChecked />
               <SettingRow label="记住登录状态" defaultChecked />
             </SettingsCard>
-            <SettingsCard title="数据与隐私" icon={FileText}>
+            <SettingsCard title="数据与隐私" icon={IconFileText}>
               <SettingRow label="允许数据用于模型训练" />
               <SettingRow label="允许匿名使用统计" defaultChecked />
               <Button variant="outline" size="sm" className="mt-3 text-xs">
@@ -370,7 +358,7 @@ function ProfileHeader() {
           </div>
         </div>
         <Button variant="outline" size="sm" className="gap-1.5">
-          <Edit3 className="h-3.5 w-3.5" />
+          <IconEdit3 className="h-3.5 w-3.5" />
           编辑资料
         </Button>
       </CardContent>
@@ -380,10 +368,10 @@ function ProfileHeader() {
 
 function StatsRow() {
   const items = [
-    { label: "总会话", value: 248, icon: MessageSquare, tone: "text-primary" },
-    { label: "总反馈", value: 86, icon: Star, tone: "text-warning" },
-    { label: "收藏数", value: 32, icon: BookMarked, tone: "text-success" },
-    { label: "使用天数", value: 92, icon: TrendingUp, tone: "text-info" },
+    { label: "总会话", value: 248, icon: IconMessageSquare, tone: "text-primary" },
+    { label: "总反馈", value: 86, icon: IconStar, tone: "text-warning" },
+    { label: "收藏数", value: 32, icon: IconBookMarked, tone: "text-success" },
+    { label: "使用天数", value: 92, icon: IconTrendingUp, tone: "text-info" },
   ];
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -411,7 +399,7 @@ function SettingsCard({
   title,
   icon: Icon,
   children,
-}: { title: string; icon: typeof Bell; children: React.ReactNode }) {
+}: { title: string; icon: typeof IconBell; children: React.ReactNode }) {
   return (
     <Card>
       <CardHeader className="pb-2">

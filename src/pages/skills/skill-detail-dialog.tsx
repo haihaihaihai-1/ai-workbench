@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, relativeTime, shortNumber } from "@/lib/utils";
-import { Activity, Code2, Download, History, ShieldCheck, Star, Trash2 } from "lucide-react";
+import { IconActivity, IconCode2, IconDownload, IconHistory, IconShieldCheck, IconStar, IconTrash2 } from "@/components/icons"
 import { CATEGORY_INFO, EXECUTION_MODE_INFO, type Skill } from "./mock-data";
 
 type Props = {
@@ -84,19 +84,19 @@ export function SkillDetailDialog({
         <Tabs defaultValue="overview" className="w-full">
           <TabsList>
             <TabsTrigger value="overview">
-              <Activity className="mr-1 h-3.5 w-3.5" />
+              <IconActivity className="mr-1 h-3.5 w-3.5" />
               概览
             </TabsTrigger>
             <TabsTrigger value="example">
-              <Code2 className="mr-1 h-3.5 w-3.5" />
+              <IconCode2 className="mr-1 h-3.5 w-3.5" />
               使用示例
             </TabsTrigger>
             <TabsTrigger value="history">
-              <History className="mr-1 h-3.5 w-3.5" />
+              <IconHistory className="mr-1 h-3.5 w-3.5" />
               调用历史 ({skill.history.length})
             </TabsTrigger>
             <TabsTrigger value="permissions">
-              <ShieldCheck className="mr-1 h-3.5 w-3.5" />
+              <IconShieldCheck className="mr-1 h-3.5 w-3.5" />
               权限
             </TabsTrigger>
           </TabsList>
@@ -108,7 +108,7 @@ export function SkillDetailDialog({
                 label="评分"
                 value={
                   <span className="flex items-center gap-1">
-                    <Star className="h-3.5 w-3.5 fill-warning text-warning" />
+                    <IconStar className="h-3.5 w-3.5 fill-warning text-warning" />
                     {skill.rating.toFixed(1)}
                   </span>
                 }
@@ -185,7 +185,7 @@ export function SkillDetailDialog({
           <TabsContent value="permissions">
             {skill.permissions.length === 0 ? (
               <div className="rounded-md border border-dashed border-border bg-muted/20 p-4 text-center text-xs text-muted-foreground">
-                <ShieldCheck className="mx-auto mb-1.5 h-5 w-5 text-success" />
+                <IconShieldCheck className="mx-auto mb-1.5 h-5 w-5 text-success" />
                 此技能无需特殊权限
               </div>
             ) : (
@@ -195,7 +195,7 @@ export function SkillDetailDialog({
                     key={p}
                     className="flex items-center gap-2 rounded-md border border-border bg-card p-2 text-xs"
                   >
-                    <ShieldCheck className="h-3.5 w-3.5 text-warning" />
+                    <IconShieldCheck className="h-3.5 w-3.5 text-warning" />
                     <span>{p}</span>
                   </div>
                 ))}
@@ -225,12 +225,12 @@ export function SkillDetailDialog({
                 className="h-8 gap-1 text-xs text-destructive"
                 onClick={() => onUninstall(skill)}
               >
-                <Trash2 className="h-3.5 w-3.5" />
+                <IconTrash2 className="h-3.5 w-3.5" />
                 卸载
               </Button>
             ) : (
               <Button size="sm" className="h-8 gap-1.5" onClick={() => onInstall(skill)}>
-                <Download className="h-3.5 w-3.5" />
+                <IconDownload className="h-3.5 w-3.5" />
                 安装技能
               </Button>
             )}

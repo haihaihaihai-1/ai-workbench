@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useNotifications } from "@/hooks/use-notifications";
-import { Bell, Search } from "lucide-react";
+import { IconBell, IconSearch } from "@/components/icons"
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -25,7 +25,7 @@ export function Topbar() {
           onClick={() => openCommand()}
           className="group flex h-9 w-full max-w-xl items-center gap-2 rounded-md border border-input bg-background/60 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:bg-background"
         >
-          <Search className="h-4 w-4" />
+          <IconSearch className="h-4 w-4" />
           <span className="flex-1 text-left">{t("common.search")}</span>
           <kbd className="hidden items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-flex">
             <span className="text-xs">⌘</span>K
@@ -49,7 +49,7 @@ export function Topbar() {
           aria-label={t("common.notifications")}
           onClick={() => setNotifOpen(true)}
         >
-          <Bell className="h-4 w-4" />
+          <IconBell className="h-4 w-4" />
           {unreadCount > 0 && (
             <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold leading-none text-destructive-foreground shadow-sm ring-2 ring-background">
               {badgeText}

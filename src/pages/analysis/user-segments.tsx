@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { Users } from "lucide-react";
+import { IconUsers } from "@/components/icons"
 import { useState } from "react";
 import { USER_SEGMENTS, type UserSegment } from "./mock-data";
 
@@ -23,7 +23,7 @@ export function UserSegments() {
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Users className="h-4 w-4 text-primary" />
+            <IconUsers className="h-4 w-4 text-primary" />
             用户分群
           </CardTitle>
           <Tabs value={tab} onValueChange={(v) => setTab(v as UserSegment)}>

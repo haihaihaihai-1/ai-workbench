@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { Plus } from "lucide-react";
+import { IconPlus } from "@/components/icons"
 import type { ReactNode } from "react";
 
 type Props = {
@@ -50,7 +50,7 @@ export function DroppableColumn({ id, title, count, color, description, items, c
           </span>
         </div>
         <Button variant="ghost" size="icon" className="h-6 w-6" aria-label="新建工单">
-          <Plus className="h-3.5 w-3.5" />
+          <IconPlus className="h-3.5 w-3.5" />
         </Button>
       </div>
       <p className="px-3 pt-2 text-[10px] text-muted-foreground">{description}</p>

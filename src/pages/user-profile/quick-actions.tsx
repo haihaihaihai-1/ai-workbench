@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, History, MessageCirclePlus, RotateCcw } from "lucide-react";
+import { IconDownload, IconHistory, IconMessageCirclePlus, IconRotateCcw } from "@/components/icons"
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { QUICK_ACTIONS } from "./mock-data";
@@ -8,7 +8,7 @@ import { QUICK_ACTIONS } from "./mock-data";
 type Action = {
   key: keyof typeof QUICK_ACTIONS;
   label: string;
-  icon: typeof MessageCirclePlus;
+  icon: typeof IconMessageCirclePlus;
   variant: "default" | "outline" | "ghost" | "destructive";
   description: string;
 };
@@ -17,28 +17,28 @@ const ACTIONS: Action[] = [
   {
     key: "sendMessage",
     label: "发送消息",
-    icon: MessageCirclePlus,
+    icon: IconMessageCirclePlus,
     variant: "default",
     description: "开启与该用户的新会话",
   },
   {
     key: "viewConversations",
     label: "查看对话",
-    icon: History,
+    icon: IconHistory,
     variant: "outline",
     description: "查看历史对话与消息",
   },
   {
     key: "exportProfile",
     label: "导出画像",
-    icon: Download,
+    icon: IconDownload,
     variant: "outline",
     description: "导出为 JSON 文件",
   },
   {
     key: "resetMemory",
     label: "重置记忆",
-    icon: RotateCcw,
+    icon: IconRotateCcw,
     variant: "ghost",
     description: "清空该用户全部记忆",
   },
@@ -69,7 +69,7 @@ export function QuickActions() {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <RotateCcw className="h-4 w-4 text-primary" />
+          <IconRotateCcw className="h-4 w-4 text-primary" />
           快速操作
         </CardTitle>
       </CardHeader>

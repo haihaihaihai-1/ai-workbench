@@ -2,24 +2,24 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useTheme } from "@/hooks/use-theme";
 import { cn } from "@/lib/utils";
 import type { Theme } from "@/stores/theme-store";
-import { Check, Monitor, Moon, Sun } from "lucide-react";
+import { IconCheck, IconMonitor, IconMoon, IconSun } from "@/components/icons"
 
 type Option = {
   value: Theme;
   label: string;
   description: string;
-  icon: typeof Moon;
+  icon: typeof IconMoon;
 };
 
 const OPTIONS: Option[] = [
-  { value: "dark", label: "暗色", description: "适合弱光环境", icon: Moon },
-  { value: "light", label: "亮色", description: "明亮清晰", icon: Sun },
-  { value: "system", label: "跟随系统", description: "跟随操作系统设置", icon: Monitor },
+  { value: "dark", label: "暗色", description: "适合弱光环境", icon: IconMoon },
+  { value: "light", label: "亮色", description: "明亮清晰", icon: IconSun },
+  { value: "system", label: "跟随系统", description: "跟随操作系统设置", icon: IconMonitor },
 ];
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
-  const ActiveIcon = theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
+  const ActiveIcon = theme === "dark" ? IconMoon : theme === "light" ? IconSun : IconMonitor;
 
   return (
     <Popover>
@@ -72,7 +72,7 @@ export function ThemeSwitcher() {
                   <span className="block font-medium leading-tight">{opt.label}</span>
                   <span className="block text-xs text-muted-foreground">{opt.description}</span>
                 </span>
-                {active && <Check className="h-4 w-4 shrink-0 text-primary" />}
+                {active && <IconCheck className="h-4 w-4 shrink-0 text-primary" />}
               </label>
             );
           })}

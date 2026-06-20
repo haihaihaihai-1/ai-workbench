@@ -13,7 +13,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-media-query";
 import type { Ticket, TicketStatus } from "@/lib/types";
 import { relativeTime } from "@/lib/utils";
-import { LayoutGrid, List, Plus, RefreshCw, Ticket as TicketIcon } from "lucide-react";
+import { IconLayoutGrid, IconList, IconPlus, IconRefreshCw, IconTicket as TicketIcon } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -125,21 +125,21 @@ export default function TicketsPage() {
           <Tabs value={view} onValueChange={(v) => setView(v as typeof view)}>
             <TabsList>
               <TabsTrigger value="list" className="h-7 gap-1 text-xs">
-                <List className="h-3.5 w-3.5" />
+                <IconList className="h-3.5 w-3.5" />
                 列表
               </TabsTrigger>
               <TabsTrigger value="board" className="h-7 gap-1 text-xs">
-                <LayoutGrid className="h-3.5 w-3.5" />
+                <IconLayoutGrid className="h-3.5 w-3.5" />
                 看板
               </TabsTrigger>
             </TabsList>
           </Tabs>
           <Button variant="outline" size="sm" className="hidden h-7 gap-1.5 sm:inline-flex">
-            <RefreshCw className="h-3.5 w-3.5" />
+            <IconRefreshCw className="h-3.5 w-3.5" />
             刷新
           </Button>
           <Button size="sm" className="h-7 gap-1.5">
-            <Plus className="h-3.5 w-3.5" />
+            <IconPlus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">新建工单</span>
             <span className="sm:hidden">新建</span>
           </Button>

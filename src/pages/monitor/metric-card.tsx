@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { IconTrendingDown, IconTrendingUp } from "@/components/icons"
 
 type Props = {
   label: string;
@@ -39,9 +39,9 @@ export function MetricCard({
             )}
           >
             {trend === "up" ? (
-              <TrendingUp className="h-3 w-3" />
+              <IconTrendingUp className="h-3 w-3" />
             ) : (
-              <TrendingDown className="h-3 w-3" />
+              <IconTrendingDown className="h-3 w-3" />
             )}
             {delta > 0 ? "+" : ""}
             {delta}%

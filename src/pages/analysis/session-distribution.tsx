@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Hourglass } from "lucide-react";
+import { IconHourglass } from "@/components/icons"
 import {
   Bar,
   BarChart,
@@ -34,7 +34,7 @@ export function SessionDistribution() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Hourglass className="h-4 w-4 text-info" />
+            <IconHourglass className="h-4 w-4 text-info" />
             会话时长分布
           </CardTitle>
           <Badge variant="info" className="text-[10px]">

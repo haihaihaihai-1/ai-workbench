@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn, shortNumber } from "@/lib/utils";
-import { BarChart3, CheckCircle2, Download, Sparkles } from "lucide-react";
+import { IconBarChart3, IconCheckCircle2, IconDownload, IconSparkles } from "@/components/icons"
 import type { SKILL_STATS } from "./mock-data";
 
 type Props = { stats: typeof SKILL_STATS };
@@ -10,25 +10,25 @@ export function StatsOverview({ stats }: Props) {
     {
       label: "总技能",
       value: stats.total,
-      icon: Sparkles,
+      icon: IconSparkles,
       tone: "text-primary",
     },
     {
       label: "已启用",
       value: `${stats.enabled}/${stats.total}`,
-      icon: CheckCircle2,
+      icon: IconCheckCircle2,
       tone: "text-success",
     },
     {
       label: "总调用次数",
       value: shortNumber(stats.calls),
-      icon: BarChart3,
+      icon: IconBarChart3,
       tone: "text-info",
     },
     {
       label: "最热门",
       value: stats.popular,
-      icon: Download,
+      icon: IconDownload,
       tone: "text-warning",
     },
   ];

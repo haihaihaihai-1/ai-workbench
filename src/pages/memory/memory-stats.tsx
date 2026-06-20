@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Activity, Brain, Clock, Pin, Sparkles, TrendingUp } from "lucide-react";
+import { IconActivity, IconBrain, IconClock, IconPin, IconSparkles, IconTrendingUp } from "@/components/icons"
 import {
   Area,
   AreaChart,
@@ -19,18 +19,18 @@ export function MemoryStats() {
         label="总记忆数"
         value={MEMORY_STATS.total}
         unit="条"
-        icon={Brain}
+        icon={IconBrain}
         tone="text-primary"
       />
-      <StatCard label="置顶" value={MEMORY_STATS.pinned} unit="条" icon={Pin} tone="text-warning" />
+      <StatCard label="置顶" value={MEMORY_STATS.pinned} unit="条" icon={IconPin} tone="text-warning" />
       <StatCard
         label="平均置信度"
         value={Math.round(MEMORY_STATS.avgConfidence * 100)}
         unit="%"
-        icon={TrendingUp}
+        icon={IconTrendingUp}
         tone="text-success"
       />
-      <StatCard label="本周新增" value={12} unit="条" icon={Sparkles} tone="text-info" />
+      <StatCard label="本周新增" value={12} unit="条" icon={IconSparkles} tone="text-info" />
     </div>
   );
 }
@@ -45,7 +45,7 @@ function StatCard({
   label: string;
   value: number;
   unit?: string;
-  icon: typeof Brain;
+  icon: typeof IconBrain;
   tone: string;
 }) {
   return (
@@ -72,7 +72,7 @@ export function MemoryCharts() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Activity className="h-4 w-4 text-info" />
+            <IconActivity className="h-4 w-4 text-info" />
             30 天情绪趋势
           </CardTitle>
         </CardHeader>
@@ -110,7 +110,7 @@ export function MemoryCharts() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Clock className="h-4 w-4 text-warning" />
+            <IconClock className="h-4 w-4 text-warning" />
             活跃时段
           </CardTitle>
         </CardHeader>

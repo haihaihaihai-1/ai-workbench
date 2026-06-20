@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { exportToJSON } from "@/lib/export";
-import { Brain, Sparkles } from "lucide-react";
+import { IconBrain, IconSparkles } from "@/components/icons"
 import { MEMORY_TYPE_INFO } from "./mock-data";
 
 // 静态画像数据 - 导出用
@@ -24,7 +24,7 @@ export function ProfilePanel() {
     <Card className="lg:sticky lg:top-4">
       <CardHeader>
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Sparkles className="h-4 w-4 text-primary" />
+          <IconSparkles className="h-4 w-4 text-primary" />
           用户画像
         </CardTitle>
       </CardHeader>
@@ -95,7 +95,7 @@ export function ProfilePanel() {
             )
           }
         >
-          <Brain className="h-3.5 w-3.5" />
+          <IconBrain className="h-3.5 w-3.5" />
           导出画像（JSON）
         </Button>
       </CardContent>

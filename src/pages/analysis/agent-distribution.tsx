@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { shortNumber } from "@/lib/utils";
-import { Users } from "lucide-react";
+import { IconUsers } from "@/components/icons"
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { AGENT_DISTRIBUTION } from "./mock-data";
 
@@ -17,7 +17,7 @@ export function AgentDistribution() {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Users className="h-4 w-4 text-primary" />
+          <IconUsers className="h-4 w-4 text-primary" />
           Agent 路由分布
         </CardTitle>
       </CardHeader>

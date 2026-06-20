@@ -20,16 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, relativeTime, shortNumber } from "@/lib/utils";
-import {
-  Check,
-  KeyRound,
-  Minus,
-  MoreHorizontal,
-  Power,
-  ShieldCheck,
-  Trash2,
-  UserCog,
-} from "lucide-react";
+import { IconCheck, IconKeyRound, IconMinus, IconMoreHorizontal, IconPower, IconShieldCheck, IconTrash2, IconUserCog } from "@/components/icons"
 import type { User } from "./mock-data";
 import { ROLE_INFO, STATUS_INFO } from "./mock-data";
 
@@ -72,9 +63,9 @@ function Checkbox({ checked, indeterminate, onCheckedChange, ...rest }: Checkbox
         {...rest}
       />
       {indeterminate ? (
-        <Minus className="pointer-events-none h-3 w-3" />
+        <IconMinus className="pointer-events-none h-3 w-3" />
       ) : checked ? (
-        <Check className="pointer-events-none h-3 w-3" />
+        <IconCheck className="pointer-events-none h-3 w-3" />
       ) : null}
     </span>
   );
@@ -210,30 +201,30 @@ export function UserTable({
                           className="h-7 w-7"
                           aria-label="更多操作"
                         >
-                          <MoreHorizontal className="h-3.5 w-3.5" />
+                          <IconMoreHorizontal className="h-3.5 w-3.5" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>用户操作</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => onOpen(u)}>
-                          <UserCog className="h-3.5 w-3.5" />
+                          <IconUserCog className="h-3.5 w-3.5" />
                           查看详情
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onResetPwd(u)}>
-                          <KeyRound className="h-3.5 w-3.5" />
+                          <IconKeyRound className="h-3.5 w-3.5" />
                           重置密码
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onToggle(u, u.status !== "active")}>
-                          <Power className="h-3.5 w-3.5" />
+                          <IconPower className="h-3.5 w-3.5" />
                           {u.status === "active" ? "禁用" : "启用"}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onOpen(u)}>
-                          <ShieldCheck className="h-3.5 w-3.5" />
+                          <IconShieldCheck className="h-3.5 w-3.5" />
                           权限设置
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-destructive" onClick={() => onDelete(u)}>
-                          <Trash2 className="h-3.5 w-3.5" />
+                          <IconTrash2 className="h-3.5 w-3.5" />
                           删除用户
                         </DropdownMenuItem>
                       </DropdownMenuContent>

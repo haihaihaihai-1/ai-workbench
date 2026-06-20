@@ -6,15 +6,7 @@ import { useIsMobile } from "@/hooks/use-media-query";
 import type { AgentDomain, ChatMessage, Conversation, SourceRef, ToolCall } from "@/lib/types";
 import { cn, randomId } from "@/lib/utils";
 import { useChatStore } from "@/stores/chat-store";
-import {
-  ChevronsLeft,
-  ChevronsRight,
-  FileText,
-  ListTree,
-  PanelRightOpen,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { IconChevronsLeft, IconChevronsRight, IconFileText, IconListTree, IconPanelRightOpen, IconSparkles, IconX } from "@/components/icons"
 import { useEffect, useRef, useState } from "react";
 import { AgentSwitcher } from "./agent-switcher";
 import { Composer } from "./composer";
@@ -281,9 +273,9 @@ export default function ChatPage() {
             aria-label="切换会话列表"
           >
             {leftCollapsed ? (
-              <ChevronsRight className="h-4 w-4" />
+              <IconChevronsRight className="h-4 w-4" />
             ) : (
-              <ChevronsLeft className="h-4 w-4" />
+              <IconChevronsLeft className="h-4 w-4" />
             )}
           </Button>
 
@@ -301,7 +293,7 @@ export default function ChatPage() {
             onClick={() => openCommand()}
             className="hidden h-8 gap-1.5 text-muted-foreground md:inline-flex"
           >
-            <Sparkles className="h-3.5 w-3.5" />
+            <IconSparkles className="h-3.5 w-3.5" />
             <span className="hidden md:inline">命令面板</span>
             <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] md:inline-flex">
               ⌘K
@@ -313,7 +305,7 @@ export default function ChatPage() {
             className="h-8 gap-1.5"
             onClick={() => setRightPanel(rightPanel === "trace" ? null : "trace")}
           >
-            <ListTree className="h-3.5 w-3.5" />
+            <IconListTree className="h-3.5 w-3.5" />
             <span className="hidden md:inline">追踪</span>
           </Button>
           <Button
@@ -322,7 +314,7 @@ export default function ChatPage() {
             className="h-8 gap-1.5"
             onClick={() => setRightPanel(rightPanel === "sources" ? null : "sources")}
           >
-            <FileText className="h-3.5 w-3.5" />
+            <IconFileText className="h-3.5 w-3.5" />
             <span className="hidden md:inline">引用</span>
           </Button>
         </div>
@@ -398,7 +390,7 @@ export default function ChatPage() {
               className="h-7 w-7"
               onClick={() => setRightPanel(null)}
             >
-              <X className="h-3.5 w-3.5" />
+              <IconX className="h-3.5 w-3.5" />
             </Button>
           </div>
           {rightPanel === "trace" ? (
@@ -415,7 +407,7 @@ export default function ChatPage() {
           className="absolute right-6 top-20 hidden h-8 w-8 lg:flex"
           onClick={() => setRightPanel("trace")}
         >
-          <PanelRightOpen className="h-3.5 w-3.5" />
+          <IconPanelRightOpen className="h-3.5 w-3.5" />
         </Button>
       )}
 
@@ -448,7 +440,7 @@ export default function ChatPage() {
                 onClick={() => setRightPanel(null)}
                 aria-label="关闭"
               >
-                <X className="h-4 w-4" />
+                <IconX className="h-4 w-4" />
               </Button>
             </div>
             {rightPanel === "trace" ? (
@@ -487,7 +479,7 @@ function MobileConvSheet({
         onClick={() => setOpen(true)}
         aria-label="打开会话列表"
       >
-        <ListTree className="h-4 w-4" />
+        <IconListTree className="h-4 w-4" />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent

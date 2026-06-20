@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { relativeTime } from "@/lib/utils";
-import { ArrowRight, MessageSquare, Pin } from "lucide-react";
+import { IconArrowRight, IconMessageSquare, IconPin } from "@/components/icons"
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AGENT_VISUAL, RECENT_CONVERSATIONS } from "./mock-data";
@@ -13,7 +13,7 @@ export function RecentConversations() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <MessageSquare className="h-4 w-4 text-primary" />
+          <IconMessageSquare className="h-4 w-4 text-primary" />
           最近对话
         </CardTitle>
         <button
@@ -50,7 +50,7 @@ export function RecentConversations() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
-                      {c.pinned && <Pin className="h-3 w-3 fill-warning text-warning" />}
+                      {c.pinned && <IconPin className="h-3 w-3 fill-warning text-warning" />}
                       <span className="truncate text-sm font-medium">{c.title}</span>
                     </div>
                     <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground">
@@ -65,7 +65,7 @@ export function RecentConversations() {
                       <span>{relativeTime(c.updatedAt)}</span>
                     </div>
                   </div>
-                  <ArrowRight className="mt-2 h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                  <IconArrowRight className="mt-2 h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </button>
               );
             })}

@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Star } from "lucide-react";
+import { IconMessageSquare, IconStar } from "@/components/icons"
 import { COMMUNICATION_PREF } from "./mock-data";
 
 function StarRating({ value }: { value: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star
+        <IconStar
           key={i}
           className={`h-3.5 w-3.5 ${
             i < value ? "fill-warning text-warning" : "fill-muted text-muted"
@@ -23,7 +23,7 @@ export function CommunicationPrefCard() {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <MessageSquare className="h-4 w-4 text-info" />
+          <IconMessageSquare className="h-4 w-4 text-info" />
           沟通偏好
         </CardTitle>
       </CardHeader>

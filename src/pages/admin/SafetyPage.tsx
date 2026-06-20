@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/table";
 import { exportToCSV } from "@/lib/export";
 import { cn, relativeTime } from "@/lib/utils";
-import { AlertTriangle, Download, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
+import { IconAlertTriangle, IconDownload, IconShieldCheck, IconShieldOff, IconTrash2 } from "@/components/icons"
 import { useMemo, useState } from "react";
 import {
   Bar,
@@ -230,7 +230,7 @@ export default function SafetyPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <ShieldCheck className="h-6 w-6 text-primary" />
+            <IconShieldCheck className="h-6 w-6 text-primary" />
             安全监控
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -255,7 +255,7 @@ export default function SafetyPage() {
               ])
             }
           >
-            <Download className="h-3.5 w-3.5" />
+            <IconDownload className="h-3.5 w-3.5" />
             导出
           </Button>
           <Button
@@ -264,7 +264,7 @@ export default function SafetyPage() {
             className="h-8 gap-1.5 text-destructive"
             onClick={() => toast.warning("已清空 30 天前的归档")}
           >
-            <Trash2 className="h-3.5 w-3.5" />
+            <IconTrash2 className="h-3.5 w-3.5" />
             清空归档
           </Button>
         </div>
@@ -272,10 +272,10 @@ export default function SafetyPage() {
 
       {/* 4 严重级别 */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <StatCard label="严重" value={STATS.critical} icon={AlertTriangle} tone="destructive" />
-        <StatCard label="高" value={STATS.high} icon={AlertTriangle} tone="warning" />
-        <StatCard label="中" value={STATS.medium} icon={AlertTriangle} tone="info" />
-        <StatCard label="低" value={STATS.low} icon={ShieldOff} tone="success" />
+        <StatCard label="严重" value={STATS.critical} icon={IconAlertTriangle} tone="destructive" />
+        <StatCard label="高" value={STATS.high} icon={IconAlertTriangle} tone="warning" />
+        <StatCard label="中" value={STATS.medium} icon={IconAlertTriangle} tone="info" />
+        <StatCard label="低" value={STATS.low} icon={IconShieldOff} tone="success" />
       </div>
 
       {/* 图表 */}
@@ -508,7 +508,7 @@ function StatCard({
 }: {
   label: string;
   value: number;
-  icon: typeof AlertTriangle;
+  icon: typeof IconAlertTriangle;
   tone: "destructive" | "warning" | "info" | "success";
 }) {
   const toneClass = {

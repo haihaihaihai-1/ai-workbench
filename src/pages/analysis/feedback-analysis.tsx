@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThumbsUp } from "lucide-react";
+import { IconThumbsUp } from "@/components/icons"
 import {
   Bar,
   BarChart,
@@ -24,7 +24,7 @@ export function FeedbackAnalysis() {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <ThumbsUp className="h-4 w-4 text-success" />
+          <IconThumbsUp className="h-4 w-4 text-success" />
           反馈分析
         </CardTitle>
       </CardHeader>

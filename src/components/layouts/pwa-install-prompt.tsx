@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { usePWA } from "@/hooks/use-pwa";
-import { Download, X } from "lucide-react";
+import { IconDownload, IconX } from "@/components/icons"
 import { useEffect, useState } from "react";
 
 export function PWAInstallPrompt() {
@@ -20,7 +20,7 @@ export function PWAInstallPrompt() {
   return (
     <div className="fixed bottom-20 left-4 right-4 z-40 mx-auto flex max-w-md items-center gap-3 rounded-lg border border-border bg-popover/95 p-3 shadow-lg backdrop-blur md:bottom-4">
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground">
-        <Download className="h-5 w-5" />
+        <IconDownload className="h-5 w-5" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="text-sm font-semibold">安装 AI Workbench</div>
@@ -45,7 +45,7 @@ export function PWAInstallPrompt() {
         }}
         aria-label="关闭"
       >
-        <X className="h-3.5 w-3.5" />
+        <IconX className="h-3.5 w-3.5" />
       </Button>
     </div>
   );

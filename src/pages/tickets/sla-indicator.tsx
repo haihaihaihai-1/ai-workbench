@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { AlertTriangle, Clock } from "lucide-react";
+import { IconAlertTriangle, IconClock } from "@/components/icons"
 import { useEffect, useState } from "react";
 
 type Props = { dueAt: number; compact?: boolean };
@@ -37,7 +37,7 @@ export function SlaIndicator({ dueAt, compact }: Props) {
           tone === "default" && "bg-muted text-muted-foreground",
         )}
       >
-        {breached ? <AlertTriangle className="h-3 w-3" /> : <Clock className="h-3 w-3" />}
+        {breached ? <IconAlertTriangle className="h-3 w-3" /> : <IconClock className="h-3 w-3" />}
         {breached ? "超时" : "剩"} {label}
       </span>
     );
@@ -52,7 +52,7 @@ export function SlaIndicator({ dueAt, compact }: Props) {
         tone === "default" && "text-muted-foreground",
       )}
     >
-      {breached ? <AlertTriangle className="h-3.5 w-3.5" /> : <Clock className="h-3.5 w-3.5" />}
+      {breached ? <IconAlertTriangle className="h-3.5 w-3.5" /> : <IconClock className="h-3.5 w-3.5" />}
       <span className="font-mono">
         {breached ? "已超时 " : "剩余 "}
         {label}

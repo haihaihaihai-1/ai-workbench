@@ -11,7 +11,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { ChartLine, Compass, Play, Sliders, Sparkles, Workflow } from "lucide-react";
+import { IconChartLine, IconCompass, IconPlay, IconSliders, IconSparkles, IconWorkflow } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 import { HealthOverview } from "./flywheel/health-overview";
@@ -68,7 +68,7 @@ export default function FlywheelPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <ChartLine className="h-6 w-6 text-primary" />
+            <IconChartLine className="h-6 w-6 text-primary" />
             数据飞轮
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -86,7 +86,7 @@ export default function FlywheelPage() {
             </TabsList>
           </Tabs>
           <Button size="sm" onClick={handleAnalyze} disabled={analyzing} className="h-8 gap-1.5">
-            <Play className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} />
+            <IconPlay className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} />
             {analyzing ? "分析中..." : "触发分析"}
           </Button>
         </div>
@@ -99,11 +99,11 @@ export default function FlywheelPage() {
       <Tabs value={tab} onValueChange={(v) => setTab(v as typeof tab)}>
         <TabsList>
           <TabsTrigger value="health" className="gap-1.5">
-            <Workflow className="h-3.5 w-3.5" />
+            <IconWorkflow className="h-3.5 w-3.5" />
             飞轮健康度
           </TabsTrigger>
           <TabsTrigger value="evolve" className="gap-1.5">
-            <Compass className="h-3.5 w-3.5" />
+            <IconCompass className="h-3.5 w-3.5" />
             意图进化
           </TabsTrigger>
         </TabsList>
@@ -126,7 +126,7 @@ export default function FlywheelPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-                <Sliders className="h-4 w-4 text-primary" />
+                <IconSliders className="h-4 w-4 text-primary" />
                 分析控制
               </CardTitle>
             </CardHeader>
@@ -189,7 +189,7 @@ export default function FlywheelPage() {
                     size="sm"
                     className="h-8 w-full gap-1.5 md:w-auto"
                   >
-                    <Sparkles className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} />
+                    <IconSparkles className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} />
                     {analyzing ? "扫描中..." : "启动扫描"}
                   </Button>
                 </div>
@@ -222,7 +222,7 @@ function ConfidenceMix() {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Workflow className="h-4 w-4 text-info" />
+          <IconWorkflow className="h-4 w-4 text-info" />
           置信度概览
         </CardTitle>
       </CardHeader>

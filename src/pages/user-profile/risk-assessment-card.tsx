@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { AlertTriangle, Brain, GraduationCap, Minus, TrendingDown, TrendingUp } from "lucide-react";
+import { IconAlertTriangle, IconBrain, IconGraduationCap, IconMinus, IconTrendingDown, IconTrendingUp } from "@/components/icons"
 import { ACADEMIC_RISK, PSYCH_RISK } from "./mock-data";
 
 type Risk = {
@@ -24,11 +24,11 @@ const LEVEL_INFO: Record<
   high: { label: "高风险", variant: "destructive", tone: "text-destructive" },
 };
 
-const TREND_INFO: Record<Risk["trend"], { icon: typeof TrendingUp; label: string; tone: string }> =
+const TREND_INFO: Record<Risk["trend"], { icon: typeof IconTrendingUp; label: string; tone: string }> =
   {
-    rising: { icon: TrendingUp, label: "上升中", tone: "text-destructive" },
-    falling: { icon: TrendingDown, label: "下降中", tone: "text-success" },
-    stable: { icon: Minus, label: "稳定", tone: "text-muted-foreground" },
+    rising: { icon: IconTrendingUp, label: "上升中", tone: "text-destructive" },
+    falling: { icon: IconTrendingDown, label: "下降中", tone: "text-success" },
+    stable: { icon: IconMinus, label: "稳定", tone: "text-muted-foreground" },
   };
 
 function RiskRow({
@@ -36,7 +36,7 @@ function RiskRow({
   title,
   risk,
 }: {
-  icon: typeof Brain;
+  icon: typeof IconBrain;
   title: string;
   risk: Risk;
 }) {
@@ -95,13 +95,13 @@ export function RiskAssessmentCard() {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <AlertTriangle className="h-4 w-4 text-warning" />
+          <IconAlertTriangle className="h-4 w-4 text-warning" />
           风险评估
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        <RiskRow icon={Brain} title="心理风险" risk={PSYCH} />
-        <RiskRow icon={GraduationCap} title="学业风险" risk={ACADEMIC} />
+        <RiskRow icon={IconBrain} title="心理风险" risk={PSYCH} />
+        <RiskRow icon={IconGraduationCap} title="学业风险" risk={ACADEMIC} />
       </CardContent>
     </Card>
   );

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart } from "lucide-react";
+import { IconHeart } from "@/components/icons"
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ALL_INTEREST_TAGS, TOP_INTERESTS } from "./mock-data";
 
@@ -31,7 +31,7 @@ export function InterestsPanel() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Heart className="h-4 w-4 text-primary" />
+              <IconHeart className="h-4 w-4 text-primary" />
               TOP 10 兴趣领域
             </CardTitle>
             <span className="text-[10px] text-muted-foreground">对话主题提取</span>
@@ -67,7 +67,7 @@ export function InterestsPanel() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Heart className="h-4 w-4 text-primary" />
+              <IconHeart className="h-4 w-4 text-primary" />
               完整标签云
             </CardTitle>
             <span className="text-[10px] text-muted-foreground">

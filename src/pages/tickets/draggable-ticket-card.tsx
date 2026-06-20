@@ -4,7 +4,7 @@ import type { Ticket } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical } from "lucide-react";
+import { IconGripVertical } from "@/components/icons"
 import { TICKET_PRIORITY_INFO, TICKET_TYPE_INFO } from "./mock-data";
 import { SlaIndicator } from "./sla-indicator";
 
@@ -46,7 +46,7 @@ export function DraggableTicketCard({ ticket, onClick }: Props) {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <GripVertical
+          <IconGripVertical
             className={cn(
               "h-3.5 w-3.5 text-muted-foreground/40 transition-colors",
               "group-hover:text-muted-foreground",

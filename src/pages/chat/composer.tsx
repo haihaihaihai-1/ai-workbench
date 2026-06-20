@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { AgentDomain } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { ArrowUp, Paperclip, Square } from "lucide-react";
+import { IconArrowUp, IconPaperclip, IconSquare } from "@/components/icons"
 import { useState } from "react";
 import { AGENTS, SUGGESTED_PROMPTS } from "./mock-data";
 
@@ -48,7 +48,7 @@ export function Composer({ onSend, streaming, onStop, agent }: Props) {
       {/* 输入区 */}
       <div className="flex items-end gap-2 rounded-xl border border-input bg-card p-2 shadow-sm focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20">
         <Button size="icon" variant="ghost" className="h-8 w-8 shrink-0" aria-label="附件">
-          <Paperclip className="h-4 w-4" />
+          <IconPaperclip className="h-4 w-4" />
         </Button>
         <textarea
           value={text}
@@ -65,7 +65,7 @@ export function Composer({ onSend, streaming, onStop, agent }: Props) {
         />
         {streaming ? (
           <Button size="icon" variant="destructive" className="h-8 w-8 shrink-0" onClick={onStop}>
-            <Square className="h-3.5 w-3.5" />
+            <IconSquare className="h-3.5 w-3.5" />
           </Button>
         ) : (
           <Button
@@ -75,7 +75,7 @@ export function Composer({ onSend, streaming, onStop, agent }: Props) {
             className="h-8 w-8 shrink-0"
             aria-label="发送"
           >
-            <ArrowUp className="h-4 w-4" />
+            <IconArrowUp className="h-4 w-4" />
           </Button>
         )}
       </div>

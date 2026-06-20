@@ -31,16 +31,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // Dialog / DropdownMenu / Popover / Tabs / Command 展示
-import {
-  Bell,
-  ChevronDown,
-  Filter,
-  MoreHorizontal,
-  Plus,
-  Search,
-  Settings,
-  User,
-} from "lucide-react";
+import { IconBell, IconChevronDown, IconFilter, IconMoreHorizontal, IconPlus, IconSearch, IconSettings, IconUser } from "@/components/icons"
 import { SectionFrame } from "./section-frame";
 
 export function SectionOverlay() {
@@ -94,9 +85,9 @@ export function SectionOverlay() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="gap-1.5">
-                    <User className="h-3.5 w-3.5" />
+                    <IconUser className="h-3.5 w-3.5" />
                     账户
-                    <ChevronDown className="h-3.5 w-3.5 opacity-50" />
+                    <IconChevronDown className="h-3.5 w-3.5 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -113,7 +104,7 @@ export function SectionOverlay() {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="gap-1.5">
-                    <Filter className="h-3.5 w-3.5" />
+                    <IconFilter className="h-3.5 w-3.5" />
                     筛选
                   </Button>
                 </PopoverTrigger>
@@ -135,7 +126,7 @@ export function SectionOverlay() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <MoreHorizontal className="h-4 w-4" />
+                    <IconMoreHorizontal className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -182,21 +173,21 @@ export function SectionOverlay() {
                 <CommandEmpty>未找到结果</CommandEmpty>
                 <CommandGroup heading="建议">
                   <CommandItem>
-                    <Search className="h-4 w-4" />
+                    <IconSearch className="h-4 w-4" />
                     <span>搜索</span>
                   </CommandItem>
                   <CommandItem>
-                    <Plus className="h-4 w-4" />
+                    <IconPlus className="h-4 w-4" />
                     <span>新建对话</span>
                     <CommandShortcut>⌘N</CommandShortcut>
                   </CommandItem>
                   <CommandItem>
-                    <Bell className="h-4 w-4" />
+                    <IconBell className="h-4 w-4" />
                     <span>通知中心</span>
                     <CommandShortcut>⌘⇧N</CommandShortcut>
                   </CommandItem>
                   <CommandItem>
-                    <Settings className="h-4 w-4" />
+                    <IconSettings className="h-4 w-4" />
                     <span>系统设置</span>
                   </CommandItem>
                 </CommandGroup>

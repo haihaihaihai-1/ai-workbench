@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { AgentDomain } from "@/lib/types";
-import { Sparkles } from "lucide-react";
-import { Check, ChevronDown, Cpu } from "lucide-react";
+import { IconSparkles } from "@/components/icons"
+import { IconCheck, IconChevronDown, IconCpu } from "@/components/icons"
 import { AGENTS, MODELS, type ModelId } from "./mock-data";
 
 type Props = {
@@ -37,7 +37,7 @@ export function AgentSwitcher({ current, onChange, model, onModelChange, streami
           >
             <span className="text-base">{agent.emoji}</span>
             <span className="font-medium">{agent.name}</span>
-            <ChevronDown className="h-3.5 w-3.5 opacity-50" />
+            <IconChevronDown className="h-3.5 w-3.5 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-72">
@@ -54,7 +54,7 @@ export function AgentSwitcher({ current, onChange, model, onModelChange, streami
                 <div className="flex flex-1 flex-col">
                   <div className="flex items-center justify-between">
                     <span className="font-medium">{a.name}</span>
-                    {d === current && <Check className="h-3.5 w-3.5 text-primary" />}
+                    {d === current && <IconCheck className="h-3.5 w-3.5 text-primary" />}
                   </div>
                   <span className="text-xs text-muted-foreground">{a.description}</span>
                 </div>
@@ -75,9 +75,9 @@ export function AgentSwitcher({ current, onChange, model, onModelChange, streami
             disabled={streaming}
             className="h-8 gap-1.5 text-muted-foreground hover:text-foreground"
           >
-            <Cpu className="h-3.5 w-3.5" />
+            <IconCpu className="h-3.5 w-3.5" />
             <span className="font-mono text-xs">{modelInfo.name}</span>
-            <ChevronDown className="h-3 w-3 opacity-50" />
+            <IconChevronDown className="h-3 w-3 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-64">
@@ -90,7 +90,7 @@ export function AgentSwitcher({ current, onChange, model, onModelChange, streami
                   <div className="text-sm font-medium">{m.name}</div>
                   <div className="text-xs text-muted-foreground">{m.provider}</div>
                 </div>
-                {m.id === model && <Check className="h-3.5 w-3.5 text-primary" />}
+                {m.id === model && <IconCheck className="h-3.5 w-3.5 text-primary" />}
               </div>
             </DropdownMenuItem>
           ))}
@@ -98,7 +98,7 @@ export function AgentSwitcher({ current, onChange, model, onModelChange, streami
       </DropdownMenu>
 
       <div className="ml-2 hidden items-center gap-1.5 text-xs text-muted-foreground md:flex">
-        <Sparkles className="h-3 w-3" />
+        <IconSparkles className="h-3 w-3" />
         <span>由 {modelInfo.name} 驱动</span>
       </div>
     </div>

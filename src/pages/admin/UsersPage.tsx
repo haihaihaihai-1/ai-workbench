@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { exportToCSV } from "@/lib/export";
-import { Users } from "lucide-react";
+import { IconUsers } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MOCK_USERS, USER_STATS, type User } from "./users/mock-data";
@@ -110,7 +110,7 @@ export default function UsersPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Users className="h-6 w-6 text-primary" />
+            <IconUsers className="h-6 w-6 text-primary" />
             用户管理
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -138,7 +138,7 @@ export default function UsersPage() {
             导出
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => setNewOpen(true)}>
-            <Users className="h-3.5 w-3.5" />
+            <IconUsers className="h-3.5 w-3.5" />
             新增用户
           </Button>
         </div>

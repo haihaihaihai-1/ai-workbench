@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
+import { IconSparkles } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { CustomSkillCta } from "./skills/custom-skill-cta";
@@ -68,7 +68,7 @@ export default function SkillsPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Sparkles className="h-6 w-6 text-primary" />
+            <IconSparkles className="h-6 w-6 text-primary" />
             技能市场
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -85,7 +85,7 @@ export default function SkillsPage() {
             刷新
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能开发向导")}>
-            <Sparkles className="h-3.5 w-3.5" />
+            <IconSparkles className="h-3.5 w-3.5" />
             提交技能
           </Button>
         </div>

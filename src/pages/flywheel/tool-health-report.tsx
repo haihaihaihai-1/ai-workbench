@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, shortNumber } from "@/lib/utils";
-import { Wrench } from "lucide-react";
+import { IconWrench } from "@/components/icons"
 import { TOOL_HEALTH_REPORT } from "./mock-data";
 
 export function ToolHealthReport() {
@@ -17,7 +17,7 @@ export function ToolHealthReport() {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Wrench className="h-4 w-4 text-warning" />
+          <IconWrench className="h-4 w-4 text-warning" />
           工具健康度报告
         </CardTitle>
       </CardHeader>
