@@ -33,3 +33,10 @@ pnpm-debug.log*
 # Vite
 .vite/
 .tmp/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.last-run.json
