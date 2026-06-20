@@ -1,3 +1,10 @@
+import {
+  IconHistory as HistoryIcon,
+  IconActivity,
+  IconCode2,
+  IconSave,
+  IconShieldCheck,
+} from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +27,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, formatDate, relativeTime, shortNumber } from "@/lib/utils";
-import { IconActivity, IconCode2, IconHistory as HistoryIcon, IconSave, IconShieldCheck } from "@/components/icons"
 import { useState } from "react";
 import {
   type AdminSkill,

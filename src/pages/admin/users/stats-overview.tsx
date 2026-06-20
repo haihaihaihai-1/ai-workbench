@@ -1,6 +1,6 @@
+import { IconActivity, IconShieldOff, IconUserPlus, IconUsers } from "@/components/icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { IconActivity, IconShieldOff, IconUserPlus, IconUsers } from "@/components/icons"
 import type { USER_STATS } from "./mock-data";
 
 type Props = { stats: typeof USER_STATS };

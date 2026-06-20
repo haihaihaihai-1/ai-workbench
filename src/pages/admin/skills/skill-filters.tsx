@@ -1,3 +1,4 @@
+import { IconSearch, IconX } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -7,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IconSearch, IconX } from "@/components/icons"
 import type { ExecutionMode, SkillCategory, SkillStatus } from "./mock-data";
 
 export type SkillFilterState = {

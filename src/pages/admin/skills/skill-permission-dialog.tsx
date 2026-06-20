@@ -1,3 +1,4 @@
+import { IconPlus, IconShieldCheck, IconTrash2, IconUserPlus } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IconPlus, IconShieldCheck, IconTrash2, IconUserPlus } from "@/components/icons"
 import { useState } from "react";
 import { type AdminSkill, PERMISSION_LEVEL_INFO, type PermissionLevel } from "./mock-data";
 

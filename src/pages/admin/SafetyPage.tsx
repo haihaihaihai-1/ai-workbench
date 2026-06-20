@@ -1,3 +1,10 @@
+import {
+  IconAlertTriangle,
+  IconDownload,
+  IconShieldCheck,
+  IconShieldOff,
+  IconTrash2,
+} from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +25,6 @@ import {
 } from "@/components/ui/table";
 import { exportToCSV } from "@/lib/export";
 import { cn, relativeTime } from "@/lib/utils";
-import { IconAlertTriangle, IconDownload, IconShieldCheck, IconShieldOff, IconTrash2 } from "@/components/icons"
 import { useMemo, useState } from "react";
 import {
   Bar,
@@ -227,15 +233,18 @@ export default function SafetyPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconShieldCheck className="h-6 w-6 text-primary" />
-            安全监控
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            PII 检测 · 提示注入防护 · 内容违规审核 · 严重级别告警
-          </p>
+      {/* 顶部 · Grafana Alerting 招牌：橙色 (#F46800) logo */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#F46800] text-white shadow-vercel">
+            <IconShieldCheck className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">Alerting</h1>
+            <p className="text-[11px] text-muted-foreground">
+              PII 检测 · 提示注入防护 · 内容违规审核 · 严重级别告警
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button
