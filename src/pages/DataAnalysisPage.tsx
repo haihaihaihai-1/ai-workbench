@@ -1,7 +1,7 @@
+import { IconActivity, IconDownload, IconShareNetwork } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportToCSV, exportToJSON } from "@/lib/export";
-import { IconActivity, IconDownload } from "@/components/icons"
 import { useState } from "react";
 import { ActivityHeatmap } from "./analysis/activity-heatmap";
 import { AgentDistribution } from "./analysis/agent-distribution";
@@ -68,21 +68,24 @@ export default function DataAnalysisPage() {
   return (
     <div className="flex flex-col gap-4">
       {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconActivity className="h-6 w-6 text-primary" />
-            数据分析
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            活跃度 · 会话分布 · 路由分布 · 反馈分析 · 用户分群
-          </p>
+      {/* 顶部 · Mixpanel 招牌：紫色 (#7856FF) logo + 紧凑大数字主区 */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#7856FF] text-white shadow-vercel">
+            <IconActivity className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">Analytics</h1>
+            <p className="text-[11px] text-muted-foreground">
+              活跃度 · 会话分布 · 路由分布 · 反馈分析 · 用户分群
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Tabs value={range} onValueChange={setRange}>
-            <TabsList>
+            <TabsList className="h-7">
               {ranges.map((r) => (
-                <TabsTrigger key={r.id} value={r.id} className="h-7 px-2.5 text-xs">
+                <TabsTrigger key={r.id} value={r.id} className="h-6 px-2 text-[10px]">
                   {r.label}
                 </TabsTrigger>
               ))}
@@ -94,8 +97,8 @@ export default function DataAnalysisPage() {
               CSV
             </Button>
             <Button variant="outline" size="sm" onClick={handleExportExcel} className="h-8 gap-1">
-              <IconDownload className="h-3.5 w-3.5" />
-              Excel
+              <IconShareNetwork className="h-3.5 w-3.5" />
+              Share
             </Button>
           </div>
         </div>
