@@ -1,6 +1,6 @@
+import { IconAlertCircle, IconCheckCircle2, IconShieldOff, IconWrench } from "@/components/icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { IconAlertCircle, IconCheckCircle2, IconShieldOff, IconWrench } from "@/components/icons"
 import type { ADMIN_SKILL_STATS } from "./mock-data";
 
 type Props = { stats: typeof ADMIN_SKILL_STATS };

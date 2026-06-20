@@ -1,3 +1,16 @@
+import {
+  IconActivity,
+  IconCalendar,
+  IconKeyRound,
+  IconMail,
+  IconMessageSquare,
+  IconNetwork,
+  IconPower,
+  IconSave,
+  IconShieldCheck,
+  IconSparkles,
+  IconUser as UserIcon,
+} from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,7 +27,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, formatDate, relativeTime, shortNumber } from "@/lib/utils";
-import { IconActivity, IconCalendar, IconKeyRound, IconMail, IconMessageSquare, IconNetwork, IconPower, IconSave, IconShieldCheck, IconSparkles, IconUser as UserIcon } from "@/components/icons"
 import { useState } from "react";
 import { ROLE_INFO, STATUS_INFO, type User } from "./mock-data";
 

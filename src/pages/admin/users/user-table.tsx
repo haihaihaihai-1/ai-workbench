@@ -1,3 +1,13 @@
+import {
+  IconCheck,
+  IconKeyRound,
+  IconMinus,
+  IconMoreHorizontal,
+  IconPower,
+  IconShieldCheck,
+  IconTrash2,
+  IconUserCog,
+} from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,7 +30,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, relativeTime, shortNumber } from "@/lib/utils";
-import { IconCheck, IconKeyRound, IconMinus, IconMoreHorizontal, IconPower, IconShieldCheck, IconTrash2, IconUserCog } from "@/components/icons"
 import type { User } from "./mock-data";
 import { ROLE_INFO, STATUS_INFO } from "./mock-data";
 

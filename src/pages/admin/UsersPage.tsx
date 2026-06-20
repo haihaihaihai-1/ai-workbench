@@ -1,7 +1,7 @@
+import { IconDownload, IconUserPlus, IconUsers } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { exportToCSV } from "@/lib/export";
-import { IconUsers } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MOCK_USERS, USER_STATS, type User } from "./users/mock-data";
@@ -107,15 +107,19 @@ export default function UsersPage() {
   return (
     <div className="flex flex-col gap-4">
       {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconUsers className="h-6 w-6 text-primary" />
-            用户管理
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            用户列表 · 角色 · 状态 · 批量操作 · 审计
-          </p>
+      {/* 顶部 · Linear Members 招牌：紫色 logo + 紧凑 metadata */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-500 text-white shadow-vercel">
+            <IconUsers className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">Members</h1>
+            <p className="text-[11px] text-muted-foreground">
+              用户列表 · 角色 · 状态 · 批量操作 · 审计 ·{" "}
+              <span className="font-mono">{filtered.length}</span> 人
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -135,11 +139,12 @@ export default function UsersPage() {
               ])
             }
           >
-            导出
+            <IconDownload className="h-3.5 w-3.5" />
+            Export
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => setNewOpen(true)}>
-            <IconUsers className="h-3.5 w-3.5" />
-            新增用户
+            <IconUserPlus className="h-3.5 w-3.5" weight="bold" />
+            Add member
           </Button>
         </div>
       </header>

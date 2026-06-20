@@ -1,6 +1,6 @@
+import { IconWrench } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { IconWrench } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ADMIN_SKILL_STATS, type AdminSkill, MOCK_ADMIN_SKILLS } from "./skills/mock-data";
@@ -83,16 +83,18 @@ export default function SkillsAdminPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconWrench className="h-6 w-6 text-primary" />
-            技能管理
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            技能 CRUD · 执行模式 · 权限分配 · 审计日志
-          </p>
+      {/* 顶部 · Linear 风：紫色品牌块 logo */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-500 text-white shadow-vercel">
+            <IconWrench className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">Skills</h1>
+            <p className="text-[11px] text-muted-foreground">
+              技能 CRUD · 执行模式 · 权限分配 · 审计日志
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -101,11 +103,11 @@ export default function SkillsAdminPage() {
             className="h-8 gap-1.5"
             onClick={() => toast.info("已请求刷新技能列表")}
           >
-            刷新
+            Refresh
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能创建向导")}>
             <IconWrench className="h-3.5 w-3.5" />
-            新建技能
+            New skill
           </Button>
         </div>
       </header>

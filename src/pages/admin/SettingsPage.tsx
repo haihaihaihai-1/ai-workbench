@@ -1,3 +1,17 @@
+import {
+  IconBell,
+  IconBot,
+  IconCheckCircle2,
+  IconEye,
+  IconEyeOff,
+  IconInfo,
+  IconPalette,
+  IconSave,
+  IconServer,
+  IconShield,
+  IconSparkles,
+  IconTestTube,
+} from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +28,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import { IconBell, IconBot, IconCheckCircle2, IconEye, IconEyeOff, IconInfo, IconPalette, IconSave, IconServer, IconShield, IconSparkles, IconTestTube } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -35,15 +48,18 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconSparkles className="h-6 w-6 text-primary" />
-            系统设置
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            AI 模型 · 通知 · 服务状态 · 安全策略 · 外观
-          </p>
+      {/* 顶部 · Vercel Settings 招牌：黑色高对比 logo */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-foreground text-background shadow-vercel">
+            <IconSparkles className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">Settings</h1>
+            <p className="text-[11px] text-muted-foreground">
+              AI 模型 · 通知 · 服务状态 · 安全策略 · 外观
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           {dirty && (
@@ -166,7 +182,11 @@ function AiPanel({ onChange }: { onChange: () => void }) {
               className="h-9 w-9"
               onClick={() => setShowKey(!showKey)}
             >
-              {showKey ? <IconEyeOff className="h-3.5 w-3.5" /> : <IconEye className="h-3.5 w-3.5" />}
+              {showKey ? (
+                <IconEyeOff className="h-3.5 w-3.5" />
+              ) : (
+                <IconEye className="h-3.5 w-3.5" />
+              )}
             </Button>
           </div>
         </Row>

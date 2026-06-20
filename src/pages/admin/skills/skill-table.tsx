@@ -1,3 +1,12 @@
+import {
+  IconCopy,
+  IconHistory,
+  IconKeyRound,
+  IconMoreHorizontal,
+  IconPencil,
+  IconShieldCheck,
+  IconTrash2,
+} from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,7 +28,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, shortNumber } from "@/lib/utils";
-import { IconCopy, IconHistory, IconKeyRound, IconMoreHorizontal, IconPencil, IconShieldCheck, IconTrash2 } from "@/components/icons"
 import {
   type AdminSkill,
   CATEGORY_INFO,
