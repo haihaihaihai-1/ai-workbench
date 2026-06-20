@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { fadeInUp, listItem } from "@/lib/motion-presets";
 import { cn, formatDate } from "@/lib/utils";
-import { Brain, MessageSquare, Sparkles, Timer, Waves } from "lucide-react";
+import { IconBrain, IconMessageSquare, IconSparkles, IconTimer, IconWaves } from "@/components/icons"
 import { motion } from "motion/react";
 import { HOME_OVERVIEW } from "./mock-data";
 
@@ -9,7 +9,7 @@ type Metric = {
   label: string;
   value: string;
   hint: string;
-  icon: typeof MessageSquare;
+  icon: typeof IconMessageSquare;
   tone: string;
   bg: string;
 };
@@ -35,7 +35,7 @@ export function WelcomeBanner() {
       label: "今日对话",
       value: String(HOME_OVERVIEW.todayConversations),
       hint: "较昨日 +12%",
-      icon: MessageSquare,
+      icon: IconMessageSquare,
       tone: "text-primary",
       bg: "bg-primary/10",
     },
@@ -43,7 +43,7 @@ export function WelcomeBanner() {
       label: "总会话",
       value: HOME_OVERVIEW.totalConversations.toLocaleString(),
       hint: "累计 1248 条",
-      icon: Brain,
+      icon: IconBrain,
       tone: "text-info",
       bg: "bg-info/10",
     },
@@ -51,7 +51,7 @@ export function WelcomeBanner() {
       label: "平均响应",
       value: `${HOME_OVERVIEW.avgResponseMs}ms`,
       hint: "P50 延迟",
-      icon: Timer,
+      icon: IconTimer,
       tone: "text-warning",
       bg: "bg-warning/10",
     },
@@ -59,7 +59,7 @@ export function WelcomeBanner() {
       label: "飞轮健康度",
       value: `${HOME_OVERVIEW.flywheelHealth}%`,
       hint: "良好",
-      icon: Waves,
+      icon: IconWaves,
       tone: "text-success",
       bg: "bg-success/10",
     },
@@ -87,7 +87,7 @@ export function WelcomeBanner() {
               </h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              <Sparkles className="mr-1 inline h-3.5 w-3.5 text-primary" />
+              <IconSparkles className="mr-1 inline h-3.5 w-3.5 text-primary" />
               欢迎回到 AI 协作工作台 · {today}
             </p>
           </div>

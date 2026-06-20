@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { TrendingUp, Waves } from "lucide-react";
+import { IconTrendingUp, IconWaves } from "@/components/icons"
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FLYWHEEL_SUB_METRICS, HOME_OVERVIEW } from "./mock-data";
@@ -13,7 +13,7 @@ export function FlywheelHealth() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Waves className="h-4 w-4 text-primary" />
+          <IconWaves className="h-4 w-4 text-primary" />
           飞轮健康度
         </CardTitle>
         <button
@@ -63,7 +63,7 @@ export function FlywheelHealth() {
           </div>
           <div className="flex-1">
             <div className="mb-1 flex items-center gap-1.5 text-xs">
-              <TrendingUp className="h-3 w-3 text-success" />
+              <IconTrendingUp className="h-3 w-3 text-success" />
               <span className="font-medium">状态：良好</span>
             </div>
             <p className="text-[11px] leading-relaxed text-muted-foreground">

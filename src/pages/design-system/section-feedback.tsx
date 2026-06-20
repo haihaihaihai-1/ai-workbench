@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 // Toast (Sonner) 展示
-import { AlertTriangle, CheckCircle2, Info, XCircle } from "lucide-react";
+import { IconAlertTriangle, IconCheckCircle2, IconInfo, IconXCircle } from "@/components/icons"
 import { toast } from "sonner";
 import { SectionFrame } from "./section-frame";
 
@@ -20,29 +20,29 @@ export function SectionFeedback() {
               variant="default"
               onClick={() => toast.success("保存成功", { description: "设置已应用到所有页面" })}
             >
-              <CheckCircle2 className="mr-1 h-3.5 w-3.5" />
+              <IconCheckCircle2 className="mr-1 h-3.5 w-3.5" />
               Success
             </Button>
             <Button
               variant="outline"
               onClick={() => toast.info("提示信息", { description: "新版本已发布，刷新查看" })}
             >
-              <Info className="mr-1 h-3.5 w-3.5" />
-              Info
+              <IconInfo className="mr-1 h-3.5 w-3.5" />
+              IconInfo
             </Button>
             <Button
               variant="outline"
               className="text-warning"
               onClick={() => toast.warning("警告", { description: "API Key 即将过期" })}
             >
-              <AlertTriangle className="mr-1 h-3.5 w-3.5" />
+              <IconAlertTriangle className="mr-1 h-3.5 w-3.5" />
               Warning
             </Button>
             <Button
               variant="destructive"
               onClick={() => toast.error("出错了", { description: "请稍后重试或联系管理员" })}
             >
-              <XCircle className="mr-1 h-3.5 w-3.5" />
+              <IconXCircle className="mr-1 h-3.5 w-3.5" />
               Error
             </Button>
           </div>

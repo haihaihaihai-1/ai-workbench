@@ -14,19 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, formatDate, relativeTime, shortNumber } from "@/lib/utils";
-import {
-  Activity,
-  Calendar,
-  KeyRound,
-  Mail,
-  MessageSquare,
-  Network,
-  Power,
-  Save,
-  ShieldCheck,
-  Sparkles,
-  User as UserIcon,
-} from "lucide-react";
+import { IconActivity, IconCalendar, IconKeyRound, IconMail, IconMessageSquare, IconNetwork, IconPower, IconSave, IconShieldCheck, IconSparkles, IconUser as UserIcon } from "@/components/icons"
 import { useState } from "react";
 import { ROLE_INFO, STATUS_INFO, type User } from "./mock-data";
 
@@ -120,7 +108,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
               </DialogTitle>
               <DialogDescription className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
                 <span className="flex items-center gap-1">
-                  <Mail className="h-3 w-3" />
+                  <IconMail className="h-3 w-3" />
                   {user.email}
                 </span>
                 <span className="flex items-center gap-1">
@@ -141,19 +129,19 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
               基本信息
             </TabsTrigger>
             <TabsTrigger value="activity">
-              <Activity className="mr-1 h-3.5 w-3.5" />
+              <IconActivity className="mr-1 h-3.5 w-3.5" />
               活动统计
             </TabsTrigger>
             <TabsTrigger value="sessions">
-              <MessageSquare className="mr-1 h-3.5 w-3.5" />
+              <IconMessageSquare className="mr-1 h-3.5 w-3.5" />
               会话
             </TabsTrigger>
             <TabsTrigger value="memory">
-              <Sparkles className="mr-1 h-3.5 w-3.5" />
+              <IconSparkles className="mr-1 h-3.5 w-3.5" />
               记忆
             </TabsTrigger>
             <TabsTrigger value="audit">
-              <ShieldCheck className="mr-1 h-3.5 w-3.5" />
+              <IconShieldCheck className="mr-1 h-3.5 w-3.5" />
               审计
             </TabsTrigger>
           </TabsList>
@@ -200,7 +188,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
                     className="flex items-center justify-between rounded-md border border-border bg-card p-2 text-xs"
                   >
                     <div className="flex items-center gap-2">
-                      <MessageSquare className="h-3.5 w-3.5 text-info" />
+                      <IconMessageSquare className="h-3.5 w-3.5 text-info" />
                       <div>
                         <div className="font-medium">{s.title}</div>
                         <div className="text-[10px] text-muted-foreground">
@@ -248,7 +236,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
                   className="flex items-center justify-between rounded-md border border-dashed border-border bg-muted/20 px-2.5 py-1.5 text-xs"
                 >
                   <div className="flex items-center gap-2">
-                    <Network className="h-3.5 w-3.5 text-muted-foreground" />
+                    <IconNetwork className="h-3.5 w-3.5 text-muted-foreground" />
                     <span className="font-medium">{a.action}</span>
                     <span className="text-muted-foreground">· {a.detail}</span>
                   </div>
@@ -263,7 +251,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
 
         <DialogFooter className="flex-row items-center justify-between gap-2 sm:justify-between">
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Calendar className="h-3.5 w-3.5" />
+            <IconCalendar className="h-3.5 w-3.5" />
             <span className="font-mono">UID: {user.id}</span>
           </div>
           <div className="flex items-center gap-2">
@@ -273,7 +261,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
                   取消
                 </Button>
                 <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleSave}>
-                  <Save className="h-3.5 w-3.5" />
+                  <IconSave className="h-3.5 w-3.5" />
                   保存
                 </Button>
               </>
@@ -285,7 +273,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
                   className="h-8 gap-1.5 text-xs"
                   onClick={() => onResetPwd(user)}
                 >
-                  <KeyRound className="h-3.5 w-3.5" />
+                  <IconKeyRound className="h-3.5 w-3.5" />
                   重置密码
                 </Button>
                 <Button
@@ -294,7 +282,7 @@ export function UserDetailDialog({ user, onOpenChange, onSave, onToggle, onReset
                   className="h-8 gap-1.5 text-xs"
                   onClick={() => onToggle(user, user.status !== "active")}
                 >
-                  <Power className="h-3.5 w-3.5" />
+                  <IconPower className="h-3.5 w-3.5" />
                   {user.status === "active" ? "禁用" : "启用"}
                 </Button>
                 <Button size="sm" className="h-8 text-xs" onClick={handleStartEdit}>

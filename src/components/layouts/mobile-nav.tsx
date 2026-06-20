@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Brain, Gauge, MessageSquare, Ticket } from "lucide-react";
+import { IconBrain, IconGauge, IconMessageSquare } from "@/components/icons"
 import { Link, useLocation } from "react-router-dom";
 
 // 移动端底部 Tab Bar - 4 个核心页面
@@ -9,14 +9,14 @@ import { Link, useLocation } from "react-router-dom";
 type Tab = {
   href: string;
   label: string;
-  icon: typeof MessageSquare;
+  icon: typeof IconMessageSquare;
 };
 
 const TABS: Tab[] = [
-  { href: "/chat", label: "对话", icon: MessageSquare },
-  { href: "/memory", label: "记忆", icon: Brain },
-  { href: "/monitor", label: "监控", icon: Gauge },
-  { href: "/tickets", label: "工单", icon: Ticket },
+  { href: "/chat", label: "对话", icon: IconMessageSquare },
+  { href: "/memory", label: "记忆", icon: IconBrain },
+  { href: "/monitor", label: "监控", icon: IconGauge },
+  { href: "/tickets", label: "工单", icon: IconMessageSquare },
 ];
 
 function isActiveTab(pathname: string, href: string): boolean {

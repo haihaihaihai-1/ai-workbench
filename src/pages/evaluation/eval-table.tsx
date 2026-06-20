@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, ChevronDown, ChevronRight, Eye, XCircle } from "lucide-react";
+import { IconCheckCircle2, IconChevronDown, IconChevronRight, IconEye, IconXCircle } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 import { CORE_CASES, type EvalCase } from "./mock-data";
@@ -36,7 +36,7 @@ export function EvalTable() {
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Eye className="h-4 w-4 text-primary" />
+            <IconEye className="h-4 w-4 text-primary" />
             详细评估结果
           </CardTitle>
           <div className="flex items-center gap-1 text-[10px]">
@@ -121,9 +121,9 @@ function CaseRow({
       <TableRow onClick={onToggle} className="cursor-pointer">
         <TableCell className="px-3 py-2">
           {open ? (
-            <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+            <IconChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
           ) : (
-            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
+            <IconChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
           )}
         </TableCell>
         <TableCell className="py-2">
@@ -163,9 +163,9 @@ function CaseRow({
         </TableCell>
         <TableCell className="py-2 text-right">
           {c.passed ? (
-            <CheckCircle2 className="ml-auto h-4 w-4 text-success" />
+            <IconCheckCircle2 className="ml-auto h-4 w-4 text-success" />
           ) : (
-            <XCircle className="ml-auto h-4 w-4 text-destructive" />
+            <IconXCircle className="ml-auto h-4 w-4 text-destructive" />
           )}
         </TableCell>
         <TableCell className="py-2 text-right font-mono text-xs text-muted-foreground tabular-nums">

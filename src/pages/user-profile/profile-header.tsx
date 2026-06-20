@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft, Clock, Mail, ShieldCheck } from "lucide-react";
+import { IconChevronLeft, IconClock, IconMail, IconShieldCheck } from "@/components/icons"
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { MOCK_USER } from "./mock-data";
@@ -29,14 +29,14 @@ export function ProfileHeader() {
               className="-ml-2 h-7 gap-1 text-muted-foreground"
             >
               <Link to="/memory">
-                <ChevronLeft className="h-3.5 w-3.5" />
+                <IconChevronLeft className="h-3.5 w-3.5" />
                 返回记忆中心
               </Link>
             </Button>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="gap-1 font-mono text-[10px]">
-              <ShieldCheck className="h-3 w-3" />
+              <IconShieldCheck className="h-3 w-3" />
               ID {user.id}
             </Badge>
             <Badge variant="secondary" className="gap-1 text-[10px]">
@@ -63,11 +63,11 @@ export function ProfileHeader() {
             </div>
             <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
-                <Mail className="h-3 w-3" />
+                <IconMail className="h-3 w-3" />
                 {user.email}
               </span>
               <span className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
+                <IconClock className="h-3 w-3" />
                 最近活跃 2 小时前
               </span>
               <span className="font-mono">GPA {user.gpa}</span>

@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain } from "lucide-react";
+import { IconBrain } from "@/components/icons"
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -25,7 +25,7 @@ export function LearningStylePanel() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Brain className="h-4 w-4 text-primary" />
+            <IconBrain className="h-4 w-4 text-primary" />
             学习风格雷达
           </CardTitle>
         </CardHeader>
@@ -66,7 +66,7 @@ export function LearningStylePanel() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Brain className="h-4 w-4 text-info" />
+            <IconBrain className="h-4 w-4 text-info" />
             维度解读
           </CardTitle>
         </CardHeader>

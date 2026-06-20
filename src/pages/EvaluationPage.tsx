@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { exportToJSON } from "@/lib/export";
 import { cn } from "@/lib/utils";
-import { Download, FileText, Play, Target } from "lucide-react";
+import { IconDownload, IconFileText, IconPlay, IconTarget } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 import { EvalTable } from "./evaluation/eval-table";
@@ -56,7 +56,7 @@ export default function EvaluationPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Target className="h-6 w-6 text-primary" />
+            <IconTarget className="h-6 w-6 text-primary" />
             系统评估
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -65,11 +65,11 @@ export default function EvaluationPage() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleExport} className="h-8 gap-1.5">
-            <Download className="h-3.5 w-3.5" />
+            <IconDownload className="h-3.5 w-3.5" />
             导出报告
           </Button>
           <Button size="sm" onClick={handleRun} disabled={running} className="h-8 gap-1.5">
-            <Play className={cn("h-3.5 w-3.5", running && "animate-pulse-dot")} />
+            <IconPlay className={cn("h-3.5 w-3.5", running && "animate-pulse-dot")} />
             {running ? `运行中 ${progress}%` : "运行评估"}
           </Button>
         </div>
@@ -105,7 +105,7 @@ export default function EvaluationPage() {
         <PassRateTrend />
         <div className="rounded-lg border border-border bg-card p-4">
           <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-            <FileText className="h-4 w-4 text-info" />
+            <IconFileText className="h-4 w-4 text-info" />
             评估摘要
           </div>
           <div className="space-y-2 text-xs">

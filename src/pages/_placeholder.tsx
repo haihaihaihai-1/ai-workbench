@@ -1,14 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Construction } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { IconArrowRight, IconConstruction } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import { Link } from "react-router-dom";
 
 type Props = {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   features: string[];
   v2ETA?: string;
   related?: { title: string; url: string }[];
@@ -43,7 +43,7 @@ export function PlaceholderPage({
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Construction className="h-4 w-4 text-warning" />
+              <IconConstruction className="h-4 w-4 text-warning" />
               本期规划功能
             </CardTitle>
             <CardDescription>以下功能将在 {v2ETA} 完整实现</CardDescription>
@@ -74,7 +74,7 @@ export function PlaceholderPage({
                 <Button key={r.url} variant="outline" size="sm" className="justify-between" asChild>
                   <Link to={r.url}>
                     {r.title}
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    <IconArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </Button>
               ))}

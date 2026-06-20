@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn, shortNumber } from "@/lib/utils";
 import { useSidebarStore } from "@/stores/sidebar-store";
-import { ChevronsLeft, ChevronsRight, CircleHelp, LifeBuoy, Sparkles } from "lucide-react";
+import { IconChevronsLeft, IconChevronsRight, IconCircleHelp, IconLifeBuoy, IconSparkles } from "@/components/icons"
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { navGroups } from "./nav-config";
@@ -27,7 +27,7 @@ export function Sidebar() {
         {/* Logo */}
         <div className="flex h-14 items-center gap-2.5 border-b border-sidebar-border px-4">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground shadow-md">
-            <Sparkles className="h-4 w-4" />
+            <IconSparkles className="h-4 w-4" />
           </div>
           {!collapsed && (
             <div className="flex flex-col overflow-hidden">
@@ -48,8 +48,8 @@ export function Sidebar() {
 
         {/* Footer */}
         <div className="flex flex-col gap-1 p-3">
-          <SidebarFooterItem icon={LifeBuoy} label={t("footer.support")} collapsed={collapsed} />
-          <SidebarFooterItem icon={CircleHelp} label={t("footer.help")} collapsed={collapsed} />
+          <SidebarFooterItem icon={IconLifeBuoy} label={t("footer.support")} collapsed={collapsed} />
+          <SidebarFooterItem icon={IconCircleHelp} label={t("footer.help")} collapsed={collapsed} />
           <div className="mt-2 flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2">
             <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-to-br from-primary to-[#8B5CF6] text-center text-xs leading-7 text-primary-foreground">
               {t("footer.user").charAt(0)}
@@ -69,7 +69,7 @@ export function Sidebar() {
                   onClick={toggle}
                   aria-label={t("footer.collapseSidebar")}
                 >
-                  <ChevronsLeft className="h-3.5 w-3.5" />
+                  <IconChevronsLeft className="h-3.5 w-3.5" />
                 </Button>
               </>
             )}
@@ -82,7 +82,7 @@ export function Sidebar() {
               onClick={toggle}
               aria-label={t("footer.expandSidebar")}
             >
-              <ChevronsRight className="h-4 w-4" />
+              <IconChevronsRight className="h-4 w-4" />
             </Button>
           )}
         </div>
@@ -169,7 +169,7 @@ function SidebarFooterItem({
   label,
   collapsed,
 }: {
-  icon: typeof CircleHelp;
+  icon: typeof IconCircleHelp;
   label: string;
   collapsed: boolean;
 }) {

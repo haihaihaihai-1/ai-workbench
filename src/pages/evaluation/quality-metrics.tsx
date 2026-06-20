@@ -1,15 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import {
-  CheckCircle2,
-  Compass,
-  type LucideIcon,
-  ShieldAlert,
-  Star,
-  TrendingDown,
-  TrendingUp,
-  Wrench,
-} from "lucide-react";
+import { IconCheckCircle2, IconCompass, IconShieldAlert, IconStar, IconTrendingDown, IconTrendingUp, IconWrench } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import { QUALITY_METRICS } from "./mock-data";
 
 type Item = {
@@ -17,7 +9,7 @@ type Item = {
   value: number;
   prev: number;
   unit: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   tone: "primary" | "info" | "warning" | "success";
   desc: string;
 };
@@ -29,7 +21,7 @@ export function QualityMetrics() {
       value: QUALITY_METRICS.qualityScore,
       prev: QUALITY_METRICS.prevQualityScore,
       unit: "/100",
-      icon: Star,
+      icon: IconStar,
       tone: "primary",
       desc: "综合质量分",
     },
@@ -38,7 +30,7 @@ export function QualityMetrics() {
       value: QUALITY_METRICS.routingAccuracy,
       prev: QUALITY_METRICS.prevRoutingAccuracy,
       unit: "%",
-      icon: Compass,
+      icon: IconCompass,
       tone: "info",
       desc: "意图分类正确",
     },
@@ -47,7 +39,7 @@ export function QualityMetrics() {
       value: QUALITY_METRICS.crisisRecall,
       prev: QUALITY_METRICS.prevCrisisRecall,
       unit: "%",
-      icon: ShieldAlert,
+      icon: IconShieldAlert,
       tone: "warning",
       desc: "高敏感样例召回",
     },
@@ -56,7 +48,7 @@ export function QualityMetrics() {
       value: QUALITY_METRICS.toolSuccess,
       prev: QUALITY_METRICS.prevToolSuccess,
       unit: "%",
-      icon: Wrench,
+      icon: IconWrench,
       tone: "success",
       desc: "工具调用合规",
     },
@@ -96,7 +88,7 @@ export function QualityMetrics() {
                     up ? "text-success" : "text-destructive",
                   )}
                 >
-                  {up ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                  {up ? <IconTrendingUp className="h-3 w-3" /> : <IconTrendingDown className="h-3 w-3" />}
                   {up ? "+" : ""}
                   {delta}
                 </span>
@@ -108,7 +100,7 @@ export function QualityMetrics() {
                 <span className="text-xs text-muted-foreground">{it.unit}</span>
               </div>
               <div className="mt-2 flex items-center gap-1 text-[10px] text-muted-foreground">
-                <CheckCircle2 className="h-3 w-3" />
+                <IconCheckCircle2 className="h-3 w-3" />
                 {it.desc}
               </div>
             </CardContent>

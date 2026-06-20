@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formatDate } from "@/lib/utils";
-import { Database, Tag } from "lucide-react";
+import { IconDatabase, IconTag } from "@/components/icons"
 import { TEST_SETS, type TestSet } from "./mock-data";
 
 type Props = {
@@ -23,7 +23,7 @@ export function TestsetSelector({ current, onChange }: Props) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Database className="h-4 w-4 text-primary" />
+              <IconDatabase className="h-4 w-4 text-primary" />
               测试集
             </CardTitle>
             <Select value={current.id} onValueChange={onChange}>
@@ -55,7 +55,7 @@ export function TestsetSelector({ current, onChange }: Props) {
       <CardContent>
         <p className="mb-3 text-xs text-muted-foreground">{current.description}</p>
         <div className="flex flex-wrap items-center gap-1.5">
-          <Tag className="h-3 w-3 text-muted-foreground" />
+          <IconTag className="h-3 w-3 text-muted-foreground" />
           <span className="text-[10px] text-muted-foreground">标签分布:</span>
           {Object.entries(current.labels).map(([label, count]) => (
             <Badge key={label} variant="secondary" className="text-[10px]">

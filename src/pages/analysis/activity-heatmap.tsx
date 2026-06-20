@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Flame } from "lucide-react";
+import { IconFlame } from "@/components/icons"
 import { ACTIVITY_HEATMAP } from "./mock-data";
 
 const days = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
@@ -25,7 +25,7 @@ export function ActivityHeatmap() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Flame className="h-4 w-4 text-warning" />
+            <IconFlame className="h-4 w-4 text-warning" />
             用户活跃热力图
           </CardTitle>
           {peak && (

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, formatDate, relativeTime, shortNumber } from "@/lib/utils";
-import { Activity, AlertTriangle, CheckCircle2, Gauge, RefreshCw, Users, Zap } from "lucide-react";
+import { IconActivity, IconAlertTriangle, IconCheckCircle2, IconGauge, IconRefreshCw, IconUsers, IconZap } from "@/components/icons"
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -117,7 +117,7 @@ export default function MonitorPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Gauge className="h-6 w-6 text-primary" />
+            <IconGauge className="h-6 w-6 text-primary" />
             可观测中心
           </h1>
           <p className="mt-1 hidden text-sm text-muted-foreground sm:block">
@@ -144,7 +144,7 @@ export default function MonitorPage() {
             onClick={() => setAutoRefresh((v) => !v)}
             className="h-7 gap-1.5"
           >
-            <RefreshCw className={cn("h-3 w-3", autoRefresh && "animate-spin-slow")} />
+            <IconRefreshCw className={cn("h-3 w-3", autoRefresh && "animate-spin-slow")} />
             {autoRefresh ? "30s 自动" : "已暂停"}
           </Button>
         </div>
@@ -194,7 +194,7 @@ export default function MonitorPage() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-                <Zap className="h-4 w-4 text-primary" />
+                <IconZap className="h-4 w-4 text-primary" />
                 请求趋势
               </CardTitle>
               <Badge variant="secondary" className="text-[10px]">
@@ -242,7 +242,7 @@ export default function MonitorPage() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-                <Activity className="h-4 w-4 text-info" />
+                <IconActivity className="h-4 w-4 text-info" />
                 延迟 / 错误率
               </CardTitle>
               <Badge variant="secondary" className="text-[10px]">
@@ -308,7 +308,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Users className="h-4 w-4 text-primary" />
+              <IconUsers className="h-4 w-4 text-primary" />
               Agent 路由分布
             </CardTitle>
           </CardHeader>
@@ -357,7 +357,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Zap className="h-4 w-4 text-warning" />
+              <IconZap className="h-4 w-4 text-warning" />
               LLM 模型调用
             </CardTitle>
           </CardHeader>
@@ -390,7 +390,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <AlertTriangle className="h-4 w-4 text-warning" />
+              <IconAlertTriangle className="h-4 w-4 text-warning" />
               HITL 自动化率
             </CardTitle>
           </CardHeader>
@@ -424,7 +424,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <CheckCircle2 className="h-4 w-4 text-success" />
+              <IconCheckCircle2 className="h-4 w-4 text-success" />
               工具健康度 TOP
             </CardTitle>
           </CardHeader>
@@ -482,7 +482,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Activity className="h-4 w-4 text-info" />
+              <IconActivity className="h-4 w-4 text-info" />
               意图分布
             </CardTitle>
           </CardHeader>
@@ -514,7 +514,7 @@ export default function MonitorPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Activity className="h-4 w-4 text-primary" />
+              <IconActivity className="h-4 w-4 text-primary" />
               最新 Trace 时间线
             </CardTitle>
           </CardHeader>
@@ -550,7 +550,7 @@ export default function MonitorPage() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <AlertTriangle className="h-4 w-4 text-destructive" />
+              <IconAlertTriangle className="h-4 w-4 text-destructive" />
               安全监控
             </CardTitle>
             <div className="flex items-center gap-2">

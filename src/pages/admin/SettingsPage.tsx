@@ -14,32 +14,19 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import {
-  Bell,
-  Bot,
-  CheckCircle2,
-  Eye,
-  EyeOff,
-  Info,
-  Palette,
-  Save,
-  Server,
-  Shield,
-  Sparkles,
-  TestTube,
-} from "lucide-react";
+import { IconBell, IconBot, IconCheckCircle2, IconEye, IconEyeOff, IconInfo, IconPalette, IconSave, IconServer, IconShield, IconSparkles, IconTestTube } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 
 type Panel = "ai" | "notification" | "services" | "security" | "appearance" | "about";
 
-const NAV: { id: Panel; name: string; icon: typeof Bot; description: string }[] = [
-  { id: "ai", name: "AI 模型", icon: Bot, description: "默认模型 / 路由策略 / 参数" },
-  { id: "notification", name: "通知配置", icon: Bell, description: "企业微信 / 告警" },
-  { id: "services", name: "服务状态", icon: Server, description: "Supabase / Redis / LLM" },
-  { id: "security", name: "安全策略", icon: Shield, description: "PII / 提示注入 / 内容审核" },
-  { id: "appearance", name: "外观", icon: Palette, description: "主题 / 主色 / 紧凑模式" },
-  { id: "about", name: "关于", icon: Info, description: "版本 / 技术栈 / 更新日志" },
+const NAV: { id: Panel; name: string; icon: typeof IconBot; description: string }[] = [
+  { id: "ai", name: "AI 模型", icon: IconBot, description: "默认模型 / 路由策略 / 参数" },
+  { id: "notification", name: "通知配置", icon: IconBell, description: "企业微信 / 告警" },
+  { id: "services", name: "服务状态", icon: IconServer, description: "Supabase / Redis / LLM" },
+  { id: "security", name: "安全策略", icon: IconShield, description: "PII / 提示注入 / 内容审核" },
+  { id: "appearance", name: "外观", icon: IconPalette, description: "主题 / 主色 / 紧凑模式" },
+  { id: "about", name: "关于", icon: IconInfo, description: "版本 / 技术栈 / 更新日志" },
 ];
 
 export default function SettingsPage() {
@@ -51,7 +38,7 @@ export default function SettingsPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Sparkles className="h-6 w-6 text-primary" />
+            <IconSparkles className="h-6 w-6 text-primary" />
             系统设置
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -72,7 +59,7 @@ export default function SettingsPage() {
               toast.success("设置已保存");
             }}
           >
-            <Save className="h-3.5 w-3.5" />
+            <IconSave className="h-3.5 w-3.5" />
             保存
           </Button>
         </div>
@@ -179,7 +166,7 @@ function AiPanel({ onChange }: { onChange: () => void }) {
               className="h-9 w-9"
               onClick={() => setShowKey(!showKey)}
             >
-              {showKey ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+              {showKey ? <IconEyeOff className="h-3.5 w-3.5" /> : <IconEye className="h-3.5 w-3.5" />}
             </Button>
           </div>
         </Row>
@@ -264,7 +251,7 @@ function NotificationPanel({ onChange }: { onChange: () => void }) {
               className="h-9 gap-1.5"
               onClick={() => toast.success("测试消息已发送")}
             >
-              <TestTube className="h-3.5 w-3.5" />
+              <IconTestTube className="h-3.5 w-3.5" />
               测试
             </Button>
           </div>
@@ -562,7 +549,7 @@ function UpdateItem({
       <ul className="ml-2 space-y-0.5 text-xs">
         {features.map((f) => (
           <li key={f} className="flex items-start gap-1.5">
-            <CheckCircle2 className="mt-0.5 h-3 w-3 shrink-0 text-success" />
+            <IconCheckCircle2 className="mt-0.5 h-3 w-3 shrink-0 text-success" />
             <span>{f}</span>
           </li>
         ))}

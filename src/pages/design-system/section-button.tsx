@@ -1,7 +1,7 @@
 // Button 演示 - 7 变体 × 5 尺寸
 
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { ArrowRight, Download, Heart, Loader2, Mail, Plus, Trash2 } from "lucide-react";
+import { IconArrowRight, IconDownload, IconHeart, IconLoader2, IconMail, IconPlus, IconTrash2 } from "@/components/icons"
 import { DemoCard, SectionFrame } from "./section-frame";
 
 const VARIANTS: NonNullable<ButtonProps["variant"]>[] = [
@@ -45,7 +45,7 @@ export function SectionButton() {
                   {SIZES.map((s) => (
                     <td key={s} className="py-3 pr-4">
                       <Button variant={v} size={s}>
-                        {s === "icon" ? <Plus className="h-4 w-4" /> : "Button"}
+                        {s === "icon" ? <IconPlus className="h-4 w-4" /> : "Button"}
                       </Button>
                     </td>
                   ))}
@@ -60,23 +60,23 @@ export function SectionButton() {
       <DemoCard title="含图标" description="lucide-react 图标 + 文字组合">
         <div className="flex flex-wrap gap-2">
           <Button>
-            <Mail className="h-4 w-4" />
+            <IconMail className="h-4 w-4" />
             发送邮件
           </Button>
           <Button variant="secondary">
-            <Download className="h-4 w-4" />
+            <IconDownload className="h-4 w-4" />
             下载报告
           </Button>
           <Button variant="outline">
-            <Heart className="h-4 w-4" />
+            <IconHeart className="h-4 w-4" />
             收藏
           </Button>
           <Button variant="destructive">
-            <Trash2 className="h-4 w-4" />
+            <IconTrash2 className="h-4 w-4" />
             删除
           </Button>
           <Button variant="success">
-            <ArrowRight className="h-4 w-4" />
+            <IconArrowRight className="h-4 w-4" />
             继续
           </Button>
         </div>
@@ -86,14 +86,14 @@ export function SectionButton() {
       <DemoCard title="状态" description="loading / disabled / icon only">
         <div className="flex flex-wrap items-center gap-2">
           <Button disabled>
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <IconLoader2 className="h-4 w-4 animate-spin" />
             加载中
           </Button>
           <Button disabled variant="outline">
             已禁用
           </Button>
           <Button size="icon" variant="ghost" aria-label="add">
-            <Plus className="h-4 w-4" />
+            <IconPlus className="h-4 w-4" />
           </Button>
           <Button variant="link">链接样式 →</Button>
         </div>

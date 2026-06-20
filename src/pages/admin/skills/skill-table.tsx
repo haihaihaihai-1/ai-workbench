@@ -19,7 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn, shortNumber } from "@/lib/utils";
-import { Copy, History, KeyRound, MoreHorizontal, Pencil, ShieldCheck, Trash2 } from "lucide-react";
+import { IconCopy, IconHistory, IconKeyRound, IconMoreHorizontal, IconPencil, IconShieldCheck, IconTrash2 } from "@/components/icons"
 import {
   type AdminSkill,
   CATEGORY_INFO,
@@ -149,7 +149,7 @@ export function SkillTable({
                 </TableCell>
                 <TableCell className="py-2">
                   <Badge variant={perm.tone} className="text-[10px]">
-                    <ShieldCheck className="mr-0.5 h-2.5 w-2.5" />
+                    <IconShieldCheck className="mr-0.5 h-2.5 w-2.5" />
                     {perm.name}
                   </Badge>
                 </TableCell>
@@ -163,30 +163,30 @@ export function SkillTable({
                           className="h-7 w-7"
                           aria-label="更多操作"
                         >
-                          <MoreHorizontal className="h-3.5 w-3.5" />
+                          <IconMoreHorizontal className="h-3.5 w-3.5" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>技能操作</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => onEdit(s)}>
-                          <Pencil className="h-3.5 w-3.5" />
+                          <IconPencil className="h-3.5 w-3.5" />
                           编辑元数据
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onDuplicate(s)}>
-                          <Copy className="h-3.5 w-3.5" />
+                          <IconCopy className="h-3.5 w-3.5" />
                           复制技能
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onPermission(s)}>
-                          <KeyRound className="h-3.5 w-3.5" />
+                          <IconKeyRound className="h-3.5 w-3.5" />
                           权限设置
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => onAudit(s)}>
-                          <History className="h-3.5 w-3.5" />
+                          <IconHistory className="h-3.5 w-3.5" />
                           调用日志
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-destructive" onClick={() => onDelete(s)}>
-                          <Trash2 className="h-3.5 w-3.5" />
+                          <IconTrash2 className="h-3.5 w-3.5" />
                           删除技能
                         </DropdownMenuItem>
                       </DropdownMenuContent>

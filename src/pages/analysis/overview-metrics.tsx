@@ -1,14 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn, shortNumber } from "@/lib/utils";
-import {
-  Activity,
-  Clock,
-  type LucideIcon,
-  TrendingDown,
-  TrendingUp,
-  UserCheck,
-  Users,
-} from "lucide-react";
+import { IconActivity, IconClock, IconTrendingDown, IconTrendingUp, IconUserCheck, IconUsers } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import { OVERVIEW_METRICS } from "./mock-data";
 
 type Item = {
@@ -16,7 +9,7 @@ type Item = {
   value: number;
   prev: number;
   unit: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   tone: "primary" | "info" | "warning" | "success";
   format?: "number" | "minutes" | "percent";
 };
@@ -28,7 +21,7 @@ export function OverviewMetrics() {
       value: OVERVIEW_METRICS.activeUsers,
       prev: OVERVIEW_METRICS.prevActiveUsers,
       unit: "人",
-      icon: Users,
+      icon: IconUsers,
       tone: "primary",
       format: "number",
     },
@@ -37,7 +30,7 @@ export function OverviewMetrics() {
       value: OVERVIEW_METRICS.sessions,
       prev: OVERVIEW_METRICS.prevSessions,
       unit: "次",
-      icon: Activity,
+      icon: IconActivity,
       tone: "info",
       format: "number",
     },
@@ -46,7 +39,7 @@ export function OverviewMetrics() {
       value: OVERVIEW_METRICS.avgDurationMin,
       prev: OVERVIEW_METRICS.prevAvgDurationMin,
       unit: "分钟",
-      icon: Clock,
+      icon: IconClock,
       tone: "warning",
       format: "minutes",
     },
@@ -55,7 +48,7 @@ export function OverviewMetrics() {
       value: OVERVIEW_METRICS.retention7d,
       prev: OVERVIEW_METRICS.prevRetention7d,
       unit: "%",
-      icon: UserCheck,
+      icon: IconUserCheck,
       tone: "success",
       format: "percent",
     },
@@ -100,7 +93,7 @@ export function OverviewMetrics() {
                     up ? "text-success" : "text-destructive",
                   )}
                 >
-                  {up ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                  {up ? <IconTrendingUp className="h-3 w-3" /> : <IconTrendingDown className="h-3 w-3" />}
                   {up ? "+" : ""}
                   {delta}%
                 </span>

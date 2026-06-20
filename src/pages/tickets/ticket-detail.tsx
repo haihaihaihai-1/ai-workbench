@@ -6,16 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import type { Ticket } from "@/lib/types";
 import { formatDate, relativeTime } from "@/lib/utils";
-import {
-  ArrowRight,
-  CheckCircle2,
-  GitBranch,
-  MessageSquare,
-  Paperclip,
-  Send,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { IconArrowRight, IconCheckCircle2, IconGitBranch, IconMessageSquare, IconPaperclip, IconSend, IconSparkles, IconX } from "@/components/icons"
 import { useState } from "react";
 import { TICKET_PRIORITY_INFO, TICKET_STATUS_INFO, TICKET_TYPE_INFO } from "./mock-data";
 import { SlaIndicator } from "./sla-indicator";
@@ -88,7 +79,7 @@ export function TicketDetail({ ticket, onClose }: Props) {
           <p className="mt-1 text-sm text-muted-foreground">{ticket.description}</p>
         </div>
         <Button variant="ghost" size="icon" onClick={onClose} aria-label="关闭详情">
-          <X className="h-4 w-4" />
+          <IconX className="h-4 w-4" />
         </Button>
       </div>
 
@@ -109,15 +100,15 @@ export function TicketDetail({ ticket, onClose }: Props) {
       <Tabs defaultValue="discussion" className="flex flex-1 flex-col overflow-hidden">
         <TabsList className="mx-4 mt-2 self-start">
           <TabsTrigger value="discussion">
-            <MessageSquare className="mr-1 h-3.5 w-3.5" />
+            <IconMessageSquare className="mr-1 h-3.5 w-3.5" />
             讨论 ({MOCK_COMMENTS.length})
           </TabsTrigger>
           <TabsTrigger value="related">
-            <GitBranch className="mr-1 h-3.5 w-3.5" />
+            <IconGitBranch className="mr-1 h-3.5 w-3.5" />
             关联 ({MOCK_RELATED.length})
           </TabsTrigger>
           <TabsTrigger value="history">
-            <CheckCircle2 className="mr-1 h-3.5 w-3.5" />
+            <IconCheckCircle2 className="mr-1 h-3.5 w-3.5" />
             历史
           </TabsTrigger>
         </TabsList>
@@ -159,15 +150,15 @@ export function TicketDetail({ ticket, onClose }: Props) {
                 className="group flex items-center gap-2 rounded-md border border-border bg-card p-2.5 hover:border-primary/50"
               >
                 <div className="rounded bg-primary/10 p-1.5 text-primary">
-                  {r.kind === "conversation" && <MessageSquare className="h-3.5 w-3.5" />}
-                  {r.kind === "feedback" && <Sparkles className="h-3.5 w-3.5" />}
-                  {r.kind === "trace" && <GitBranch className="h-3.5 w-3.5" />}
+                  {r.kind === "conversation" && <IconMessageSquare className="h-3.5 w-3.5" />}
+                  {r.kind === "feedback" && <IconSparkles className="h-3.5 w-3.5" />}
+                  {r.kind === "trace" && <IconGitBranch className="h-3.5 w-3.5" />}
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-medium">{r.title}</div>
                   <div className="text-[10px] text-muted-foreground">{r.kind}</div>
                 </div>
-                <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                <IconArrowRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
               </a>
             ))}
           </div>
@@ -196,7 +187,7 @@ export function TicketDetail({ ticket, onClose }: Props) {
       <div className="border-t border-border p-3">
         <div className="flex items-end gap-2 rounded-md border border-input bg-card p-2">
           <Button size="icon" variant="ghost" className="h-7 w-7" aria-label="附件">
-            <Paperclip className="h-3.5 w-3.5" />
+            <IconPaperclip className="h-3.5 w-3.5" />
           </Button>
           <Textarea
             value={reply}
@@ -206,7 +197,7 @@ export function TicketDetail({ ticket, onClose }: Props) {
             className="scrollbar-none min-h-0 flex-1 resize-none border-0 p-1 text-sm shadow-none focus-visible:ring-0"
           />
           <Button size="sm" className="h-7 gap-1" disabled={!reply.trim()}>
-            <Send className="h-3 w-3" />
+            <IconSend className="h-3 w-3" />
             发送
           </Button>
         </div>

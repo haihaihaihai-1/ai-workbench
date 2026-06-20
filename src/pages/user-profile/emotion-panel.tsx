@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Smile, TrendingDown, TrendingUp } from "lucide-react";
+import { IconSmile, IconTrendingDown, IconTrendingUp } from "@/components/icons"
 import {
   Area,
   AreaChart,
@@ -23,16 +23,16 @@ export function EmotionPanel() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Smile className="h-4 w-4 text-primary" />
+              <IconSmile className="h-4 w-4 text-primary" />
               30 天情绪曲线
             </CardTitle>
             <div className="flex items-center gap-2 text-[10px]">
               <span className="flex items-center gap-1 text-success">
-                <TrendingUp className="h-3 w-3" />
+                <IconTrendingUp className="h-3 w-3" />
                 峰值 {peak.score.toFixed(2)}
               </span>
               <span className="flex items-center gap-1 text-destructive">
-                <TrendingDown className="h-3 w-3" />
+                <IconTrendingDown className="h-3 w-3" />
                 低谷 {valley.score.toFixed(2)}
               </span>
             </div>
@@ -98,7 +98,7 @@ export function EmotionPanel() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Smile className="h-4 w-4 text-warning" />
+            <IconSmile className="h-4 w-4 text-warning" />
             关键情绪事件
           </CardTitle>
         </CardHeader>

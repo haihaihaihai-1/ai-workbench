@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import type { SourceRef } from "@/lib/types";
-import { Check, ExternalLink } from "lucide-react";
+import { IconCheck, IconExternalLink } from "@/components/icons"
 
 type Props = { sources: SourceRef[] };
 
@@ -40,7 +40,7 @@ export function SourcesPanel({ sources }: Props) {
                   <span className="truncate text-sm font-medium group-hover:text-primary">
                     {s.title}
                   </span>
-                  <ExternalLink className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <IconExternalLink className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>
                 <div className="mt-0.5 truncate text-[10px] font-mono text-muted-foreground">
                   {s.domain}
@@ -49,7 +49,7 @@ export function SourcesPanel({ sources }: Props) {
               </div>
             </div>
             <div className="flex items-center gap-1 text-[10px] text-success">
-              <Check className="h-3 w-3" />
+              <IconCheck className="h-3 w-3" />
               引用可信
             </div>
           </a>

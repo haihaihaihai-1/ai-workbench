@@ -1,0 +1,326 @@
+/* ============================================================================
+ * AI Workbench · Design Tokens (v8 Lego System)
+ * ----------------------------------------------------------------------------
+ * 集中所有"借皮"参数。每张拼图分支只改本文件对应小节，组件零改动。
+ *
+ * 来源映射（方案 B · 分场景借皮）：
+ *   - 全局壳/导航  ← Linear (linear.app)
+ *   - /chat        ← ChatGPT (chat.openai.com)
+ *   - /memory      ← Notion (notion.so)
+ *   - /tickets     ← Linear (linear.app)
+ *   - /monitor     ← Grafana Cloud (grafana.com)
+ *   - /services    ← Vercel (vercel.com)
+ *   - /profile     ← GitHub (github.com)
+ *   - /admin/*     ← Vercel Dashboard
+ *   - /flywheel    ← Linear + LangSmith
+ *   - /analysis    ← Mixpanel
+ *   - /evaluation  ← Langfuse
+ *
+ * 设计原则：
+ *   1. HSL 通道变量保持不透明度（h s% l% / α），便于叠加
+ *   2. 字号 / 间距走 4px 基准网格
+ *   3. 缓动曲线保留各家特征但统一定义
+ *   4. 暗色优先（产品定位），亮色作为对比
+ * ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+ * Section 1 · 基础品牌色（Linear 紫蓝为主）
+ * -------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    /* --- 品牌主色（Linear #5E6AD2 调色板） --- */
+    --brand-50:  235 100% 97%;
+    --brand-100: 235 95%  94%;
+    --brand-200: 235 90%  88%;
+    --brand-300: 235 80%  78%;
+    --brand-400: 235 70%  70%;
+    --brand-500: 235 56%  60%;  /* #5E6AD2 默认 */
+    --brand-600: 235 56%  52%;
+    --brand-700: 235 56%  44%;
+    --brand-800: 235 50%  34%;
+    --brand-900: 235 50%  22%;
+    --brand-950: 235 60%  12%;
+
+    /* --- 中性色（Grafana 灰阶 · 用于监控面） --- */
+    --neutral-0:    0 0%  100%;
+    --neutral-50:   220 14% 96%;
+    --neutral-100:  220 13% 91%;
+    --neutral-200:  220 13% 83%;
+    --neutral-300:  216 12% 70%;
+    --neutral-400:  218 11% 55%;
+    --neutral-500:  220  9% 46%;
+    --neutral-600:  215 14% 34%;
+    --neutral-700:  217 19% 24%;
+    --neutral-800:  215 28% 17%;
+    --neutral-850:  220 26% 14%;
+    --neutral-900:  220 30%  9%;
+    --neutral-950:  240 30%  4%;  /* Linear 暗背景 */
+    --neutral-1000: 240 30%  2%;  /* Vercel 黑 */
+
+    /* --- 语义色（统一为各场景的饱和态） --- */
+    --color-red-500:     0   72%  51%;
+    --color-red-600:     0   73%  42%;
+    --color-orange-500:  25  95%  53%;
+    --color-amber-500:  38  92%  50%;
+    --color-yellow-500: 48  96%  53%;
+    --color-green-500: 142  71%  45%;
+    --color-green-600: 142  76%  36%;
+    --color-emerald-500:160  84%  39%;
+    --color-teal-500:  173  80%  40%;
+    --color-cyan-500:  189  94%  43%;
+    --color-sky-500:   200  98%  39%;
+    --color-blue-500:  217  91%  60%;
+    --color-indigo-500: 239  84%  67%;
+    --color-violet-500: 258  90%  66%;
+    --color-purple-500: 271  91%  65%;
+    --color-pink-500:  330  81%  60%;
+    --color-rose-500:  351  89%  60%;
+
+    /* --- Linear 紫蓝主色（默认 primary） --- */
+    --primary:        235 56%  60%;  /* #5E6AD2 */
+    --primary-foreground: 0   0%  100%;
+
+    /* --- 系统语义（成功/警告/错误/信息） --- */
+    --success: 160 84% 39%;
+    --warning: 38  92% 50%;
+    --destructive: 0 72% 51%;
+    --info: 217 91% 60%;
+
+    /* --- 浅色主题基础（默认） --- */
+    --background:        0 0% 100%;
+    --foreground:        240 10% 3.9%;
+    --card:              0 0% 100%;
+    --card-foreground:   240 10% 3.9%;
+    --popover:           0 0% 100%;
+    --popover-foreground:240 10% 3.9%;
+    --secondary:         240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted:             240 4.8% 95.9%;
+    --muted-foreground:  240 3.8% 46.1%;
+    --accent:            240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --border:            240 5.9% 90%;
+    --input:             240 5.9% 90%;
+    --ring:              235 56% 60%;
+
+    /* --- 侧边栏（Linear 浅灰） --- */
+    --sidebar:            240 5% 96%;
+    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-accent:     235 56% 95%;
+    --sidebar-border:     240 5.9% 90%;
+
+    /* --- 圆角（统一变量） --- */
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.375rem;
+    --radius:    0.5rem;     /* 默认 */
+    --radius-md: 0.625rem;
+    --radius-lg: 0.75rem;    /* Notion */
+    --radius-xl: 1rem;
+    --radius-2xl: 1.25rem;   /* ChatGPT bubble */
+    --radius-full: 9999px;
+
+    /* --- 阴影（Notion 柔 / Linear 极轻 / Vercel 硬） --- */
+    --shadow-xs: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05), 0 1px 3px 0 hsl(0 0% 0% / 0.08);
+    --shadow:    0 1px 3px 0 hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.08), 0 4px 6px -4px hsl(0 0% 0% / 0.06);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.10), 0 8px 10px -6px hsl(0 0% 0% / 0.06);
+    --shadow-vercel: 0 0 0 1px hsl(0 0% 0% / 0.08), 0 8px 24px hsl(0 0% 0% / 0.12);
+    --shadow-notion: 0 1px 2px hsl(0 0% 0% / 0.04), 0 4px 12px hsl(0 0% 0% / 0.06);
+    --shadow-linear: 0 0 0 1px hsl(0 0% 0% / 0.04);
+    --shadow-grafana: 0 0 0 1px hsl(220 13% 83% / 0.5), 0 4px 12px hsl(220 13% 0% / 0.04);
+
+    /* --- 缓动曲线（各家招牌） --- */
+    --ease-linear:    cubic-bezier(0, 0, 1, 1);
+    --ease-in:        cubic-bezier(0.4, 0, 1, 1);
+    --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-linear-app: cubic-bezier(0.25, 0.1, 0.25, 1);  /* Linear 招牌 */
+    --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);  /* Notion 弹性 */
+    --ease-apple:     cubic-bezier(0.28, 0.11, 0.32, 1);  /* iOS 招牌 */
+    --ease-vercel:    cubic-bezier(0.19, 1, 0.22, 1);     /* Vercel 招牌 */
+    --ease-chatgpt:   cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    /* --- 持续时间（毫秒等价） --- */
+    --duration-instant: 50ms;
+    --duration-fast:    150ms;
+    --duration-base:    200ms;
+    --duration-slow:    300ms;
+    --duration-slower:  500ms;
+    --duration-vercel:  600ms;  /* Vercel 招牌慢动效 */
+
+    /* --- 间距（4px 基准） --- */
+    --space-0:  0;
+    --space-1:  0.25rem;   /*  4px */
+    --space-2:  0.5rem;    /*  8px */
+    --space-3:  0.75rem;   /* 12px */
+    --space-4:  1rem;      /* 16px */
+    --space-5:  1.25rem;   /* 20px */
+    --space-6:  1.5rem;    /* 24px */
+    --space-8:  2rem;      /* 32px */
+    --space-10: 2.5rem;    /* 40px */
+    --space-12: 3rem;      /* 48px */
+    --space-16: 4rem;      /* 64px */
+    --space-20: 5rem;      /* 80px */
+
+    /* --- 字体族（深借皮各家招牌） --- */
+    --font-sans:   "Inter", "Inter Variable", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-display: "Inter Display", "Inter", -apple-system, sans-serif;
+    --font-mono:   "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", Consolas, monospace;
+    --font-serif:  "Source Serif Pro", "Noto Serif SC", Georgia, serif;
+    /* ChatGPT 偏好 Inter，Notion 偏好衬线/中文，Vercel 偏好 Geist（未来可加） */
+
+    /* --- 字号（Tailwind 拓展） --- */
+    --text-xs:   0.75rem;   /* 12px */
+    --text-sm:   0.8125rem; /* 13px Linear */
+    --text-base: 0.875rem;  /* 14px Linear 默认 */
+    --text-md:   0.9375rem; /* 15px */
+    --text-lg:   1rem;      /* 16px */
+    --text-xl:   1.125rem;  /* 18px */
+    --text-2xl:  1.25rem;   /* 20px */
+    --text-3xl:  1.5rem;    /* 24px */
+    --text-4xl:  1.875rem;  /* 30px */
+    --text-5xl:  2.25rem;   /* 36px */
+    --text-6xl:  3rem;      /* 48px */
+  }
+
+  /* --- 暗色主题（产品默认） --- */
+  .dark {
+    --background:        240 10% 3.9%;
+    --foreground:        0 0% 98%;
+    --card:              240 6% 6%;
+    --card-foreground:   0 0% 98%;
+    --popover:           240 10% 3.9%;
+    --popover-foreground:0 0% 98%;
+    --primary:           235 56% 65%;
+    --primary-foreground:240 5.9% 10%;
+    --secondary:         240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted:             240 3.7% 12%;
+    --muted-foreground:  240 5% 64.9%;
+    --accent:            240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive:       0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --success:           160 70% 45%;
+    --warning:           38 90% 55%;
+    --info:              217 85% 65%;
+    --border:            240 3.7% 15.9%;
+    --input:             240 3.7% 15.9%;
+    --ring:              235 56% 65%;
+
+    /* Linear 深色侧边栏 */
+    --sidebar:            240 10% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-accent:     235 30% 15%;
+    --sidebar-border:     240 3.7% 15.9%;
+
+    /* 暗色阴影更柔 */
+    --shadow:    0 1px 3px 0 hsl(0 0% 0% / 0.4), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -2px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -4px hsl(0 0% 0% / 0.3);
+    --shadow-vercel: 0 0 0 1px hsl(0 0% 100% / 0.06), 0 8px 24px hsl(0 0% 0% / 0.4);
+    --shadow-notion: 0 1px 2px hsl(0 0% 0% / 0.2), 0 4px 12px hsl(0 0% 0% / 0.3);
+    --shadow-linear: 0 0 0 1px hsl(0 0% 100% / 0.06);
+    --shadow-grafana: 0 0 0 1px hsl(220 13% 20% / 0.6), 0 4px 12px hsl(0 0% 0% / 0.4);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * Section 2 · 借皮专用工具类（Tailwind utilities 之外的补充）
+ * -------------------------------------------------------------------------- */
+@layer utilities {
+  /* 借皮 · Linear */
+  .text-linear-primary { color: hsl(235 56% 60%); }
+  .text-linear-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .ease-linear-app { transition-timing-function: var(--ease-linear-app); }
+
+  /* 借皮 · Notion */
+  .text-notion-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .shadow-notion { box-shadow: var(--shadow-notion); }
+  .ease-spring { transition-timing-function: var(--ease-spring); }
+
+  /* 借皮 · ChatGPT */
+  .text-chatgpt-bubble {
+    border-radius: var(--radius-2xl);
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+  }
+  .ease-chatgpt { transition-timing-function: var(--ease-chatgpt); }
+
+  /* 借皮 · Vercel */
+  .text-vercel-mono {
+    font-family: var(--font-mono);
+    letter-spacing: -0.01em;
+  }
+  .shadow-vercel { box-shadow: var(--shadow-vercel); }
+  .ease-vercel { transition-timing-function: var(--ease-vercel); }
+
+  /* 借皮 · Grafana */
+  .bg-grafana-panel {
+    background: hsl(var(--card));
+    border: 1px solid hsl(220 13% 83% / 0.5);
+  }
+  .dark .bg-grafana-panel {
+    border-color: hsl(220 13% 20% / 0.6);
+  }
+  .shadow-grafana { box-shadow: var(--shadow-grafana); }
+  .font-mono-tabular { font-variant-numeric: tabular-nums; }
+
+  /* 借皮 · GitHub 贡献图 */
+  .contrib-cell { @apply rounded-sm; }
+  .contrib-0 { background: hsl(var(--muted)); }
+  .contrib-1 { background: hsl(140 60% 90%); }
+  .contrib-2 { background: hsl(140 60% 70%); }
+  .contrib-3 { background: hsl(140 60% 50%); }
+  .contrib-4 { background: hsl(140 70% 35%); }
+  .dark .contrib-1 { background: hsl(140 40% 25%); }
+  .dark .contrib-2 { background: hsl(140 50% 35%); }
+  .dark .contrib-3 { background: hsl(140 60% 45%); }
+  .dark .contrib-4 { background: hsl(140 70% 55%); }
+
+  /* 通用 · 焦点环（深借皮各家均有） */
+  .ring-linear { box-shadow: 0 0 0 3px hsl(235 56% 60% / 0.2); }
+  .ring-notion { box-shadow: 0 0 0 3px hsl(220 13% 91% / 0.5); }
+  .ring-vercel { box-shadow: 0 0 0 1px hsl(0 0% 0% / 0.1), 0 0 0 4px hsl(0 0% 0% / 0.06); }
+  .ring-chatgpt { box-shadow: 0 0 0 2px hsl(0 0% 100%); }
+}
+
+/* --------------------------------------------------------------------------
+ * 主题 CSS 变量锚点（被 themes/index.ts 中的 applyTheme 写入）
+ * 业务方用 var(--theme-primary) 等可以拿到当前主题色
+ * 主题色是 hex 字符串，不是 HSL channel
+ * ------------------------------------------------------------------------ */
+:root {
+  --theme-primary: #36454f;
+  --theme-secondary: #708090;
+  --theme-accent: #d3d3d3;
+  --theme-bg: #ffffff;
+  --theme-surface: #fafafa;
+  --theme-text: #36454f;
+  --theme-text-muted: #708090;
+  --theme-border: #e5e5e5;
+  --theme-heading-font: "Inter", system-ui, sans-serif;
+  --theme-body-font: "Inter", system-ui, sans-serif;
+}
+
+@layer utilities {
+  .bg-theme { background: var(--theme-bg); }
+  .bg-theme-surface { background: var(--theme-surface); }
+  .text-theme { color: var(--theme-text); }
+  .text-theme-muted { color: var(--theme-text-muted); }
+  .border-theme { border-color: var(--theme-border); }
+  .bg-theme-primary { background: var(--theme-primary); }
+  .text-theme-primary { color: var(--theme-primary); }
+  .font-theme-heading { font-family: var(--theme-heading-font); }
+  .font-theme-body { font-family: var(--theme-body-font); }
+}

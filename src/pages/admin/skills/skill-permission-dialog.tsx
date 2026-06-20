@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, ShieldCheck, Trash2, UserPlus } from "lucide-react";
+import { IconPlus, IconShieldCheck, IconTrash2, IconUserPlus } from "@/components/icons"
 import { useState } from "react";
 import { type AdminSkill, PERMISSION_LEVEL_INFO, type PermissionLevel } from "./mock-data";
 
@@ -92,7 +92,7 @@ export function SkillPermissionDialog({ skill, onOpenChange, onSave }: Props) {
       <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-warning" />
+            <IconShieldCheck className="h-5 w-5 text-warning" />
             权限设置 - {draft.name}
           </DialogTitle>
           <DialogDescription>配置谁可以调用此技能，按角色或按用户精确控制</DialogDescription>
@@ -152,7 +152,7 @@ export function SkillPermissionDialog({ skill, onOpenChange, onSave }: Props) {
                     </Select>
                   </div>
                   <Button size="sm" className="h-8 gap-1.5" onClick={addRole}>
-                    <Plus className="h-3.5 w-3.5" />
+                    <IconPlus className="h-3.5 w-3.5" />
                     添加
                   </Button>
                 </div>
@@ -172,7 +172,7 @@ export function SkillPermissionDialog({ skill, onOpenChange, onSave }: Props) {
                           className="flex items-center justify-between rounded-md border border-border bg-card p-2 text-xs"
                         >
                           <div className="flex items-center gap-2">
-                            <ShieldCheck className="h-3.5 w-3.5 text-warning" />
+                            <IconShieldCheck className="h-3.5 w-3.5 text-warning" />
                             <span className="font-medium">{ROLE_LABEL[r] ?? r}</span>
                             <span className="font-mono text-[10px] text-muted-foreground">{r}</span>
                           </div>
@@ -183,7 +183,7 @@ export function SkillPermissionDialog({ skill, onOpenChange, onSave }: Props) {
                             onClick={() => removeRole(r)}
                             aria-label={`移除 ${r}`}
                           >
-                            <Trash2 className="h-3 w-3" />
+                            <IconTrash2 className="h-3 w-3" />
                           </Button>
                         </div>
                       ))}
@@ -214,7 +214,7 @@ export function SkillPermissionDialog({ skill, onOpenChange, onSave }: Props) {
                     />
                   </div>
                   <Button size="sm" className="h-8 gap-1.5" onClick={addUser}>
-                    <UserPlus className="h-3.5 w-3.5" />
+                    <IconUserPlus className="h-3.5 w-3.5" />
                     添加
                   </Button>
                 </div>

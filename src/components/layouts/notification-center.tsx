@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotifications } from "@/hooks/use-notifications";
 import { cn } from "@/lib/utils";
-import { Bell, CheckCheck, Inbox, X } from "lucide-react";
+import { IconBell, IconCheckCheck, IconInbox, IconX } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { type FilterKey, NotificationFilters } from "./notification-filters";
 import { NotificationItem } from "./notification-item";
@@ -53,7 +53,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
         <header className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-              <Bell className="h-4 w-4" />
+              <IconBell className="h-4 w-4" />
             </span>
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-semibold">通知中心</span>
@@ -73,7 +73,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
                 "disabled:pointer-events-none disabled:opacity-50",
               )}
             >
-              <CheckCheck className="h-3.5 w-3.5" />
+              <IconCheckCheck className="h-3.5 w-3.5" />
               全部已读
             </button>
             <button
@@ -85,7 +85,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
                 "hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               )}
             >
-              <X className="h-4 w-4" />
+              <IconX className="h-4 w-4" />
             </button>
           </div>
         </header>
@@ -98,7 +98,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
           {filtered.length === 0 ? (
             <div className="flex h-full min-h-[280px] flex-col items-center justify-center gap-2 px-4 py-12 text-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                <Inbox className="h-5 w-5" />
+                <IconInbox className="h-5 w-5" />
               </span>
               <p className="text-sm font-medium text-foreground">暂无新通知</p>
               <p className="text-xs text-muted-foreground">有新消息时会自动出现在这里</p>

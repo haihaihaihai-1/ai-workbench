@@ -1,16 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn, shortNumber } from "@/lib/utils";
-import {
-  Activity,
-  MessageSquare,
-  Repeat2,
-  ThumbsUp,
-  TrendingDown,
-  TrendingUp,
-  Users,
-  Zap,
-} from "lucide-react";
+import { IconActivity, IconMessageSquare, IconRepeat2, IconThumbsUp, IconTrendingDown, IconTrendingUp, IconUsers, IconZap } from "@/components/icons"
 import {
   Area,
   AreaChart,
@@ -51,7 +42,7 @@ function MetricMini({
   value: number;
   prev: number;
   unit?: string;
-  icon: typeof Users;
+  icon: typeof IconUsers;
   tone: "primary" | "info" | "warning" | "success";
 }) {
   const delta = prev === 0 ? 0 : +(((value - prev) / prev) * 100).toFixed(1);
@@ -84,7 +75,7 @@ function MetricMini({
               up ? "text-success" : "text-destructive",
             )}
           >
-            {up ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+            {up ? <IconTrendingUp className="h-3 w-3" /> : <IconTrendingDown className="h-3 w-3" />}
             {up ? "+" : ""}
             {delta}%
           </span>
@@ -109,7 +100,7 @@ export function KeyMetrics() {
         value={KEY_METRICS.todayConversations}
         prev={KEY_METRICS.prevTodayConversations}
         unit="次"
-        icon={MessageSquare}
+        icon={IconMessageSquare}
         tone="primary"
       />
       <MetricMini
@@ -117,7 +108,7 @@ export function KeyMetrics() {
         value={KEY_METRICS.activeUsers}
         prev={KEY_METRICS.prevActiveUsers}
         unit="人"
-        icon={Users}
+        icon={IconUsers}
         tone="info"
       />
       <MetricMini
@@ -125,7 +116,7 @@ export function KeyMetrics() {
         value={KEY_METRICS.avgRounds}
         prev={KEY_METRICS.prevAvgRounds}
         unit="轮"
-        icon={Repeat2}
+        icon={IconRepeat2}
         tone="warning"
       />
       <MetricMini
@@ -133,7 +124,7 @@ export function KeyMetrics() {
         value={KEY_METRICS.successRate}
         prev={KEY_METRICS.prevSuccessRate}
         unit="%"
-        icon={ThumbsUp}
+        icon={IconThumbsUp}
         tone="success"
       />
     </div>
@@ -146,7 +137,7 @@ export function ConversationTrendChart() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Zap className="h-4 w-4 text-primary" />7 天对话趋势
+            <IconZap className="h-4 w-4 text-primary" />7 天对话趋势
           </CardTitle>
           <Badge variant="secondary" className="text-[10px]">
             会话 · 用户 · 成功率
@@ -200,7 +191,7 @@ export function IntentChangeChart() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Activity className="h-4 w-4 text-info" />
+            <IconActivity className="h-4 w-4 text-info" />
             意图分布变化
           </CardTitle>
           <Badge variant="info" className="text-[10px]">
@@ -237,7 +228,7 @@ export function FeedbackTrendChart() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <ThumbsUp className="h-4 w-4 text-success" />
+            <IconThumbsUp className="h-4 w-4 text-success" />
             反馈趋势
           </CardTitle>
           <Badge variant="success" className="text-[10px]">

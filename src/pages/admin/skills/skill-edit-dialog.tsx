@@ -20,7 +20,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, formatDate, relativeTime, shortNumber } from "@/lib/utils";
-import { Activity, Code2, History as HistoryIcon, Save, ShieldCheck } from "lucide-react";
+import { IconActivity, IconCode2, IconHistory as HistoryIcon, IconSave, IconShieldCheck } from "@/components/icons"
 import { useState } from "react";
 import {
   type AdminSkill,
@@ -103,15 +103,15 @@ export function SkillEditDialog({ skill, onOpenChange, onSave }: Props) {
         <Tabs defaultValue="meta" className="w-full">
           <TabsList>
             <TabsTrigger value="meta">
-              <Code2 className="mr-1 h-3.5 w-3.5" />
+              <IconCode2 className="mr-1 h-3.5 w-3.5" />
               元数据
             </TabsTrigger>
             <TabsTrigger value="stats">
-              <Activity className="mr-1 h-3.5 w-3.5" />
+              <IconActivity className="mr-1 h-3.5 w-3.5" />
               调用统计
             </TabsTrigger>
             <TabsTrigger value="perm">
-              <ShieldCheck className="mr-1 h-3.5 w-3.5" />
+              <IconShieldCheck className="mr-1 h-3.5 w-3.5" />
               权限
             </TabsTrigger>
             <TabsTrigger value="audit">
@@ -297,7 +297,7 @@ export function SkillEditDialog({ skill, onOpenChange, onSave }: Props) {
                       key={p}
                       className="flex items-center gap-2 rounded-md border border-border bg-card p-2 text-xs"
                     >
-                      <ShieldCheck className="h-3.5 w-3.5 text-warning" />
+                      <IconShieldCheck className="h-3.5 w-3.5 text-warning" />
                       <span className="font-mono">{p}</span>
                     </div>
                   ))}
@@ -371,7 +371,7 @@ export function SkillEditDialog({ skill, onOpenChange, onSave }: Props) {
               取消
             </Button>
             <Button size="sm" className="h-8 gap-1.5 text-xs" onClick={handleSave}>
-              <Save className="h-3.5 w-3.5" />
+              <IconSave className="h-3.5 w-3.5" />
               保存修改
             </Button>
           </div>

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
+import { IconSparkles } from "@/components/icons"
 import { PROFILE_SUMMARY } from "./mock-data";
 
 export function ProfileSummary() {
@@ -8,7 +8,7 @@ export function ProfileSummary() {
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Sparkles className="h-4 w-4 text-primary" />
+            <IconSparkles className="h-4 w-4 text-primary" />
             AI 画像摘要
           </CardTitle>
           <span className="text-[10px] text-muted-foreground">

@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { slideInRight } from "@/lib/motion-presets";
 import { cn, relativeTime } from "@/lib/utils";
-import { Activity } from "lucide-react";
+import { IconActivity } from "@/components/icons"
 import { motion } from "motion/react";
 import { type HomeEvent, RECENT_EVENTS } from "./mock-data";
 
@@ -18,7 +18,7 @@ export function EventStream() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Activity className="h-4 w-4 text-info" />
+          <IconActivity className="h-4 w-4 text-info" />
           实时事件流
         </CardTitle>
         <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground">

@@ -1,16 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { AlertCircle, CheckCircle2, ShieldOff, Wrench } from "lucide-react";
+import { IconAlertCircle, IconCheckCircle2, IconShieldOff, IconWrench } from "@/components/icons"
 import type { ADMIN_SKILL_STATS } from "./mock-data";
 
 type Props = { stats: typeof ADMIN_SKILL_STATS };
 
 export function StatsOverview({ stats }: Props) {
   const items = [
-    { label: "总技能", value: stats.total, icon: Wrench, tone: "text-primary" },
-    { label: "已启用", value: stats.enabled, icon: CheckCircle2, tone: "text-success" },
-    { label: "待审核", value: stats.pending, icon: AlertCircle, tone: "text-warning" },
-    { label: "已禁用", value: stats.disabled, icon: ShieldOff, tone: "text-destructive" },
+    { label: "总技能", value: stats.total, icon: IconWrench, tone: "text-primary" },
+    { label: "已启用", value: stats.enabled, icon: IconCheckCircle2, tone: "text-success" },
+    { label: "待审核", value: stats.pending, icon: IconAlertCircle, tone: "text-warning" },
+    { label: "已禁用", value: stats.disabled, icon: IconShieldOff, tone: "text-destructive" },
   ];
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">

@@ -1,13 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { Activity, Gauge, type LucideIcon, MessageSquare, ThumbsUp } from "lucide-react";
+import { IconActivity, IconGauge, IconMessageSquare, IconThumbsUp } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import { HEALTH_SCORES } from "./mock-data";
 
 type ScoreItem = {
   label: string;
   value: number;
-  icon: LucideIcon;
+  icon: IconComponent;
   tone: "primary" | "success" | "info" | "warning";
   desc: string;
 };
@@ -16,28 +17,28 @@ const items: ScoreItem[] = [
   {
     label: "飞轮总分",
     value: HEALTH_SCORES.overall,
-    icon: Gauge,
+    icon: IconGauge,
     tone: "primary",
     desc: "综合健康度",
   },
   {
     label: "意图覆盖",
     value: HEALTH_SCORES.intentCoverage,
-    icon: Activity,
+    icon: IconActivity,
     tone: "info",
     desc: "已识别意图占比",
   },
   {
     label: "反馈质量",
     value: HEALTH_SCORES.feedbackQuality,
-    icon: ThumbsUp,
+    icon: IconThumbsUp,
     tone: "success",
     desc: "正向反馈率",
   },
   {
     label: "响应质量",
     value: HEALTH_SCORES.responseQuality,
-    icon: MessageSquare,
+    icon: IconMessageSquare,
     tone: "warning",
     desc: "回答有用率",
   },

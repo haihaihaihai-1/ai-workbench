@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Wrench } from "lucide-react";
+import { IconWrench } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ADMIN_SKILL_STATS, type AdminSkill, MOCK_ADMIN_SKILLS } from "./skills/mock-data";
@@ -87,7 +87,7 @@ export default function SkillsAdminPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Wrench className="h-6 w-6 text-primary" />
+            <IconWrench className="h-6 w-6 text-primary" />
             技能管理
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -104,7 +104,7 @@ export default function SkillsAdminPage() {
             刷新
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能创建向导")}>
-            <Wrench className="h-3.5 w-3.5" />
+            <IconWrench className="h-3.5 w-3.5" />
             新建技能
           </Button>
         </div>

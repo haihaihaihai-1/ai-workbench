@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Activity, Calendar, Clock } from "lucide-react";
+import { IconActivity, IconCalendar, IconClock } from "@/components/icons"
 import {
   Area,
   AreaChart,
@@ -35,7 +35,7 @@ export function ActivityPanel() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Clock className="h-4 w-4 text-primary" />
+              <IconClock className="h-4 w-4 text-primary" />
               24h 活跃时段热力图
             </CardTitle>
             <span className="text-[10px] text-muted-foreground">峰值：22:00 - 23:00（86 次）</span>
@@ -80,7 +80,7 @@ export function ActivityPanel() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Calendar className="h-4 w-4 text-info" />
+              <IconCalendar className="h-4 w-4 text-info" />
               本周活跃分布
             </CardTitle>
           </CardHeader>
@@ -123,7 +123,7 @@ export function ActivityPanel() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-              <Activity className="h-4 w-4 text-success" />
+              <IconActivity className="h-4 w-4 text-success" />
               30 天活跃趋势
             </CardTitle>
           </CardHeader>

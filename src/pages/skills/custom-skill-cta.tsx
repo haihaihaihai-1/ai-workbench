@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Code2, Sparkles, Zap } from "lucide-react";
+import { IconArrowRight, IconCode2, IconSparkles, IconZap } from "@/components/icons"
 import { toast } from "sonner";
 
 export function CustomSkillCta() {
@@ -9,7 +9,7 @@ export function CustomSkillCta() {
       <CardContent className="flex flex-col items-start gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
           <div className="rounded-md bg-primary/10 p-2.5 text-primary">
-            <Sparkles className="h-5 w-5" />
+            <IconSparkles className="h-5 w-5" />
           </div>
           <div>
             <h3 className="flex items-center gap-2 text-sm font-semibold">
@@ -24,10 +24,10 @@ export function CustomSkillCta() {
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-3 text-[10px] text-muted-foreground">
               <span className="flex items-center gap-1">
-                <Code2 className="h-3 w-3" /> 沙箱执行
+                <IconCode2 className="h-3 w-3" /> 沙箱执行
               </span>
               <span className="flex items-center gap-1">
-                <Zap className="h-3 w-3" /> 热加载
+                <IconZap className="h-3 w-3" /> 热加载
               </span>
               <span>·</span>
               <span>支持 OPENAPI / MCP 协议接入</span>
@@ -49,7 +49,7 @@ export function CustomSkillCta() {
             onClick={() => toast.info("打开技能开发向导")}
           >
             立即创建
-            <ArrowRight className="h-3.5 w-3.5" />
+            <IconArrowRight className="h-3.5 w-3.5" />
           </Button>
         </div>
       </CardContent>
