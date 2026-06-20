@@ -1,3 +1,4 @@
+import { IconSearch, IconX } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,7 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { TicketPriority, TicketStatus, TicketType } from "@/lib/types";
-import { IconSearch, IconX } from "@/components/icons"
 
 export type FilterState = {
   q: string;

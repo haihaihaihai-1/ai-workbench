@@ -1,3 +1,13 @@
+import {
+  IconArrowRight,
+  IconCheckCircle2,
+  IconGitBranch,
+  IconMessageSquare,
+  IconPaperclip,
+  IconSend,
+  IconSparkles,
+  IconX,
+} from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -6,7 +16,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import type { Ticket } from "@/lib/types";
 import { formatDate, relativeTime } from "@/lib/utils";
-import { IconArrowRight, IconCheckCircle2, IconGitBranch, IconMessageSquare, IconPaperclip, IconSend, IconSparkles, IconX } from "@/components/icons"
 import { useState } from "react";
 import { TICKET_PRIORITY_INFO, TICKET_STATUS_INFO, TICKET_TYPE_INFO } from "./mock-data";
 import { SlaIndicator } from "./sla-indicator";

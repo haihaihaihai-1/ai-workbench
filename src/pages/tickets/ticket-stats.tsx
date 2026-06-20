@@ -1,6 +1,13 @@
+import {
+  IconCheckCircle2,
+  IconClock,
+  IconFlame,
+  IconListChecks,
+  IconTimer,
+  IconTrendingUp,
+} from "@/components/icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { IconCheckCircle2, IconClock, IconFlame, IconListChecks, IconTimer, IconTrendingUp } from "@/components/icons"
 import type { TICKET_STATS } from "./mock-data";
 
 type Props = { stats: typeof TICKET_STATS };

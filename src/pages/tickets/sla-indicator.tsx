@@ -1,5 +1,5 @@
+import { IconAlertTriangle, IconClock } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { IconAlertTriangle, IconClock } from "@/components/icons"
 import { useEffect, useState } from "react";
 
 type Props = { dueAt: number; compact?: boolean };
@@ -52,7 +52,11 @@ export function SlaIndicator({ dueAt, compact }: Props) {
         tone === "default" && "text-muted-foreground",
       )}
     >
-      {breached ? <IconAlertTriangle className="h-3.5 w-3.5" /> : <IconClock className="h-3.5 w-3.5" />}
+      {breached ? (
+        <IconAlertTriangle className="h-3.5 w-3.5" />
+      ) : (
+        <IconClock className="h-3.5 w-3.5" />
+      )}
       <span className="font-mono">
         {breached ? "已超时 " : "剩余 "}
         {label}
