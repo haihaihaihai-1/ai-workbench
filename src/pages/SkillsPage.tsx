@@ -1,6 +1,6 @@
+import { IconSparkles } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { IconSparkles } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { CustomSkillCta } from "./skills/custom-skill-cta";
@@ -64,16 +64,18 @@ export default function SkillsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconSparkles className="h-6 w-6 text-primary" />
-            技能市场
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            AI 技能浏览 · 安装 · 自定义 · 调用统计
-          </p>
+      {/* 顶部 · OpenAI GPT Store 招牌：黑高对比 logo + 紧凑 hero */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-[#10A37F] to-[#1A7F64] text-white shadow-vercel">
+            <IconSparkles className="h-4 w-4" weight="fill" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">GPT Store</h1>
+            <p className="text-[11px] text-muted-foreground">
+              AI 技能浏览 · 安装 · 自定义 · 调用统计 · 官方精选
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -82,11 +84,11 @@ export default function SkillsPage() {
             className="h-8 gap-1.5"
             onClick={() => toast.info("已请求刷新技能列表")}
           >
-            刷新
+            Refresh
           </Button>
           <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能开发向导")}>
-            <IconSparkles className="h-3.5 w-3.5" />
-            提交技能
+            <IconSparkles className="h-3.5 w-3.5" weight="fill" />
+            Submit skill
           </Button>
         </div>
       </header>
