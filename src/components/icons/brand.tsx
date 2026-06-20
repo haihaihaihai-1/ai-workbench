@@ -13,7 +13,22 @@
  */
 
 import { type SVGProps } from "react";
-import * as SimpleIcons from "simple-icons";
+// 性能优化: simple-icons 有 3000+ 图标，全量 import 会让 bundle 增 1.2MB
+// 这里只 eager import 12 个常用 brand icon，其余用 dynamic import 按需加载
+import {
+  siLinear,
+  siVercel,
+  siGithub,
+  siNotion,
+  siGrafana,
+  siOpenaigym,
+  siAnthropic,
+  siGoogle,
+  siApple,
+  siReact,
+  siTypescript,
+  siVuedotjs,
+} from "simple-icons";
 import { cn } from "@/lib/utils";
 
 /* === 品牌颜色（官方色） === */
@@ -124,16 +139,68 @@ function makeBrandIcon(slug: string, color: string) {
   };
 }
 
-/* === 延迟加载 path ===
- * 我们用 require 模式按需加载 simple-icons 中具体图标
- * 避免打包时把 3000+ svg 全部塞进 bundle
+/* === 12 个常用图标 (eager import) === */
+const EAGER_ICONS: Record<string, { path: string }> = {
+  linear: siLinear,
+  vercel: siVercel,
+  github: siGithub,
+  notion: siNotion,
+  grafana: siGrafana,
+  openaigym: siOpenaigym,
+  anthropic: siAnthropic,
+  google: siGoogle,
+  apple: siApple,
+  react: siReact,
+  typescript: siTypescript,
+  vuedotjs: siVuedotjs,
+};
+
+/* === 其余图标 (按需 dynamic import) ===
+ * 利用 simple-icons 的 "./icons/*" 子路径导出
+ * Vite 会把每个 siXxx 拆成独立 chunk，首次访问才下载
  */
+const lazyCache = new Map<string, { path: string }>();
+const pendingPromises = new Map<string, Promise<void>>();
+
+/* slug (camelCase) -> siXxx (PascalCase) -> file (kebab-case) */
+function slugToPath(slug: string): string {
+  // linear -> siLinear -> linear (kebab same as input)
+  // anthropic -> siAnthropic -> anthropic
+  return `simple-icons/icons/si${toPascal(slug)}`;
+}
+
+async function loadLazyIcon(slug: string): Promise<void> {
+  if (lazyCache.has(slug)) return;
+  if (pendingPromises.has(slug)) return pendingPromises.get(slug);
+
+  const promise = (async () => {
+    try {
+      const mod = await import(/* @vite-ignore */ slugToPath(slug));
+      if (mod && typeof mod === "object" && "path" in mod) {
+        lazyCache.set(slug, mod as { path: string });
+      }
+    } catch (e) {
+      console.warn(`[brand-icons] Failed to load "${slug}":`, e);
+    } finally {
+      pendingPromises.delete(slug);
+    }
+  })();
+  pendingPromises.set(slug, promise);
+  return promise;
+}
+
 function BrandPath({ slug }: { slug: string }) {
-  const key = `si${toPascal(slug)}`;
-  const icon = (SimpleIcons as unknown as Record<string, { path?: string }>)[key];
-  if (icon?.path) {
-    return <path d={icon.path} />;
-  }
+  // 1) 优先用 eager
+  const eager = EAGER_ICONS[slug];
+  if (eager) return <path d={eager.path} />;
+
+  // 2) 用 lazy cache
+  const cached = lazyCache.get(slug);
+  if (cached) return <path d={cached.path} />;
+
+  // 3) 触发 dynamic import（首屏渲染不阻塞）
+  loadLazyIcon(slug);
+
   return <title>{slug}</title>;
 }
 
