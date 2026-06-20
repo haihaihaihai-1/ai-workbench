@@ -2,6 +2,7 @@ import { useCommandPalette } from "@/components/layouts/command-palette-context"
 import { LocaleSwitcher } from "@/components/layouts/locale-switcher";
 import { NotificationCenter } from "@/components/layouts/notification-center";
 import { ThemeSwitcher } from "@/components/layouts/theme-switcher";
+import { ThemePicker } from "@/components/layouts/ThemePicker";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,7 @@ export function Topbar() {
         </Badge>
 
         <ThemeSwitcher />
+        <ThemePicker />
         <LocaleSwitcher />
 
         <Button

@@ -294,3 +294,33 @@
   .ring-vercel { box-shadow: 0 0 0 1px hsl(0 0% 0% / 0.1), 0 0 0 4px hsl(0 0% 0% / 0.06); }
   .ring-chatgpt { box-shadow: 0 0 0 2px hsl(0 0% 100%); }
 }
+
+/* --------------------------------------------------------------------------
+ * 主题 CSS 变量锚点（被 themes/index.ts 中的 applyTheme 写入）
+ * 业务方用 var(--theme-primary) 等可以拿到当前主题色
+ * 主题色是 hex 字符串，不是 HSL channel
+ * ------------------------------------------------------------------------ */
+:root {
+  --theme-primary: #36454f;
+  --theme-secondary: #708090;
+  --theme-accent: #d3d3d3;
+  --theme-bg: #ffffff;
+  --theme-surface: #fafafa;
+  --theme-text: #36454f;
+  --theme-text-muted: #708090;
+  --theme-border: #e5e5e5;
+  --theme-heading-font: "Inter", system-ui, sans-serif;
+  --theme-body-font: "Inter", system-ui, sans-serif;
+}
+
+@layer utilities {
+  .bg-theme { background: var(--theme-bg); }
+  .bg-theme-surface { background: var(--theme-surface); }
+  .text-theme { color: var(--theme-text); }
+  .text-theme-muted { color: var(--theme-text-muted); }
+  .border-theme { border-color: var(--theme-border); }
+  .bg-theme-primary { background: var(--theme-primary); }
+  .text-theme-primary { color: var(--theme-primary); }
+  .font-theme-heading { font-family: var(--theme-heading-font); }
+  .font-theme-body { font-family: var(--theme-body-font); }
+}
