@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { messageEnter } from "@/lib/motion-presets";
 import type { ChatMessage, SourceRef, ToolCall } from "@/lib/types";
 import { cn, relativeTime } from "@/lib/utils";
-import { Bot, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
+import { IconBot, IconCopy, IconThumbsDown, IconThumbsUp } from "@/components/icons"
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { AGENTS } from "./mock-data";
@@ -40,7 +40,7 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
           </AvatarFallback>
         ) : (
           <AvatarFallback className="bg-primary/15 text-primary">
-            <Bot className="h-4 w-4" />
+            <IconBot className="h-4 w-4" />
           </AvatarFallback>
         )}
       </Avatar>
@@ -115,7 +115,7 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
                 onClick={handleCopy}
                 aria-label="复制"
               >
-                <Copy className="h-3 w-3" />
+                <IconCopy className="h-3 w-3" />
               </Button>
               <Button
                 size="icon"
@@ -124,7 +124,7 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
                 onClick={() => onFeedback?.(message.id, "up")}
                 aria-label="有帮助"
               >
-                <ThumbsUp className="h-3 w-3" />
+                <IconThumbsUp className="h-3 w-3" />
               </Button>
               <Button
                 size="icon"
@@ -133,7 +133,7 @@ export function MessageBubble({ message, onFeedback, sources, tools }: Props) {
                 onClick={() => onFeedback?.(message.id, "down")}
                 aria-label="没帮助"
               >
-                <ThumbsDown className="h-3 w-3" />
+                <IconThumbsDown className="h-3 w-3" />
               </Button>
             </div>
           )}

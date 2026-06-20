@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, MessageSquare, Smile, TrendingUp } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { IconBrain, IconMessageSquare, IconSmile, IconTrendingUp } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import { MOCK_USER } from "./mock-data";
 
 type Metric = {
@@ -9,7 +9,7 @@ type Metric = {
   unit?: string;
   delta?: string;
   deltaTone?: "up" | "down" | "neutral";
-  icon: LucideIcon;
+  icon: IconComponent;
   tone: string;
   bgTone: string;
 };
@@ -22,7 +22,7 @@ export function KeyMetrics() {
       unit: "次",
       delta: "+12",
       deltaTone: "up",
-      icon: MessageSquare,
+      icon: IconMessageSquare,
       tone: "text-primary",
       bgTone: "bg-primary/10",
     },
@@ -32,7 +32,7 @@ export function KeyMetrics() {
       unit: "条",
       delta: "+8",
       deltaTone: "up",
-      icon: Brain,
+      icon: IconBrain,
       tone: "text-info",
       bgTone: "bg-info/10",
     },
@@ -42,7 +42,7 @@ export function KeyMetrics() {
       unit: "轮",
       delta: "+0.4",
       deltaTone: "up",
-      icon: TrendingUp,
+      icon: IconTrendingUp,
       tone: "text-success",
       bgTone: "bg-success/10",
     },
@@ -52,7 +52,7 @@ export function KeyMetrics() {
       unit: "/1.0",
       delta: "-0.03",
       deltaTone: "down",
-      icon: Smile,
+      icon: IconSmile,
       tone: "text-warning",
       bgTone: "bg-warning/10",
     },

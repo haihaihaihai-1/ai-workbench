@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { Check, ChevronRight, Circle } from "lucide-react";
+import { IconCheck, IconChevronRight, IconCircle } from "@/components/icons"
 import * as React from "react";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
@@ -85,4 +85,4 @@ export {
   DropdownMenuSub,
   DropdownMenuRadioGroup,
 };
-export { Check, ChevronRight, Circle };
+export { IconCheck, IconChevronRight, IconCircle };

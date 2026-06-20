@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import type { ToolCall } from "@/lib/types";
-import { CheckCircle2, CircleAlert, Loader2, Wrench, XCircle } from "lucide-react";
+import { IconCheckCircle2, IconCircleAlert, IconLoader2, IconWrench, IconXCircle } from "@/components/icons"
 
 type Props = { tools: ToolCall[] };
 
@@ -15,7 +15,7 @@ export function TracePanel({ tools }: Props) {
     <div className="flex h-full flex-col">
       <div className="border-b border-border p-4">
         <div className="mb-3 flex items-center gap-2">
-          <Wrench className="h-4 w-4 text-primary" />
+          <IconWrench className="h-4 w-4 text-primary" />
           <h3 className="text-sm font-semibold">工具调用</h3>
         </div>
         <div className="grid grid-cols-4 gap-2 text-center">
@@ -41,12 +41,12 @@ export function TracePanel({ tools }: Props) {
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5">
                   {tool.status === "running" && (
-                    <Loader2 className="h-3.5 w-3.5 animate-spin text-info" />
+                    <IconLoader2 className="h-3.5 w-3.5 animate-spin text-info" />
                   )}
                   {tool.status === "success" && (
-                    <CheckCircle2 className="h-3.5 w-3.5 text-success" />
+                    <IconCheckCircle2 className="h-3.5 w-3.5 text-success" />
                   )}
-                  {tool.status === "error" && <XCircle className="h-3.5 w-3.5 text-destructive" />}
+                  {tool.status === "error" && <IconXCircle className="h-3.5 w-3.5 text-destructive" />}
                   <span className="font-mono text-xs font-medium">{tool.name}</span>
                 </div>
                 {tool.durationMs != null && (
@@ -107,7 +107,7 @@ function Stat({
 export function CrisisBanner() {
   return (
     <div className="flex items-center gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs">
-      <CircleAlert className="h-4 w-4 text-destructive" />
+      <IconCircleAlert className="h-4 w-4 text-destructive" />
       <span className="text-destructive">
         <strong>危机干预已激活</strong> · 检测到敏感关键词，已切换至心理助手并提供援助热线
       </span>

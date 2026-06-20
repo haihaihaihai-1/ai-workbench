@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn, shortNumber } from "@/lib/utils";
-import { Flame, TrendingDown, TrendingUp } from "lucide-react";
+import { IconFlame, IconTrendingDown, IconTrendingUp } from "@/components/icons"
 import { INTENT_HEAT } from "./mock-data";
 
 export function IntentHeatmap() {
@@ -9,7 +9,7 @@ export function IntentHeatmap() {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-          <Flame className="h-4 w-4 text-warning" />
+          <IconFlame className="h-4 w-4 text-warning" />
           意图热度 TOP 10
         </CardTitle>
       </CardHeader>
@@ -39,7 +39,7 @@ export function IntentHeatmap() {
                     up ? "text-success" : "text-destructive",
                   )}
                 >
-                  {up ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                  {up ? <IconTrendingUp className="h-3 w-3" /> : <IconTrendingDown className="h-3 w-3" />}
                   {up ? "+" : ""}
                   {i.change.toFixed(1)}%
                 </span>

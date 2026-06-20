@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn, shortNumber } from "@/lib/utils";
-import { Filter, TrendingDown } from "lucide-react";
+import { IconFilter, IconTrendingDown } from "@/components/icons"
 import { USER_FUNNEL } from "./mock-data";
 
 const colors = ["#5E6AD2", "#6E78D8", "#8588DF", "#9D99E6", "#B8AAF0"];
@@ -12,7 +12,7 @@ export function UserFunnel() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Filter className="h-4 w-4 text-primary" />
+            <IconFilter className="h-4 w-4 text-primary" />
             用户行为漏斗
           </CardTitle>
           <Badge variant="secondary" className="text-[10px]">
@@ -57,7 +57,7 @@ export function UserFunnel() {
                   </span>
                   {idx > 0 && stepLoss > 0 && (
                     <span className="flex items-center gap-0.5 text-destructive">
-                      <TrendingDown className="h-3 w-3" />-{stepLoss.toFixed(1)}%
+                      <IconTrendingDown className="h-3 w-3" />-{stepLoss.toFixed(1)}%
                     </span>
                   )}
                 </div>

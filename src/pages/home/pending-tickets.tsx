@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, relativeTime } from "@/lib/utils";
-import { ArrowRight, Ticket as TicketIcon } from "lucide-react";
+import { IconArrowRight, IconTicket as TicketIcon } from "@/components/icons"
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { PENDING_TICKETS, PRIORITY_NAME, PRIORITY_VARIANT, TICKET_TYPE_META } from "./mock-data";
@@ -64,7 +64,7 @@ export function PendingTickets() {
                       <span>{relativeTime(t.updatedAt)}</span>
                     </div>
                   </div>
-                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                  <IconArrowRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </button>
               );
             })}

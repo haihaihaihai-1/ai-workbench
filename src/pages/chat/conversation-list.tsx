@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Conversation } from "@/lib/types";
 import { cn, relativeTime } from "@/lib/utils";
-import { MessageSquare, Plus, Search } from "lucide-react";
+import { IconMessageSquare, IconPlus, IconSearch } from "@/components/icons"
 import { useState } from "react";
 import { AGENTS } from "./mock-data";
 
@@ -40,7 +40,7 @@ export function ConversationList({
           onClick={onCreate}
           aria-label="新建对话"
         >
-          <Plus className="h-4 w-4" />
+          <IconPlus className="h-4 w-4" />
         </Button>
         {conversations.slice(0, 8).map((c) => {
           const a = AGENTS[c.domain];
@@ -73,13 +73,13 @@ export function ConversationList({
           size="sm"
           onClick={onCreate}
         >
-          <Plus className="h-4 w-4" />
+          <IconPlus className="h-4 w-4" />
           新建对话
         </Button>
       </div>
       <div className="px-3 pb-2">
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+          <IconSearch className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={q}
             onChange={(e) => setQ(e.target.value)}
@@ -99,7 +99,7 @@ export function ConversationList({
           )}
           {filtered.length === 0 && (
             <div className="flex flex-col items-center gap-1 py-8 text-center text-xs text-muted-foreground">
-              <MessageSquare className="h-6 w-6 opacity-50" />
+              <IconMessageSquare className="h-6 w-6 opacity-50" />
               <span>暂无对话</span>
             </div>
           )}

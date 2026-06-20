@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Memory } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
-import { Brain, Plus, Wand2 } from "lucide-react";
+import { IconBrain, IconPlus, IconWand2 } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MemoryCard } from "./memory-card";
@@ -67,7 +67,7 @@ export default function MemoryPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Brain className="h-6 w-6 text-primary" />
+            <IconBrain className="h-6 w-6 text-primary" />
             记忆中心
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -76,11 +76,11 @@ export default function MemoryPage() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="h-8 gap-1.5">
-            <Wand2 className="h-3.5 w-3.5" />
+            <IconWand2 className="h-3.5 w-3.5" />
             合并相似记忆
           </Button>
           <Button size="sm" className="h-8 gap-1.5">
-            <Plus className="h-3.5 w-3.5" />
+            <IconPlus className="h-3.5 w-3.5" />
             手动添加
           </Button>
         </div>

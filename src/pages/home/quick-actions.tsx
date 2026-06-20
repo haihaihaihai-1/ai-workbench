@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { BarChart3, Brain, FileText, Gauge, MessageSquare, Sparkles } from "lucide-react";
+import { IconBarChart3, IconBrain, IconFileText, IconGauge, IconMessageSquare, IconSparkles } from "@/components/icons"
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -8,7 +8,7 @@ type Action = {
   id: string;
   label: string;
   emoji: string;
-  icon: typeof MessageSquare;
+  icon: typeof IconMessageSquare;
   href: string;
   bg: string;
   tone: string;
@@ -20,7 +20,7 @@ const ACTIONS: Action[] = [
     id: "chat",
     label: "对话",
     emoji: "💬",
-    icon: MessageSquare,
+    icon: IconMessageSquare,
     href: "/chat",
     bg: "bg-primary/10",
     tone: "text-primary",
@@ -30,7 +30,7 @@ const ACTIONS: Action[] = [
     id: "memory",
     label: "记忆",
     emoji: "🧠",
-    icon: Brain,
+    icon: IconBrain,
     href: "/memory",
     bg: "bg-info/10",
     tone: "text-info",
@@ -39,7 +39,7 @@ const ACTIONS: Action[] = [
     id: "tickets",
     label: "工单",
     emoji: "🎫",
-    icon: FileText,
+    icon: IconFileText,
     href: "/tickets",
     bg: "bg-warning/10",
     tone: "text-warning",
@@ -49,7 +49,7 @@ const ACTIONS: Action[] = [
     id: "monitor",
     label: "监控",
     emoji: "📊",
-    icon: Gauge,
+    icon: IconGauge,
     href: "/monitor",
     bg: "bg-success/10",
     tone: "text-success",
@@ -58,7 +58,7 @@ const ACTIONS: Action[] = [
     id: "flywheel",
     label: "飞轮",
     emoji: "🎯",
-    icon: Sparkles,
+    icon: IconSparkles,
     href: "/flywheel",
     bg: "bg-violet-500/10",
     tone: "text-violet-400",
@@ -67,7 +67,7 @@ const ACTIONS: Action[] = [
     id: "evaluation",
     label: "评估",
     emoji: "🧪",
-    icon: BarChart3,
+    icon: IconBarChart3,
     href: "/evaluation",
     bg: "bg-rose-500/10",
     tone: "text-rose-400",

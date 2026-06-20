@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 // Badge / Card / Avatar / Tooltip / Progress / Separator 展示
-import { Activity, Mail } from "lucide-react";
+import { IconActivity, IconMail } from "@/components/icons"
 import { SectionFrame } from "./section-frame";
 
 export function SectionDisplay() {
@@ -66,7 +66,7 @@ export function SectionDisplay() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <Activity className="h-4 w-4 text-primary" />
+                    <IconActivity className="h-4 w-4 text-primary" />
                     <span className="text-2xl font-semibold tabular-nums">4.6</span>
                     <span className="text-xs text-muted-foreground">/ 5.0</span>
                   </div>
@@ -78,7 +78,7 @@ export function SectionDisplay() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Badge variant="info" className="cursor-help">
-                      <Mail className="mr-1 h-3 w-3" />
+                      <IconMail className="mr-1 h-3 w-3" />
                       hover 我
                     </Badge>
                   </TooltipTrigger>

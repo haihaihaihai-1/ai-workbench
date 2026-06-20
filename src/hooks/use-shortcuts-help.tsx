@@ -3,7 +3,7 @@
 // 在 app-shell 中渲染 <ShortcutsHelpDialog />
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Command, Keyboard, Sidebar, Sparkles, XCircle } from "lucide-react";
+import { IconCommand, IconKeyboard, IconSidebar, IconSparkles, IconXCircle } from "@/components/icons"
 import { create } from "zustand";
 
 type ShortcutsHelpStore = {
@@ -20,12 +20,12 @@ export const useShortcutsHelp = create<ShortcutsHelpStore>((set) => ({
 
 // 展示的快捷键列表 - 6 个核心快捷键
 const SHORTCUTS = [
-  { key: "⌘ K", description: "打开命令面板", icon: Command },
-  { key: "⌘ B", description: "切换侧边栏", icon: Sidebar },
-  { key: "⌘ N", description: "跳转到对话", icon: Sparkles },
-  { key: "⌘ 1-9", description: "快速切换页面", icon: Keyboard },
-  { key: "?", description: "查看快捷键帮助", icon: Keyboard },
-  { key: "Esc", description: "关闭弹窗", icon: XCircle },
+  { key: "⌘ K", description: "打开命令面板", icon: IconCommand },
+  { key: "⌘ B", description: "切换侧边栏", icon: IconSidebar },
+  { key: "⌘ N", description: "跳转到对话", icon: IconSparkles },
+  { key: "⌘ 1-9", description: "快速切换页面", icon: IconKeyboard },
+  { key: "?", description: "查看快捷键帮助", icon: IconKeyboard },
+  { key: "Esc", description: "关闭弹窗", icon: IconXCircle },
 ];
 
 export function ShortcutsHelpDialog() {
@@ -37,7 +37,7 @@ export function ShortcutsHelpDialog() {
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Keyboard className="h-4 w-4 text-primary" />
+            <IconKeyboard className="h-4 w-4 text-primary" />
             键盘快捷键
           </DialogTitle>
         </DialogHeader>

@@ -1,26 +1,26 @@
 import { cn, relativeTime } from "@/lib/utils";
-import { AlertTriangle, Inbox, MessageSquare, Ticket } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { IconAlertTriangle, IconInbox, IconMessageSquare, IconTicket } from "@/components/icons"
+import type { IconComponent } from "@/components/icons";
 import type { Notification, NotificationType } from "./notification-mock-data";
 
-const TYPE_META: Record<NotificationType, { icon: LucideIcon; tone: string; label: string }> = {
+const TYPE_META: Record<NotificationType, { icon: IconComponent; tone: string; label: string }> = {
   system: {
-    icon: Inbox,
+    icon: IconInbox,
     tone: "text-info bg-info/10 border-info/30",
     label: "系统",
   },
   ticket: {
-    icon: Ticket,
+    icon: IconTicket,
     tone: "text-primary bg-primary/10 border-primary/30",
     label: "工单",
   },
   feedback: {
-    icon: MessageSquare,
+    icon: IconMessageSquare,
     tone: "text-success bg-success/10 border-success/30",
     label: "反馈",
   },
   crisis: {
-    icon: AlertTriangle,
+    icon: IconAlertTriangle,
     tone: "text-destructive bg-destructive/10 border-destructive/30",
     label: "危机",
   },

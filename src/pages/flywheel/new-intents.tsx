@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Check, Lightbulb, X } from "lucide-react";
+import { IconCheck, IconLightbulb, IconX } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 import { NEW_INTENTS } from "./mock-data";
@@ -39,7 +39,7 @@ export function NewIntents() {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Lightbulb className="h-4 w-4 text-warning" />
+            <IconLightbulb className="h-4 w-4 text-warning" />
             新意图发现
           </CardTitle>
           <Badge variant="warning" className="text-[10px]">
@@ -107,7 +107,7 @@ export function NewIntents() {
                           className="h-7 gap-1 text-success"
                           onClick={() => handleAccept(intent.id)}
                         >
-                          <Check className="h-3 w-3" />
+                          <IconCheck className="h-3 w-3" />
                           采纳
                         </Button>
                         <Button
@@ -116,14 +116,14 @@ export function NewIntents() {
                           className="h-7 gap-1 text-muted-foreground"
                           onClick={() => handleIgnore(intent.id)}
                         >
-                          <X className="h-3 w-3" />
+                          <IconX className="h-3 w-3" />
                           忽略
                         </Button>
                       </div>
                     )}
                     {decision === "accept" && (
                       <Badge variant="success" className="shrink-0 text-[10px]">
-                        <Check className="h-3 w-3" />
+                        <IconCheck className="h-3 w-3" />
                         已采纳
                       </Badge>
                     )}

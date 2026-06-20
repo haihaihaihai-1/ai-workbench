@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { exportToCSV } from "@/lib/export";
 import { cn } from "@/lib/utils";
-import { Download, Sparkles, Wand2 } from "lucide-react";
+import { IconDownload, IconSparkles, IconWand2 } from "@/components/icons"
 import { useState } from "react";
 import { toast } from "sonner";
 import { CATEGORY_INFO, OPTIMIZATION_SUGGESTIONS, PRIORITY_INFO } from "./mock-data";
@@ -51,7 +51,7 @@ export function OptimizationSuggestions() {
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="flex items-center gap-1.5 text-sm font-semibold">
-            <Sparkles className="h-4 w-4 text-primary" />
+            <IconSparkles className="h-4 w-4 text-primary" />
             优化建议生成器
           </CardTitle>
           <div className="flex items-center gap-2">
@@ -100,7 +100,7 @@ export function OptimizationSuggestions() {
               </button>
             </div>
             <Button variant="outline" size="xs" onClick={handleExport} className="gap-1">
-              <Download className="h-3 w-3" />
+              <IconDownload className="h-3 w-3" />
               导出
             </Button>
           </div>
@@ -118,7 +118,7 @@ export function OptimizationSuggestions() {
                   className="rounded-lg border border-border bg-card/40 p-3 transition-colors hover:bg-card/80"
                 >
                   <div className="flex items-start gap-2">
-                    <Wand2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                    <IconWand2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <span className="text-sm font-medium">{s.title}</span>

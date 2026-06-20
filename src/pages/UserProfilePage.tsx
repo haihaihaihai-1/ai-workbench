@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Activity, Brain, Heart, Smile, Sparkles } from "lucide-react";
+import { IconActivity, IconBrain, IconHeart, IconSmile, IconSparkles } from "@/components/icons"
 import { useParams } from "react-router-dom";
 import { ActivityPanel } from "./user-profile/activity-panel";
 import { BasicInfoCard } from "./user-profile/basic-info-card";
@@ -15,10 +15,10 @@ import { QuickActions } from "./user-profile/quick-actions";
 import { RiskAssessmentCard } from "./user-profile/risk-assessment-card";
 
 const TABS = [
-  { id: "interests", label: "兴趣与偏好", icon: Heart },
-  { id: "activity", label: "活跃模式", icon: Activity },
-  { id: "emotion", label: "情绪追踪", icon: Smile },
-  { id: "learning", label: "学习风格", icon: Brain },
+  { id: "interests", label: "兴趣与偏好", icon: IconHeart },
+  { id: "activity", label: "活跃模式", icon: IconActivity },
+  { id: "emotion", label: "情绪追踪", icon: IconSmile },
+  { id: "learning", label: "学习风格", icon: IconBrain },
 ] as const;
 
 export default function UserProfilePage() {
@@ -75,7 +75,7 @@ export default function UserProfilePage() {
           {/* 底部：当前用户简要 */}
           <div className="rounded-lg border border-dashed border-border bg-muted/20 p-3 text-[10px] leading-relaxed text-muted-foreground">
             <div className="mb-1 flex items-center gap-1 font-semibold text-foreground">
-              <Sparkles className="h-3 w-3 text-primary" />
+              <IconSparkles className="h-3 w-3 text-primary" />
               数据来源
             </div>
             画像由 {user.totalMemories} 条记忆 + {user.totalSessions} 次会话聚合生成，置信度

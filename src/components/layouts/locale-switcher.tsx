@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import type { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { useLocaleStore } from "@/stores/locale-store";
-import { Check, Languages } from "lucide-react";
+import { IconCheck, IconLanguages } from "@/components/icons"
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -40,7 +40,7 @@ export function LocaleSwitcher() {
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background",
         )}
       >
-        <Languages className="h-4 w-4" />
+        <IconLanguages className="h-4 w-4" />
         <span className="text-base leading-none">{active.flag}</span>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-48 p-2">
@@ -70,7 +70,7 @@ export function LocaleSwitcher() {
                 />
                 <span className="text-base leading-none">{opt.flag}</span>
                 <span className="flex-1 font-medium">{t(opt.labelKey)}</span>
-                {checked && <Check className="h-4 w-4 shrink-0 text-primary" />}
+                {checked && <IconCheck className="h-4 w-4 shrink-0 text-primary" />}
               </label>
             );
           })}

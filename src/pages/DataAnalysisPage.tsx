@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportToCSV, exportToJSON } from "@/lib/export";
-import { Activity, Download } from "lucide-react";
+import { IconActivity, IconDownload } from "@/components/icons"
 import { useState } from "react";
 import { ActivityHeatmap } from "./analysis/activity-heatmap";
 import { AgentDistribution } from "./analysis/agent-distribution";
@@ -71,7 +71,7 @@ export default function DataAnalysisPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <Activity className="h-6 w-6 text-primary" />
+            <IconActivity className="h-6 w-6 text-primary" />
             数据分析
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -90,11 +90,11 @@ export default function DataAnalysisPage() {
           </Tabs>
           <div className="flex items-center gap-1">
             <Button variant="outline" size="sm" onClick={handleExportCSV} className="h-8 gap-1">
-              <Download className="h-3.5 w-3.5" />
+              <IconDownload className="h-3.5 w-3.5" />
               CSV
             </Button>
             <Button variant="outline" size="sm" onClick={handleExportExcel} className="h-8 gap-1">
-              <Download className="h-3.5 w-3.5" />
+              <IconDownload className="h-3.5 w-3.5" />
               Excel
             </Button>
           </div>

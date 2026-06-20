@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { cn, shortNumber } from "@/lib/utils";
-import { Download, Star } from "lucide-react";
+import { IconDownload, IconStar } from "@/components/icons"
 import { CATEGORY_INFO, EXECUTION_MODE_INFO, type Skill } from "./mock-data";
 
 type Props = {
@@ -71,7 +71,7 @@ export function SkillCard({ skill, onOpen, onToggle, onInstall }: Props) {
           <div className="flex items-center gap-2.5 text-muted-foreground">
             <span className="font-mono tabular-nums">{shortNumber(skill.calls)} 次调用</span>
             <span className="flex items-center gap-0.5">
-              <Star className="h-3 w-3 fill-warning text-warning" />
+              <IconStar className="h-3 w-3 fill-warning text-warning" />
               <span className="font-mono">{skill.rating.toFixed(1)}</span>
             </span>
             <span className="font-mono text-success">{skill.successRate.toFixed(1)}%</span>
@@ -101,7 +101,7 @@ export function SkillCard({ skill, onOpen, onToggle, onInstall }: Props) {
               }}
               className="h-6 gap-1 px-2 text-[10px]"
             >
-              <Download className="h-3 w-3" />
+              <IconDownload className="h-3 w-3" />
               安装
             </Button>
           )}

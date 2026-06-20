@@ -1,26 +1,26 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Clock, Flame, ListChecks, Timer, TrendingUp } from "lucide-react";
+import { IconCheckCircle2, IconClock, IconFlame, IconListChecks, IconTimer, IconTrendingUp } from "@/components/icons"
 import type { TICKET_STATS } from "./mock-data";
 
 type Props = { stats: typeof TICKET_STATS };
 
 export function TicketStats({ stats }: Props) {
   const items = [
-    { label: "待处理", value: stats.open, icon: Flame, tone: "text-info" },
-    { label: "处理中", value: stats.inProgress, icon: Clock, tone: "text-warning" },
-    { label: "已完成", value: stats.resolved, icon: CheckCircle2, tone: "text-success" },
-    { label: "已超时", value: stats.breached, icon: Timer, tone: "text-destructive" },
+    { label: "待处理", value: stats.open, icon: IconFlame, tone: "text-info" },
+    { label: "处理中", value: stats.inProgress, icon: IconClock, tone: "text-warning" },
+    { label: "已完成", value: stats.resolved, icon: IconCheckCircle2, tone: "text-success" },
+    { label: "已超时", value: stats.breached, icon: IconTimer, tone: "text-destructive" },
     {
       label: "平均响应",
       value: `${stats.avgResponseMin}m`,
-      icon: TrendingUp,
+      icon: IconTrendingUp,
       tone: "text-primary",
     },
     {
       label: "平均解决",
       value: `${stats.avgResolveHour}h`,
-      icon: ListChecks,
+      icon: IconListChecks,
       tone: "text-muted-foreground",
     },
   ];

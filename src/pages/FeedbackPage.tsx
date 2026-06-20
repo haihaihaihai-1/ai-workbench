@@ -21,7 +21,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportToCSV } from "@/lib/export";
 import { cn, formatDate, relativeTime } from "@/lib/utils";
-import { CheckCircle2, Clock, Download, FileText, Star, ThumbsUp } from "lucide-react";
+import { IconCheckCircle2, IconClock, IconDownload, IconFileText, IconStar, IconThumbsUp } from "@/components/icons"
 import { useMemo, useState } from "react";
 import {
   Bar,
@@ -66,7 +66,7 @@ export default function FeedbackPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <FileText className="h-6 w-6 text-primary" />
+            <IconFileText className="h-6 w-6 text-primary" />
             反馈管理
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -91,7 +91,7 @@ export default function FeedbackPage() {
               ])
             }
           >
-            <Download className="h-3.5 w-3.5" />
+            <IconDownload className="h-3.5 w-3.5" />
             导出 CSV
           </Button>
         </div>
@@ -99,24 +99,24 @@ export default function FeedbackPage() {
 
       {/* 统计 */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <StatCard label="总反馈" value={FEEDBACK_STATS.total} icon={FileText} tone="text-primary" />
+        <StatCard label="总反馈" value={FEEDBACK_STATS.total} icon={IconFileText} tone="text-primary" />
         <StatCard
           label="平均评分"
           value={FEEDBACK_STATS.avgRating}
           unit="/ 5"
-          icon={Star}
+          icon={IconStar}
           tone="text-warning"
         />
         <StatCard
           label="好评率"
           value={`${FEEDBACK_STATS.positiveRate}%`}
-          icon={ThumbsUp}
+          icon={IconThumbsUp}
           tone="text-success"
         />
         <StatCard
           label="待处理"
           value={FEEDBACK_STATS.pending}
-          icon={Clock}
+          icon={IconClock}
           tone="text-destructive"
         />
       </div>
@@ -274,7 +274,7 @@ export default function FeedbackPage() {
                   <TableCell className="py-2">
                     <div className="flex items-center gap-0.5">
                       {Array.from({ length: 5 }, (_, i) => (
-                        <Star
+                        <IconStar
                           key={i}
                           className={cn(
                             "h-3 w-3",
@@ -333,7 +333,7 @@ export default function FeedbackPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <FileText className="h-4 w-4" />
+                  <IconFileText className="h-4 w-4" />
                   反馈详情 · <span className="font-mono">{selected.id}</span>
                 </DialogTitle>
               </DialogHeader>
@@ -379,7 +379,7 @@ export default function FeedbackPage() {
                         toast.success("已标记为已处理");
                       }}
                     >
-                      <CheckCircle2 className="mr-1 h-3.5 w-3.5" />
+                      <IconCheckCircle2 className="mr-1 h-3.5 w-3.5" />
                       标记已处理
                     </Button>
                   ) : null}
@@ -402,7 +402,7 @@ function StatCard({
   unit,
   icon: Icon,
   tone,
-}: { label: string; value: string | number; unit?: string; icon: typeof Star; tone: string }) {
+}: { label: string; value: string | number; unit?: string; icon: typeof IconStar; tone: string }) {
   return (
     <Card>
       <CardContent className="flex items-center gap-3 p-3">
