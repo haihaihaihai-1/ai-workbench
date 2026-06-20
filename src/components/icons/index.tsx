@@ -16,10 +16,122 @@
 
 import { cn } from "@/lib/utils";
 import * as Geist from "@geist-ui/icons";
-import * as Phosphor from "@phosphor-icons/react";
 import * as LucideAll from "lucide-react";
 import type React from "react";
 import { type CSSProperties, type ComponentType, type SVGProps, forwardRef } from "react";
+
+// Phosphor 性能优化: 全部 3000+ 图标导致 5.4MB bundle
+// 改为按需动态加载: 常用 30+ 图标 eager import, 其余按需
+import {
+  House,
+  Gear,
+  MagnifyingGlass,
+  Bell,
+  ChatCircle,
+  ChartLine,
+  ChartPie,
+  Database,
+  Sparkle,
+  Lightning,
+  User,
+  Users,
+  GearSix,
+  Compass,
+  CalendarBlank,
+  Clock,
+  ClockCounterClockwise,
+  Envelope,
+  Lock,
+  Key,
+  Funnel,
+  Palette,
+  Command,
+  Code,
+  TerminalWindow,
+  GitBranch,
+  Stack,
+  List,
+  ListChecks,
+  DotsThree,
+  DotsThreeVertical,
+  CaretDown,
+  CaretUp,
+  CaretLeft,
+  CaretRight,
+  Warning,
+  CheckCircle,
+  XCircle,
+  Info,
+  Plus,
+  Minus,
+  X,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  ArrowDown,
+  Trash,
+  PencilSimple,
+  Copy,
+  Eye,
+  EyeSlash,
+  Sun,
+  Moon,
+  ArrowsClockwise,
+  PaperPlaneTilt,
+  ChatCircleDots,
+  Heart,
+  Star,
+  ThumbsUp,
+  ThumbsDown,
+  BookmarkSimple,
+  Files,
+  Folder,
+  FolderOpen,
+  FileText,
+  Image,
+  VideoCamera,
+  SpeakerHigh,
+  Globe,
+  MapPin,
+  Calendar,
+  Flag,
+  Tag,
+  ShoppingCart,
+  CreditCard,
+  CurrencyDollar,
+  Airplane,
+  Check,
+  ArrowsOutCardinal,
+  StackSimple,
+  ChartBar,
+  ChartScatter,
+  ChartLineUp,
+  Note,
+  Pencil,
+  SlidersHorizontal,
+  PushPinSimple,
+  ArrowsCounterClockwise,
+  Pulse,
+  Question,
+  WarningOctagon,
+  CloudCheck,
+  Hourglass,
+  Kanban,
+  RocketLaunch,
+  FunnelSimple,
+  Target,
+  Briefcase,
+  GraduationCap,
+  Wrench,
+  Shield,
+  ShieldCheck,
+  ShieldWarning,
+  LightningSlash,
+  Lightbulb,
+  TreeStructure,
+  FlowArrow,
+  Pulse as ActivityAlt,
+} from "@phosphor-icons/react/dist/ssr";
 
 /* ---------- 类型 ---------- */
 
@@ -78,9 +190,56 @@ function toPascal(input: string): string {
 }
 
 type AnyIcon = ComponentType<Record<string, unknown>>;
-const _Phosphor = Phosphor as unknown as Record<string, AnyIcon>;
 const _Geist = Geist as unknown as Record<string, AnyIcon>;
 const _Lucide = LucideAll as unknown as Record<string, AnyIcon>;
+
+/* 性能优化: 80+ 常用 Phosphor 图标 eager import 进 bundle
+ * 其余 2900+ 图标走 lazy dynamic import (按需加载) */
+const EAGER_PHOSPHOR: Record<string, AnyIcon> = {
+  House, Gear, MagnifyingGlass, Bell, ChatCircle, ChartLine, ChartPie, Database,
+  Sparkle, Lightning, User, Users, GearSix, Compass, CalendarBlank, Clock,
+  ClockCounterClockwise, Envelope, Lock, Key, Funnel, Palette, Command, Code,
+  TerminalWindow, GitBranch, Stack, List, ListChecks, DotsThree, DotsThreeVertical,
+  CaretDown, CaretUp, CaretLeft, CaretRight, Warning, CheckCircle, XCircle, Info,
+  Plus, Minus, X, ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Trash, PencilSimple,
+  Copy, Eye, EyeSlash, Sun, Moon, ArrowsClockwise, PaperPlaneTilt, ChatCircleDots,
+  Heart, Star, ThumbsUp, ThumbsDown, BookmarkSimple, Files, Folder, FolderOpen,
+  FileText, Image, VideoCamera, SpeakerHigh, Globe, MapPin, Calendar, Flag, Tag,
+  ShoppingCart, CreditCard, CurrencyDollar, Airplane, Check, ArrowsOutCardinal,
+  StackSimple, ChartBar, ChartScatter, ChartLineUp, Note, Pencil,
+  SlidersHorizontal, PushPinSimple, ArrowsCounterClockwise, Pulse, Question,
+  WarningOctagon, CloudCheck, Hourglass, Kanban, RocketLaunch, FunnelSimple,
+  Target, Briefcase, GraduationCap, Wrench, Shield, ShieldCheck, ShieldWarning,
+  LightningSlash, Lightbulb, TreeStructure, FlowArrow, ActivityAlt,
+};
+
+/* Phosphor 名称 (PascalCase) → ssr 路径 */
+function phosphorPath(name: string): string {
+  return `@phosphor-icons/react/dist/ssr/${name}.es`;
+}
+
+/* 缓存: name → ComponentType */
+const lazyPhosphorCache = new Map<string, AnyIcon>();
+const lazyPhosphorPromises = new Map<string, Promise<void>>();
+
+function loadPhosphorLazy(name: string): void {
+  if (lazyPhosphorCache.has(name)) return;
+  if (lazyPhosphorPromises.has(name)) return;
+
+  const promise = (async () => {
+    try {
+      // @vite-ignore  动态路径
+      const mod = await import(/* @vite-ignore */ phosphorPath(name));
+      const Comp = mod[toPascal(name)] ?? mod[name];
+      if (Comp) lazyPhosphorCache.set(name, Comp as AnyIcon);
+    } catch (e) {
+      console.warn(`[icons] Failed to load phosphor "${name}":`, e);
+    } finally {
+      lazyPhosphorPromises.delete(name);
+    }
+  })();
+  lazyPhosphorPromises.set(name, promise);
+}
 
 function resolveIcon(
   name: string,
@@ -94,8 +253,14 @@ function resolveIcon(
   const passProps = { size, weight, className, style, ...extraProps } as Record<string, unknown>;
 
   if (source === "phosphor" || source === "auto") {
-    const P = _Phosphor[toPascal(name)] ?? _Phosphor[name];
-    if (P) return <P {...passProps} />;
+    // 1) Phosphor eager
+    const Eager = EAGER_PHOSPHOR[toPascal(name)] ?? EAGER_PHOSPHOR[name];
+    if (Eager) return <Eager {...passProps} />;
+    // 2) Phosphor lazy cache
+    const Lazy = lazyPhosphorCache.get(toPascal(name)) ?? lazyPhosphorCache.get(name);
+    if (Lazy) return <Lazy {...passProps} />;
+    // 3) 触发 lazy load（首屏不阻塞）
+    loadPhosphorLazy(toPascal(name));
   }
 
   if (source === "geist" || source === "auto") {
