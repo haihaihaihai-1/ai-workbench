@@ -64,30 +64,34 @@ export default function FlywheelPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 顶部 */}
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-            <IconChartLine className="h-6 w-6 text-primary" />
-            数据飞轮
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            意图进化 · 反馈分析 · 工具健康度 · 优化建议
-          </p>
+      {/* 顶部 · LangSmith 风格：紧凑监控顶栏 */}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-[#FF6B6B] to-[#C44569] text-white shadow-vercel">
+            <IconChartLine className="h-4 w-4" weight="bold" />
+          </div>
+          <div>
+            <h1 className="font-display text-xl font-semibold tracking-tight">
+              Flywheel · LLM Observability
+            </h1>
+            <p className="text-[11px] text-muted-foreground">
+              意图进化 · 反馈分析 · 工具健康度 · 优化建议
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Tabs value={range} onValueChange={setRange}>
-            <TabsList>
+            <TabsList className="h-7">
               {ranges.map((r) => (
-                <TabsTrigger key={r.id} value={r.id} className="h-7 px-2.5 text-xs">
+                <TabsTrigger key={r.id} value={r.id} className="h-6 px-2 text-[10px]">
                   {r.label}
                 </TabsTrigger>
               ))}
             </TabsList>
           </Tabs>
           <Button size="sm" onClick={handleAnalyze} disabled={analyzing} className="h-8 gap-1.5">
-            <IconPlay className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} />
-            {analyzing ? "分析中..." : "触发分析"}
+            <IconPlay className={cn("h-3.5 w-3.5", analyzing && "animate-pulse-dot")} weight="fill" />
+            {analyzing ? "Analyzing…" : "Run Analysis"}
           </Button>
         </div>
       </header>
@@ -95,16 +99,22 @@ export default function FlywheelPage() {
       {/* 4 个健康度卡 */}
       <HealthOverview />
 
-      {/* Tab 切换 */}
+      {/* Tab 切换 · LangSmith 风格：下划线式 */}
       <Tabs value={tab} onValueChange={(v) => setTab(v as typeof tab)}>
-        <TabsList>
-          <TabsTrigger value="health" className="gap-1.5">
-            <IconWorkflow className="h-3.5 w-3.5" />
-            飞轮健康度
+        <TabsList className="h-9 rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger
+            value="health"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-[#FF6B6B] data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconWorkflow className="mr-1.5 h-3.5 w-3.5" />
+            Flywheel Health
           </TabsTrigger>
-          <TabsTrigger value="evolve" className="gap-1.5">
-            <IconCompass className="h-3.5 w-3.5" />
-            意图进化
+          <TabsTrigger
+            value="evolve"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-[#FF6B6B] data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+          >
+            <IconCompass className="mr-1.5 h-3.5 w-3.5" />
+            Intent Evolution
           </TabsTrigger>
         </TabsList>
 
