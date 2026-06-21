@@ -205,23 +205,42 @@ const SAMPLE_RESPONSES: Record<
 };
 
 // 流式打字机：把 content 按字符切片成多个 chunk
+// 借皮：使用 src/lib/llm-client 的 SSE 风格流式，模拟 OpenAI ChatCompletion API
 export function createMockStream(
   domain: AgentDomain,
   onChunk: (delta: string, done: boolean) => void,
+  signal?: AbortSignal,
 ) {
   const text = SAMPLE_RESPONSES[domain].content;
-  const tokens = text.match(/(\s+|[^\s]+)/g) ?? [text];
+  // 字符级分块（每 2-3 个字符一个 chunk），模拟真实 LLM 的 token 流
+  const chunkSize = 2;
+  const delay = 24;
   let i = 0;
-  const interval = setInterval(() => {
-    if (i >= tokens.length) {
-      clearInterval(interval);
+  let aborted = false;
+
+  const onAbort = () => {
+    aborted = true;
+    clearInterval(timer);
+  };
+  signal?.addEventListener("abort", onAbort, { once: true });
+
+  const timer = setInterval(() => {
+    if (aborted) {
+      clearInterval(timer);
+      return;
+    }
+    if (i >= text.length) {
+      clearInterval(timer);
       onChunk("", true);
       return;
     }
-    onChunk(tokens[i], false);
-    i++;
-  }, 28);
-  return () => clearInterval(interval);
+    onChunk(text.slice(i, i + chunkSize), false);
+    i += chunkSize;
+  }, delay);
+  return () => {
+    aborted = true;
+    clearInterval(timer);
+  };
 }
 
 export function getMockResponse(domain: AgentDomain) {

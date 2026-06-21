@@ -4,6 +4,7 @@ import { PageFallback } from "./components/layouts/page-fallback";
 // 路由级代码分割: 每个页面按需加载, 初始包体积最小化
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ChatPage = lazy(() => import("./pages/chat"));
+const ChatDemoPage = lazy(() => import("./pages/ChatDemoPage"));
 const MemoryPage = lazy(() => import("./pages/memory"));
 const MonitorPage = lazy(() => import("./pages/monitor"));
 const TicketsPage = lazy(() => import("./pages/tickets"));
@@ -33,6 +34,7 @@ const withFallback = (node: ReactNode) => <Suspense fallback={<PageFallback />}>
 export const routes: RouteConfig[] = [
   { name: "首页", path: "/", element: withFallback(<HomePage />) },
   { name: "对话工作台", path: "/chat", element: withFallback(<ChatPage />) },
+  { name: "对话演示", path: "/chat-demo", element: withFallback(<ChatDemoPage />) },
   { name: "记忆中心", path: "/memory", element: withFallback(<MemoryPage />) },
   { name: "实时监控", path: "/monitor", element: withFallback(<MonitorPage />) },
   { name: "工单中心", path: "/tickets", element: withFallback(<TicketsPage />) },
