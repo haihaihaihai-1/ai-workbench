@@ -5,7 +5,6 @@ import {
   IconShieldOff,
   IconTrash2,
 } from "@/components/icons";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -15,17 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { exportToCSV } from "@/lib/export";
-import { cn, relativeTime } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
+import { EventsTable, type SafetyEvent } from "./safety/events-table";
 import {
   Bar,
   BarChart,
@@ -45,22 +37,10 @@ import { toast } from "sonner";
 
 type Severity = "critical" | "high" | "medium" | "low";
 type EventType = "pii" | "injection" | "violation";
-type Action = "warn" | "block" | "redact";
-
-type Event = {
-  id: string;
-  type: EventType;
-  severity: Severity;
-  content: string;
-  user: string;
-  action: Action;
-  createdAt: number;
-  context: string;
-};
 
 const now = Date.now();
 
-const EVENTS: Event[] = [
+const EVENTS: SafetyEvent[] = [
   {
     id: "s1",
     type: "pii",
@@ -170,23 +150,10 @@ const STATS = {
   low: EVENTS.filter((e) => e.severity === "low").length,
 };
 
-const TYPE_INFO: Record<EventType, { name: string; color: string; bg: string }> = {
-  pii: { name: "PII", color: "#3B82F6", bg: "bg-info/10" },
-  injection: { name: "提示注入", color: "#EF4444", bg: "bg-destructive/10" },
-  violation: { name: "内容违规", color: "#F59E0B", bg: "bg-warning/10" },
-};
-
-const SEVERITY_INFO: Record<Severity, { name: string; cls: string }> = {
-  critical: { name: "严重", cls: "bg-destructive/15 text-destructive" },
-  high: { name: "高", cls: "bg-warning/15 text-warning" },
-  medium: { name: "中", cls: "bg-info/15 text-info" },
-  low: { name: "低", cls: "bg-success/15 text-success" },
-};
-
-const ACTION_INFO: Record<Action, { name: string; tone: string }> = {
-  warn: { name: "警告", tone: "text-warning" },
-  block: { name: "阻断", tone: "text-destructive" },
-  redact: { name: "脱敏", tone: "text-info" },
+const TYPE_INFO: Record<EventType, { name: string; color: string }> = {
+  pii: { name: "PII", color: "#3B82F6" },
+  injection: { name: "提示注入", color: "#EF4444" },
+  violation: { name: "内容违规", color: "#F59E0B" },
 };
 
 const TYPE_PIE = [
@@ -454,57 +421,7 @@ export default function SafetyPage() {
         </CardContent>
       </Card>
 
-      <Card>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-[10px]">时间</TableHead>
-              <TableHead className="text-[10px]">类型</TableHead>
-              <TableHead className="text-[10px]">严重级别</TableHead>
-              <TableHead className="text-[10px]">匹配内容</TableHead>
-              <TableHead className="text-[10px]">用户</TableHead>
-              <TableHead className="text-[10px]">上下文</TableHead>
-              <TableHead className="text-[10px]">处置</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filtered.map((e) => {
-              const ti = TYPE_INFO[e.type];
-              const si = SEVERITY_INFO[e.severity];
-              const ai = ACTION_INFO[e.action];
-              return (
-                <TableRow key={e.id}>
-                  <TableCell className="py-2 text-[11px] text-muted-foreground">
-                    {relativeTime(e.createdAt)}
-                  </TableCell>
-                  <TableCell className="py-2">
-                    <Badge variant="outline" className="text-[10px]">
-                      {ti.name}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="py-2">
-                    <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-medium", si.cls)}>
-                      {si.name.toUpperCase()}
-                    </span>
-                  </TableCell>
-                  <TableCell className="py-2 max-w-md truncate font-mono text-[11px]">
-                    {e.content}
-                  </TableCell>
-                  <TableCell className="py-2 font-mono text-[11px] text-muted-foreground">
-                    {e.user}
-                  </TableCell>
-                  <TableCell className="py-2 text-[11px] text-muted-foreground">
-                    {e.context}
-                  </TableCell>
-                  <TableCell className="py-2 text-xs">
-                    <span className={cn("font-medium", ai.tone)}>{ai.name}</span>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Card>
+      <EventsTable events={filtered} />
     </div>
   );
 }

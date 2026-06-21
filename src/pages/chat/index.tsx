@@ -60,6 +60,7 @@ export default function ChatPage() {
   // 移动端默认折叠会话列表（仅图标），桌面端默认展开
   const [leftCollapsed, setLeftCollapsed] = useState<boolean>(isMobile);
   const stopRef = useRef<(() => void) | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const openCommand = useCommandPalette((s) => s.toggle);
 
@@ -152,22 +153,29 @@ export default function ChatPage() {
       );
     });
 
-    // 启动流式
-    const stop = createMockStream(domain, (delta, done) => {
-      setMessages((prev) => {
-        const list = prev[convId] ?? [];
-        return {
-          ...prev,
-          [convId]: list.map((m) =>
-            m.id === assistantId ? { ...m, content: m.content + delta } : m,
-          ),
-        };
-      });
-      if (done) {
-        setStreaming(false);
-        stopRef.current = null;
-      }
-    });
+    // 启动流式（AbortController 实现真正的可中断流）
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const stop = createMockStream(
+      domain,
+      (delta, done) => {
+        setMessages((prev) => {
+          const list = prev[convId] ?? [];
+          return {
+            ...prev,
+            [convId]: list.map((m) =>
+              m.id === assistantId ? { ...m, content: m.content + delta } : m,
+            ),
+          };
+        });
+        if (done) {
+          setStreaming(false);
+          stopRef.current = null;
+          abortRef.current = null;
+        }
+      },
+      controller.signal,
+    );
     stopRef.current = stop;
   };
 
@@ -235,7 +243,10 @@ export default function ChatPage() {
 
   const handleStop = () => {
     stopRef.current?.();
+    abortRef.current?.abort();
     setStreaming(false);
+    stopRef.current = null;
+    abortRef.current = null;
   };
 
   const handleFeedback = (msgId: string, v: "up" | "down") => {

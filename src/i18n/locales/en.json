@@ -42,6 +42,7 @@
     "chat": "Chat",
     "memory": "Memory",
     "monitor": "Monitor",
+    "mobileAriaLabel": "Mobile navigation",
     "flywheel": "Data Flywheel",
     "analysis": "Analytics",
     "evaluation": "Evaluation",
@@ -205,6 +206,20 @@
     "unreadCount": "{{count}} unread",
     "allRead": "Mark all read",
     "close": "Close notifications",
+    "unread": "Unread",
+    "filter": {
+      "all": "All",
+      "system": "System",
+      "ticket": "Tickets",
+      "feedback": "Feedback",
+      "crisis": "Crisis"
+    },
+    "type": {
+      "system": "System",
+      "ticket": "Ticket",
+      "feedback": "Feedback",
+      "crisis": "Crisis"
+    },
     "empty": {
       "title": "No new notifications",
       "hint": "New messages will appear here automatically"

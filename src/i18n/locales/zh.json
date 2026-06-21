@@ -42,6 +42,7 @@
     "chat": "对话工作台",
     "memory": "记忆中心",
     "monitor": "实时监控",
+    "mobileAriaLabel": "移动端导航",
     "flywheel": "数据飞轮",
     "analysis": "数据分析",
     "evaluation": "系统评估",
@@ -205,6 +206,20 @@
     "unreadCount": "{{count}} 条未读",
     "allRead": "全部已读",
     "close": "关闭通知",
+    "unread": "未读",
+    "filter": {
+      "all": "全部",
+      "system": "系统",
+      "ticket": "工单",
+      "feedback": "反馈",
+      "crisis": "危机"
+    },
+    "type": {
+      "system": "系统",
+      "ticket": "工单",
+      "feedback": "反馈",
+      "crisis": "危机"
+    },
     "empty": {
       "title": "暂无新通知",
       "hint": "有新消息时会自动出现在这里"
