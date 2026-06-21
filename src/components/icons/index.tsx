@@ -210,7 +210,7 @@ const EAGER_PHOSPHOR: Record<string, AnyIcon> = {
   SlidersHorizontal, PushPinSimple, ArrowsCounterClockwise, Pulse, Question,
   WarningOctagon, CloudCheck, Hourglass, Kanban, RocketLaunch, FunnelSimple,
   Target, Briefcase, GraduationCap, Wrench, Shield, ShieldCheck, ShieldWarning,
-  LightningSlash, Lightbulb, TreeStructure, FlowArrow, ActivityAlt,
+  LightningSlash, Lightbulb, TreeStructure, FlowArrow, ActivityAlt, Stop,
 };
 
 /* Phosphor 名称 (PascalCase) → ssr 路径 */
