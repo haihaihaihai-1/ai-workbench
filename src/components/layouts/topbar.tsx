@@ -6,17 +6,50 @@ import { ThemePicker } from "@/components/layouts/ThemePicker";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useNotifications } from "@/hooks/use-notifications";
-import { IconBell, IconSearch } from "@/components/icons"
+import type { UserRole } from "@/lib/types";
+import { useAuthStore } from "@/stores/auth-store";
+import { IconBell, IconSearch, IconArrowRight, IconUser } from "@/components/icons"
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
+const ROLE_LABEL: Record<UserRole, string> = {
+  student: "学生",
+  teacher: "教师",
+  admin: "管理员",
+  counselor: "咨询师",
+};
+
+const ROLE_VARIANT: Record<UserRole, "default" | "secondary" | "success" | "warning"> = {
+  student: "secondary",
+  teacher: "success",
+  admin: "warning",
+  counselor: "default",
+};
 
 export function Topbar() {
   const openCommand = useCommandPalette((s) => s.toggle);
   const [notifOpen, setNotifOpen] = useState(false);
   const unreadCount = useNotifications((s) => s.unreadCount);
   const { t } = useTranslation();
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+  const navigate = useNavigate();
   const badgeText = unreadCount > 99 ? "99+" : String(unreadCount);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -59,11 +92,55 @@ export function Topbar() {
           )}
         </Button>
 
-        <Avatar className="h-8 w-8">
-          <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground text-xs">
-            {t("footer.user").charAt(0)}
-          </AvatarFallback>
-        </Avatar>
+        {user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="flex items-center gap-2 rounded-md p-1 pr-2 transition-colors hover:bg-muted/40"
+              >
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-primary-foreground text-xs">
+                    {user.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="hidden flex-col items-start leading-tight sm:flex">
+                  <span className="text-xs font-medium">{user.name}</span>
+                  <Badge variant={ROLE_VARIANT[user.role]} className="h-3.5 px-1 text-[9px]">
+                    {ROLE_LABEL[user.role]}
+                  </Badge>
+                </div>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel className="flex flex-col gap-1">
+                <span>{user.name}</span>
+                <span className="text-xs font-normal text-muted-foreground">{user.email}</span>
+                <Badge variant={ROLE_VARIANT[user.role]} className="mt-1 w-fit h-4 px-1.5 text-[10px]">
+                  {ROLE_LABEL[user.role]}
+                </Badge>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate("/profile")}>
+                <IconUser className="mr-2 h-3.5 w-3.5" />
+                个人中心
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/chat")}>
+                <IconSearch className="mr-2 h-3.5 w-3.5" />
+                对话工作台
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                <IconArrowRight className="mr-2 h-3.5 w-3.5" />
+                退出登录
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Avatar className="h-8 w-8">
+            <AvatarFallback className="bg-muted text-xs text-muted-foreground">?</AvatarFallback>
+          </Avatar>
+        )}
       </header>
 
       <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} />

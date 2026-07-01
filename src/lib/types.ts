@@ -2,6 +2,32 @@
 
 export type AgentDomain = "academic" | "emotional" | "affairs" | "general";
 
+// ===== 认证与角色 =====
+export type UserRole = "student" | "teacher" | "admin" | "counselor";
+
+export type CurrentUser = {
+  id: string;
+  username: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  department: string;
+  avatarColor: string;
+  major?: string;
+  studentId?: string;
+  staffId?: string;
+};
+
+export const ROLE_INFO: Record<UserRole, { name: string; tone: "default" | "info" | "warning" | "success" }> = {
+  student: { name: "学生", tone: "info" },
+  teacher: { name: "教师", tone: "success" },
+  admin: { name: "管理员", tone: "warning" },
+  counselor: { name: "咨询师", tone: "default" },
+};
+
+// 路由所需角色：未指定 = 所有已登录用户
+export type RouteRole = UserRole[] | undefined;
+
 export type AgentInfo = {
   id: AgentDomain;
   name: string;

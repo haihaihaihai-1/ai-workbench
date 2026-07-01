@@ -1,4 +1,5 @@
 import { AppShell } from "@/components/layouts/app-shell";
+import { useAuthStore } from "@/stores/auth-store";
 import { useThemeStore } from "@/stores/theme-store";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -7,6 +8,11 @@ import { routes } from "./routes";
 export default function App() {
   const resolvedTheme = useThemeStore((s) => s.resolvedTheme);
   const theme = useThemeStore((s) => s.theme);
+  const initAuth = useAuthStore((s) => s.init);
+
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
 
   useEffect(() => {
     const root = document.documentElement;
