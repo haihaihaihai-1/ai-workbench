@@ -131,6 +131,7 @@ import {
   TreeStructure,
   FlowArrow,
   Pulse as ActivityAlt,
+  Stop,
 } from "@phosphor-icons/react/dist/ssr";
 
 /* ---------- 类型 ---------- */
