@@ -12,10 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useIsMobile } from "@/hooks/use-media-query";
+import { aiDb } from "@/db/dexie";
 import type { AgentDomain, ChatMessage, Conversation, SourceRef, ToolCall } from "@/lib/types";
 import { cn, randomId } from "@/lib/utils";
 import { useChatStore } from "@/stores/chat-store";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AgentSwitcher } from "./agent-switcher";
 import { Composer } from "./composer";
 import { ConversationList } from "./conversation-list";
@@ -108,6 +109,97 @@ export default function ChatPage() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   });
+
+  // --- 消息持久化到 IndexedDB ---
+  const saveMessages = useCallback(
+    (convId: string, msgs: ChatMessage[]) => {
+      if (!aiDb) return;
+      // 只保存非空内容的消息（跳过正在流式输出的空 assistant 消息）
+      const toSave = msgs.filter((m) => m.content.length > 0);
+      if (toSave.length === 0) return;
+      // 先删除旧消息再写入（简化逻辑）
+      void aiDb.messages
+        .where("conversationId")
+        .equals(convId)
+        .delete()
+        .then(() =>
+          aiDb?.messages.bulkPut(
+            toSave.map((m) => ({
+              id: m.id,
+              conversationId: convId,
+              role: m.role,
+              content: m.content,
+              agent: m.agent ?? null,
+              createdAt: m.createdAt,
+              feedback: m.feedback ?? null,
+              sources: m.sources ? JSON.stringify(m.sources) : null,
+              toolCalls: m.toolCalls ? JSON.stringify(m.toolCalls) : null,
+            })),
+          ),
+        )
+        .catch(() => null);
+    },
+    [],
+  );
+
+  // 加载某个会话的消息
+  const loadMessages = useCallback(async (convId: string) => {
+    if (!aiDb) return;
+    try {
+      const rows = await aiDb.messages
+        .where("conversationId")
+        .equals(convId)
+        .sortBy("createdAt");
+      if (rows.length > 0) {
+        const loaded: ChatMessage[] = rows.map((r) => ({
+          id: r.id,
+          role: r.role,
+          content: r.content,
+          agent: (r.agent as AgentDomain) ?? undefined,
+          createdAt: r.createdAt,
+          feedback: (r.feedback as "up" | "down" | null) ?? null,
+          sources: r.sources ? JSON.parse(r.sources) : undefined,
+          toolCalls: r.toolCalls ? JSON.parse(r.toolCalls) : undefined,
+        }));
+        setMessages((prev) => {
+          // 只在不已有数据时加载（避免覆盖正在流式的新消息）
+          if (prev[convId] && prev[convId].length > 0) return prev;
+          return { ...prev, [convId]: loaded };
+        });
+      }
+    } catch {
+      // 降级: 不加载
+    }
+  }, []);
+
+  // 切换会话时加载消息
+  useEffect(() => {
+    if (currentId) {
+      // 只在内存中没有该会话消息时才从 Dexie 加载
+      setMessages((prev) => {
+        if (!prev[currentId] || prev[currentId].length === 0) {
+          void loadMessages(currentId);
+        }
+        return prev;
+      });
+    }
+  }, [currentId, loadMessages]);
+
+  // 消息变化时自动保存（防抖）
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!currentId) return;
+    const msgs = messages[currentId];
+    if (!msgs || msgs.length === 0) return;
+    // 防抖保存: 500ms 内无新变化才保存
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      saveMessages(currentId, msgs);
+    }, 500);
+    return () => {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    };
+  }, [messages, currentId, saveMessages]);
 
   const list = currentId ? (messages[currentId] ?? []) : [];
   const lastAssistant = [...list].reverse().find((m) => m.role === "assistant");

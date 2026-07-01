@@ -13,6 +13,7 @@ import type { Ticket, TicketStatus } from "@/lib/types";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MOCK_TICKETS, TICKET_STATS, TICKET_STATUS_INFO } from "./mock-data";
+import { NewTicketDialog } from "./new-ticket-dialog";
 import { TicketBoard } from "./ticket-board";
 import { TicketDetail } from "./ticket-detail";
 import { type FilterState, TicketFilters } from "./ticket-filters";
@@ -42,6 +43,7 @@ export default function TicketsPage() {
   });
   const [selected, setSelected] = useState<Ticket | null>(null);
   const [tickets, setTickets] = useState<Ticket[]>(MOCK_TICKETS);
+  const [showNewDialog, setShowNewDialog] = useState(false);
 
   /* Linear 招牌快捷键:
    * - C          新建工单
@@ -57,9 +59,7 @@ export default function TicketsPage() {
       if (e.key === "c" || e.key === "C") {
         if (e.metaKey || e.ctrlKey || e.altKey) return;
         e.preventDefault();
-        toast.info("新建工单（演示）", {
-          description: "按 C 触发 · 实际项目里会打开创建对话框",
-        });
+        setShowNewDialog(true);
       } else if (e.key === "/") {
         e.preventDefault();
         const search = document.querySelector<HTMLInputElement>('input[type="search"]');
@@ -71,6 +71,10 @@ export default function TicketsPage() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [selected]);
+
+  const handleCreateTicket = (ticket: Ticket) => {
+    setTickets((prev) => [ticket, ...prev]);
+  };
 
   const filtered = useMemo(() => {
     return tickets.filter((t) => {
@@ -173,7 +177,7 @@ export default function TicketsPage() {
           >
             <IconRefreshCw className="h-3.5 w-3.5" />
           </Button>
-          <Button size="sm" className="h-7 gap-1.5">
+          <Button size="sm" className="h-7 gap-1.5" onClick={() => setShowNewDialog(true)}>
             <IconPlus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">新建工单</span>
             <span className="sm:hidden">新建</span>
@@ -248,6 +252,13 @@ export default function TicketsPage() {
           <TicketDetail ticket={selected} onClose={() => setSelected(null)} />
         </div>
       )}
+
+      {/* 新建工单弹窗 */}
+      <NewTicketDialog
+        open={showNewDialog}
+        onOpenChange={setShowNewDialog}
+        onCreate={handleCreateTicket}
+      />
     </div>
   );
 }

@@ -65,21 +65,39 @@ export default function MonitorPage() {
   const [range, setRange] = useState("1h");
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [lastRefresh, setLastRefresh] = useState(Date.now());
+  const [liveMetrics, setLiveMetrics] = useState(realtimeMetrics);
 
-  // 30s 自动刷新
+  // 30s 自动刷新 - 生成新的数据点
   useEffect(() => {
     if (!autoRefresh) return;
-    const t = setInterval(() => setLastRefresh(Date.now()), 30_000);
+    const t = setInterval(() => {
+      setLastRefresh(Date.now());
+      setLiveMetrics((prev) => {
+        const lastPoint = prev[prev.length - 1];
+        // 生成有微小波动的下一帧数据
+        const jitter = (base: number, range: number) =>
+          Math.max(0, base + (Math.random() - 0.5) * range);
+        const newPoint = {
+          ts: Date.now(),
+          qps: +jitter(lastPoint.qps, 8).toFixed(1),
+          latencyMs: +jitter(lastPoint.latencyMs, 30).toFixed(0),
+          errorRate: +Math.max(0, jitter(lastPoint.errorRate, 0.3)).toFixed(3),
+          activeSessions: +jitter(lastPoint.activeSessions, 10).toFixed(0),
+        };
+        // 保持窗口大小: 丢弃最旧的数据点
+        return [...prev.slice(1), newPoint];
+      });
+    }, 30_000);
     return () => clearInterval(t);
   }, [autoRefresh]);
 
   // 模拟最新指标
-  const last = realtimeMetrics[realtimeMetrics.length - 1];
-  const prev = realtimeMetrics[realtimeMetrics.length - 2] ?? last;
+  const last = liveMetrics[liveMetrics.length - 1];
+  const prev = liveMetrics[liveMetrics.length - 2] ?? last;
   const pct = (a: number, b: number) => (b === 0 ? 0 : +(((a - b) / b) * 100).toFixed(1));
 
   // 图表数据
-  const seriesData = realtimeMetrics.map((m) => ({
+  const seriesData = liveMetrics.map((m) => ({
     time: formatDate(m.ts, "HH:mm"),
     qps: +m.qps.toFixed(1),
     latency: +m.latencyMs.toFixed(0),

@@ -24,13 +24,13 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { toast } from "sonner";
 import {
   SERVICES,
   SERVICE_CATEGORIES,
   type ServiceCategory,
   type ServiceItem,
 } from "./services/mock-data";
+import { ServiceDetailDialog } from "./services/service-detail-dialog";
 
 /* Vercel 招牌：3 种状态圆点 */
 const STATUS_DOT = {
@@ -54,6 +54,7 @@ const STATUS_LABEL = {
 export default function ServicesPage() {
   const [q, setQ] = useState("");
   const [category, setCategory] = useState<ServiceCategory>("academic");
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
 
   const filterItems = (items: ServiceItem[]) =>
     items.filter(
@@ -145,11 +146,7 @@ export default function ServicesPage() {
                         key={item.id}
                         item={item}
                         index={i}
-                        onClick={() =>
-                          toast.info(`进入「${item.name}」服务`, {
-                            description: item.description,
-                          })
-                        }
+                        onClick={() => setSelectedService(item)}
                       />
                     ))}
                     {items.length === 0 && (
@@ -164,6 +161,13 @@ export default function ServicesPage() {
           );
         })}
       </Tabs>
+
+      {/* 服务详情弹窗 */}
+      <ServiceDetailDialog
+        item={selectedService}
+        open={selectedService !== null}
+        onOpenChange={(v) => !v && setSelectedService(null)}
+      />
     </div>
   );
 }

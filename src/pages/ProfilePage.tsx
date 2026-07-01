@@ -39,11 +39,24 @@ import {
 import { toast } from "sonner";
 import { AGENT_VISUAL } from "./home/mock-data";
 import { ContributionGraph } from "./profile/contribution-graph";
+import { type ProfileData, EditProfileDialog } from "./profile/edit-profile-dialog";
 import { myFavorites, myFeedbacks, recentConversations } from "./profile/mock-data";
+
+const DEFAULT_PROFILE: ProfileData = {
+  name: "许泉兴",
+  handle: "xuquanxing",
+  bio: "计算机科学 · 大三 · 在用 AI 重塑学习与生活",
+  org: "AI Workbench",
+  location: "Shanghai, China",
+  website: "xuquanxing.dev",
+};
 
 export default function ProfilePage() {
   const [feedbacks] = useState(myFeedbacks);
   const [favorites, setFavorites] = useState(myFavorites);
+  const [profile, setProfile] = useState<ProfileData>(DEFAULT_PROFILE);
+  const [editing, setEditing] = useState(false);
+  const [following, setFollowing] = useState(false);
 
   const removeFavorite = (id: string) => {
     setFavorites((prev) => prev.filter((f) => f.id !== id));
@@ -52,7 +65,15 @@ export default function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <ProfileHeader />
+      <ProfileHeader
+        profile={profile}
+        onEdit={() => setEditing(true)}
+        following={following}
+        onFollow={() => {
+          setFollowing(!following);
+          toast.success(following ? "已取消关注" : "已关注");
+        }}
+      />
       <StatsRow />
 
       {/* 贡献热力图 · GitHub 招牌 */}
@@ -368,6 +389,14 @@ export default function ProfilePage() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* 编辑资料弹窗 */}
+      <EditProfileDialog
+        open={editing}
+        onOpenChange={setEditing}
+        data={profile}
+        onSave={setProfile}
+      />
     </div>
   );
 }
@@ -381,7 +410,17 @@ export default function ProfilePage() {
  * - meta 行：组织、位置、URL、加入时间
  * - 右侧：3-4 个紧凑统计（repos/stars/followers/following）
  */
-function ProfileHeader() {
+function ProfileHeader({
+  profile,
+  onEdit,
+  following,
+  onFollow,
+}: {
+  profile: ProfileData;
+  onEdit: () => void;
+  following: boolean;
+  onFollow: () => void;
+}) {
   return (
     <Card className="overflow-hidden border-border">
       {/* 顶部 banner · GitHub 招牌：极简色块 */}
@@ -392,32 +431,34 @@ function ProfileHeader() {
           <div className="flex flex-col items-start gap-3 md:flex-row md:items-end">
             <Avatar className="h-24 w-24 shrink-0 ring-4 ring-card -mt-12">
               <AvatarFallback className="bg-gradient-to-br from-primary to-[#8B5CF6] text-3xl text-primary-foreground">
-                许
+                {profile.name.charAt(0)}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1 space-y-1">
               <div className="flex flex-wrap items-baseline gap-2">
-                <h2 className="text-2xl font-semibold tracking-tight text-foreground">许泉兴</h2>
-                <span className="text-sm font-light text-muted-foreground">xuquanxing</span>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                  {profile.name}
+                </h2>
+                <span className="text-sm font-light text-muted-foreground">
+                  {profile.handle}
+                </span>
                 <Badge variant="default" className="h-5 px-1.5 text-[10px]">
                   PRO
                 </Badge>
               </div>
-              <p className="max-w-xl text-sm text-foreground/80">
-                计算机科学 · 大三 · 在用 AI 重塑学习与生活
-              </p>
+              <p className="max-w-xl text-sm text-foreground/80">{profile.bio}</p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <IconBriefcase className="h-3.5 w-3.5" />
-                  AI Workbench
+                  {profile.org}
                 </span>
                 <span className="flex items-center gap-1">
                   <IconMapPin className="h-3.5 w-3.5" />
-                  Shanghai, China
+                  {profile.location}
                 </span>
                 <a href="#" className="flex items-center gap-1 hover:text-brand-500">
                   <IconLink className="h-3.5 w-3.5" />
-                  xuquanxing.dev
+                  {profile.website}
                 </a>
                 <span className="flex items-center gap-1">
                   <IconCalendar className="h-3.5 w-3.5" />
@@ -430,13 +471,18 @@ function ProfileHeader() {
           {/* 按钮 + 统计 */}
           <div className="flex flex-col items-stretch gap-2 md:items-end">
             <div className="flex items-center gap-1.5">
-              <Button variant="outline" size="sm" className="h-8 gap-1.5">
+              <Button variant="outline" size="sm" className="h-8 gap-1.5" onClick={onEdit}>
                 <IconPencil className="h-3.5 w-3.5" />
                 Edit profile
               </Button>
-              <Button size="sm" className="h-8 gap-1.5">
+              <Button
+                size="sm"
+                className="h-8 gap-1.5"
+                variant={following ? "secondary" : "default"}
+                onClick={onFollow}
+              >
                 <IconUsers className="h-3.5 w-3.5" />
-                Follow
+                {following ? "Following" : "Follow"}
               </Button>
             </div>
             <div className="flex items-center gap-4 text-xs">

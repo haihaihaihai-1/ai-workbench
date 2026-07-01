@@ -28,6 +28,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { useSettingsStore } from "@/stores/settings-store";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -45,6 +46,13 @@ const NAV: { id: Panel; name: string; icon: typeof IconBot; description: string 
 export default function SettingsPage() {
   const [panel, setPanel] = useState<Panel>("ai");
   const [dirty, setDirty] = useState(false);
+
+  const handleSave = () => {
+    // Store already has the values via onChange handlers
+    // This just confirms and shows toast
+    setDirty(false);
+    toast.success("设置已保存并持久化到本地");
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -70,10 +78,7 @@ export default function SettingsPage() {
           <Button
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => {
-              setDirty(false);
-              toast.success("设置已保存");
-            }}
+            onClick={handleSave}
           >
             <IconSave className="h-3.5 w-3.5" />
             保存
@@ -136,15 +141,19 @@ export default function SettingsPage() {
 }
 
 function AiPanel({ onChange }: { onChange: () => void }) {
+  const { ai, setAI } = useSettingsStore();
   const [showKey, setShowKey] = useState(false);
-  const [temp, setTemp] = useState(0.7);
-  const [topP, setTopP] = useState(0.9);
-  const [freq, setFreq] = useState(0);
   return (
     <div className="space-y-6">
       <Section title="默认模型">
         <Row label="默认模型">
-          <Select defaultValue="claude-sonnet-4.5" onValueChange={onChange}>
+          <Select
+            value={ai.defaultModel}
+            onValueChange={(v) => {
+              setAI({ defaultModel: v });
+              onChange();
+            }}
+          >
             <SelectTrigger className="h-9 w-64">
               <SelectValue />
             </SelectTrigger>
@@ -157,7 +166,13 @@ function AiPanel({ onChange }: { onChange: () => void }) {
           </Select>
         </Row>
         <Row label="路由策略">
-          <Select defaultValue="quality" onValueChange={onChange}>
+          <Select
+            value={ai.routingStrategy}
+            onValueChange={(v) => {
+              setAI({ routingStrategy: v });
+              onChange();
+            }}
+          >
             <SelectTrigger className="h-9 w-64">
               <SelectValue />
             </SelectTrigger>
@@ -173,7 +188,12 @@ function AiPanel({ onChange }: { onChange: () => void }) {
           <div className="flex w-64 gap-1.5">
             <Input
               type={showKey ? "text" : "password"}
-              defaultValue="sk-ant-••••••••••••••"
+              value={ai.apiKey}
+              onChange={(e) => {
+                setAI({ apiKey: e.target.value });
+                onChange();
+              }}
+              placeholder="sk-..."
               className="h-9 font-mono text-xs"
             />
             <Button
@@ -197,42 +217,50 @@ function AiPanel({ onChange }: { onChange: () => void }) {
       <Section title="生成参数">
         <SliderRow
           label="Temperature"
-          value={temp}
+          value={ai.temperature}
           min={0}
           max={2}
           step={0.1}
           onChange={(v) => {
-            setTemp(v);
+            setAI({ temperature: v });
             onChange();
           }}
           hint="越高越发散"
         />
         <SliderRow
           label="Top P"
-          value={topP}
+          value={ai.topP}
           min={0}
           max={1}
           step={0.05}
           onChange={(v) => {
-            setTopP(v);
+            setAI({ topP: v });
             onChange();
           }}
           hint="核采样"
         />
         <SliderRow
           label="Frequency Penalty"
-          value={freq}
+          value={ai.freqPenalty}
           min={-2}
           max={2}
           step={0.1}
           onChange={(v) => {
-            setFreq(v);
+            setAI({ freqPenalty: v });
             onChange();
           }}
           hint="减少重复"
         />
         <Row label="Max Tokens">
-          <Input type="number" defaultValue={4096} className="h-9 w-32" onChange={onChange} />
+          <Input
+            type="number"
+            value={ai.maxTokens}
+            onChange={(e) => {
+              setAI({ maxTokens: Number(e.target.value) });
+              onChange();
+            }}
+            className="h-9 w-32"
+          />
         </Row>
       </Section>
 
@@ -240,13 +268,21 @@ function AiPanel({ onChange }: { onChange: () => void }) {
 
       <Section title="模型启用">
         {[
-          { name: "Claude Sonnet 4.5", on: true, hint: "主力模型" },
-          { name: "GPT-5", on: true, hint: "备选" },
-          { name: "Gemini 2.5 Pro", on: false, hint: "测试中" },
-          { name: "MiniMax M3", on: true, hint: "低成本" },
+          { key: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", hint: "主力模型" },
+          { key: "gpt-5", name: "GPT-5", hint: "备选" },
+          { key: "gemini-2.5-pro", name: "Gemini 2.5 Pro", hint: "测试中" },
+          { key: "minimax-m3", name: "MiniMax M3", hint: "低成本" },
         ].map((m) => (
-          <Row key={m.name} label={m.name} hint={m.hint}>
-            <Switch defaultChecked={m.on} onCheckedChange={onChange} />
+          <Row key={m.key} label={m.name} hint={m.hint}>
+            <Switch
+              checked={ai.enabledModels[m.key] ?? false}
+              onCheckedChange={(v) => {
+                setAI({
+                  enabledModels: { ...ai.enabledModels, [m.key]: v },
+                });
+                onChange();
+              }}
+            />
           </Row>
         ))}
       </Section>
@@ -255,6 +291,15 @@ function AiPanel({ onChange }: { onChange: () => void }) {
 }
 
 function NotificationPanel({ onChange }: { onChange: () => void }) {
+  const { notification, setNotification } = useSettingsStore();
+  const notifyTypes = [
+    { key: "safety", name: "安全告警", desc: "Critical / High 严重级别时立即推送" },
+    { key: "daily", name: "每日报告", desc: "每天早 9 点推送昨日汇总" },
+    { key: "anomaly", name: "异常告警", desc: "错误率 > 阈值时" },
+    { key: "ticket", name: "工单升级", desc: "L2+ 工单分配时" },
+    { key: "crisis", name: "危机干预", desc: "检测到危机关键词时" },
+    { key: "release", name: "系统升级公告", desc: "新版本发布时" },
+  ];
   return (
     <div className="space-y-6">
       <Section title="通知渠道">
@@ -262,8 +307,12 @@ function NotificationPanel({ onChange }: { onChange: () => void }) {
           <div className="flex w-96 gap-1.5">
             <Input
               placeholder="https://qyapi.weixin.qq.com/..."
+              value={notification.wecomWebhook}
+              onChange={(e) => {
+                setNotification({ wecomWebhook: e.target.value });
+                onChange();
+              }}
               className="h-9 font-mono text-xs"
-              onChange={onChange}
             />
             <Button
               variant="outline"
@@ -279,16 +328,17 @@ function NotificationPanel({ onChange }: { onChange: () => void }) {
       </Section>
       <Separator />
       <Section title="通知类型">
-        {[
-          { name: "安全告警", desc: "Critical / High 严重级别时立即推送", on: true },
-          { name: "每日报告", desc: "每天早 9 点推送昨日汇总", on: true },
-          { name: "异常告警", desc: "错误率 > 阈值时", on: true },
-          { name: "工单升级", desc: "L2+ 工单分配时", on: false },
-          { name: "危机干预", desc: "检测到危机关键词时", on: true },
-          { name: "系统升级公告", desc: "新版本发布时", on: true },
-        ].map((n) => (
-          <Row key={n.name} label={n.name} hint={n.desc}>
-            <Switch defaultChecked={n.on} onCheckedChange={onChange} />
+        {notifyTypes.map((n) => (
+          <Row key={n.key} label={n.name} hint={n.desc}>
+            <Switch
+              checked={notification.types[n.key] ?? false}
+              onCheckedChange={(v) => {
+                setNotification({
+                  types: { ...notification.types, [n.key]: v },
+                });
+                onChange();
+              }}
+            />
           </Row>
         ))}
       </Section>
@@ -395,14 +445,27 @@ function ServicesPanel() {
 }
 
 function SecurityPanel({ onChange }: { onChange: () => void }) {
+  const { security, setSecurity } = useSettingsStore();
   return (
     <div className="space-y-6">
       <Section title="PII 检测">
         <Row label="启用 PII 检测" hint="自动识别并脱敏个人信息">
-          <Switch defaultChecked onCheckedChange={onChange} />
+          <Switch
+            checked={security.piiDetection}
+            onCheckedChange={(v) => {
+              setSecurity({ piiDetection: v });
+              onChange();
+            }}
+          />
         </Row>
         <Row label="严格度">
-          <Select defaultValue="standard" onValueChange={onChange}>
+          <Select
+            value={security.piiStrictness}
+            onValueChange={(v) => {
+              setSecurity({ piiStrictness: v });
+              onChange();
+            }}
+          >
             <SelectTrigger className="h-9 w-48">
               <SelectValue />
             </SelectTrigger>
@@ -417,10 +480,22 @@ function SecurityPanel({ onChange }: { onChange: () => void }) {
       <Separator />
       <Section title="提示注入防护">
         <Row label="启用注入检测">
-          <Switch defaultChecked onCheckedChange={onChange} />
+          <Switch
+            checked={security.injectionDetection}
+            onCheckedChange={(v) => {
+              setSecurity({ injectionDetection: v });
+              onChange();
+            }}
+          />
         </Row>
         <Row label="检测模式">
-          <Select defaultValue="hybrid" onValueChange={onChange}>
+          <Select
+            value={security.injectionMode}
+            onValueChange={(v) => {
+              setSecurity({ injectionMode: v });
+              onChange();
+            }}
+          >
             <SelectTrigger className="h-9 w-48">
               <SelectValue />
             </SelectTrigger>
@@ -435,10 +510,24 @@ function SecurityPanel({ onChange }: { onChange: () => void }) {
       <Separator />
       <Section title="内容审核">
         <Row label="启用内容审核">
-          <Switch defaultChecked onCheckedChange={onChange} />
+          <Switch
+            checked={security.contentModeration}
+            onCheckedChange={(v) => {
+              setSecurity({ contentModeration: v });
+              onChange();
+            }}
+          />
         </Row>
         <Row label="数据保留天数">
-          <Input type="number" defaultValue={90} className="h-9 w-32" onChange={onChange} />
+          <Input
+            type="number"
+            value={security.dataRetentionDays}
+            onChange={(e) => {
+              setSecurity({ dataRetentionDays: Number(e.target.value) });
+              onChange();
+            }}
+            className="h-9 w-32"
+          />
         </Row>
       </Section>
     </div>
@@ -446,7 +535,7 @@ function SecurityPanel({ onChange }: { onChange: () => void }) {
 }
 
 function AppearancePanel({ onChange }: { onChange: () => void }) {
-  const [theme, setTheme] = useState("dark");
+  const { appearance, setAppearance } = useSettingsStore();
   const colors = [
     { id: "purple", name: "线性紫", color: "#5E6AD2" },
     { id: "blue", name: "电光蓝", color: "#3B82F6" },
@@ -458,14 +547,14 @@ function AppearancePanel({ onChange }: { onChange: () => void }) {
       <Section title="主题">
         <Row label="主题模式">
           <div className="flex gap-1.5">
-            {["dark", "light", "system"].map((t) => (
+            {(["dark", "light", "system"] as const).map((t) => (
               <Button
                 key={t}
-                variant={theme === t ? "default" : "outline"}
+                variant={appearance.themeMode === t ? "default" : "outline"}
                 size="sm"
                 className="h-8"
                 onClick={() => {
-                  setTheme(t);
+                  setAppearance({ themeMode: t });
                   onChange();
                 }}
               >
@@ -480,8 +569,14 @@ function AppearancePanel({ onChange }: { onChange: () => void }) {
               <button
                 key={c.id}
                 type="button"
-                onClick={onChange}
-                className="group flex items-center gap-1.5 rounded-md border border-border p-1.5 transition-colors hover:border-primary/50"
+                onClick={() => {
+                  setAppearance({ primaryColor: c.id });
+                  onChange();
+                }}
+                className={cn(
+                  "group flex items-center gap-1.5 rounded-md border border-border p-1.5 transition-colors hover:border-primary/50",
+                  appearance.primaryColor === c.id && "border-primary ring-1 ring-primary/30",
+                )}
                 title={c.name}
               >
                 <span className="h-5 w-5 rounded-full" style={{ backgroundColor: c.color }} />
@@ -491,7 +586,13 @@ function AppearancePanel({ onChange }: { onChange: () => void }) {
           </div>
         </Row>
         <Row label="字体大小">
-          <Select defaultValue="standard" onValueChange={onChange}>
+          <Select
+            value={appearance.fontSize}
+            onValueChange={(v) => {
+              setAppearance({ fontSize: v });
+              onChange();
+            }}
+          >
             <SelectTrigger className="h-9 w-32">
               <SelectValue />
             </SelectTrigger>
@@ -503,10 +604,22 @@ function AppearancePanel({ onChange }: { onChange: () => void }) {
           </Select>
         </Row>
         <Row label="紧凑模式" hint="更高信息密度">
-          <Switch onCheckedChange={onChange} />
+          <Switch
+            checked={appearance.compactMode}
+            onCheckedChange={(v) => {
+              setAppearance({ compactMode: v });
+              onChange();
+            }}
+          />
         </Row>
         <Row label="动画效果">
-          <Switch defaultChecked onCheckedChange={onChange} />
+          <Switch
+            checked={appearance.animations}
+            onCheckedChange={(v) => {
+              setAppearance({ animations: v });
+              onChange();
+            }}
+          />
         </Row>
       </Section>
     </div>

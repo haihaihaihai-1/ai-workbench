@@ -20,6 +20,7 @@ const AdminSkillsPage = lazy(() => import("./pages/admin/SkillsPage"));
 const SafetyPage = lazy(() => import("./pages/admin/SafetyPage"));
 const SettingsPage = lazy(() => import("./pages/admin/SettingsPage"));
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const DesignSystemPage = lazy(() => import("./pages/DesignSystemPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 export type RouteConfig = {
@@ -50,5 +51,6 @@ export const routes: RouteConfig[] = [
   { name: "安全监控", path: "/admin/safety", element: withFallback(<SafetyPage />) },
   { name: "系统设置", path: "/admin/settings", element: withFallback(<SettingsPage />) },
   { name: "用户画像", path: "/memory/profile/:userId", element: withFallback(<UserProfilePage />) },
+  { name: "设计系统", path: "/design-system", element: withFallback(<DesignSystemPage />) },
   { name: "404", path: "*", element: withFallback(<NotFound />) },
 ];

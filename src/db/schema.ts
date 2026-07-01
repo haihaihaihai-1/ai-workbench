@@ -23,8 +23,11 @@ export interface MessageRow {
   conversationId: string;
   role: "user" | "assistant" | "system";
   content: string;
-  agent?: string;
+  agent?: string | null;
   createdAt: number;
+  feedback?: string | null;
+  sources?: string | null;
+  toolCalls?: string | null;
 }
 
 // 记忆行 - 直接复用 Memory

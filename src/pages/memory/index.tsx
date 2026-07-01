@@ -15,6 +15,7 @@ import { MemoryCard } from "./memory-card";
 import { type MemoryFilterState, MemoryFilters } from "./memory-filters";
 import { MemoryCharts, MemoryStats } from "./memory-stats";
 import { MOCK_MEMORIES } from "./mock-data";
+import { NewMemoryDialog } from "./new-memory-dialog";
 import { ProfilePanel } from "./profile-panel";
 
 export default function MemoryPage() {
@@ -25,6 +26,7 @@ export default function MemoryPage() {
     sort: "newest",
   });
   const [memories, setMemories] = useState<Memory[]>(MOCK_MEMORIES);
+  const [showNewDialog, setShowNewDialog] = useState(false);
 
   const filtered = useMemo(() => {
     let list = memories.filter((m) => {
@@ -65,6 +67,39 @@ export default function MemoryPage() {
 
   const handleTogglePin = (id: string) => {
     setMemories((prev) => prev.map((m) => (m.id === id ? { ...m, pinned: !m.pinned } : m)));
+  };
+
+  const handleCreateMemory = (memory: Memory) => {
+    setMemories((prev) => [memory, ...prev]);
+  };
+
+  const handleAIOrganize = () => {
+    toast.promise(
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+      {
+        loading: "AI 正在整理记忆...",
+        success: () => {
+          // 模拟: 按置信度排序并自动标签
+          setMemories((prev) =>
+            [...prev].sort((a, b) => b.confidence - a.confidence),
+          );
+          return "AI 整理完成！已按置信度重新排序";
+        },
+        error: "整理失败",
+      },
+    );
+  };
+
+  const handleShare = () => {
+    const data = JSON.stringify(
+      { memories: filtered, exportedAt: new Date().toISOString() },
+      null,
+      2,
+    );
+    navigator.clipboard.writeText(data).then(
+      () => toast.success(`已复制 ${filtered.length} 条记忆到剪贴板`),
+      () => toast.error("复制失败，请重试"),
+    );
   };
 
   const relativeDate = (ts?: number) => (ts ? relativeTime(ts) : "—");
@@ -112,18 +147,32 @@ export default function MemoryPage() {
             </div>
           </div>
           <div className="flex items-center gap-1.5">
-            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-muted-foreground">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8 gap-1.5 text-muted-foreground"
+              onClick={handleAIOrganize}
+            >
               <IconSparkle className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">AI 整理</span>
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-muted-foreground">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8 gap-1.5 text-muted-foreground"
+              onClick={handleShare}
+            >
               <IconShareNetwork className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">分享</span>
             </Button>
             <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="更多">
               <IconDotsThree className="h-4 w-4" />
             </Button>
-            <Button size="sm" className="h-8 gap-1.5 shadow-notion">
+            <Button
+              size="sm"
+              className="h-8 gap-1.5 shadow-notion"
+              onClick={() => setShowNewDialog(true)}
+            >
               <IconPlus className="h-3.5 w-3.5" />
               新建记忆
             </Button>
@@ -188,6 +237,13 @@ export default function MemoryPage() {
       <div className="lg:hidden">
         <ProfilePanel />
       </div>
+
+      {/* 新建记忆弹窗 */}
+      <NewMemoryDialog
+        open={showNewDialog}
+        onOpenChange={setShowNewDialog}
+        onCreate={handleCreateMemory}
+      />
     </div>
   );
 }
