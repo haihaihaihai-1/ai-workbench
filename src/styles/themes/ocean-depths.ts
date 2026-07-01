@@ -22,8 +22,8 @@ export const oceanDepths: Theme = {
     border: "#c4d8d8",
   },
   fonts: {
-    heading: '"DejaVu Sans", "Inter", system-ui, sans-serif',
-    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
+    heading: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "海洋、数据可视化、企业、医疗",
 };

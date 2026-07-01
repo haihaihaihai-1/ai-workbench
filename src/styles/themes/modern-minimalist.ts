@@ -22,8 +22,8 @@ export const modernMinimalist: Theme = {
     border: "#e5e5e5",
   },
   fonts: {
-    heading: '"DejaVu Sans", "Inter", system-ui, sans-serif',
-    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
+    heading: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "通用、商务、报告、设计作品集",
 };

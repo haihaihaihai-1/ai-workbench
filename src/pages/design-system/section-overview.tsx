@@ -124,10 +124,10 @@ export function SectionOverview() {
       </DemoCard>
 
       {/* 字体 */}
-      <DemoCard title="字体" description="Inter (UI) · JetBrains Mono (代码)">
+      <DemoCard title="字体" description="DM Sans (UI) · Instrument Serif (标题) · JetBrains Mono (代码)">
         <div className="space-y-3">
           <div>
-            <div className="text-xs text-muted-foreground">Inter · UI</div>
+            <div className="text-xs text-muted-foreground">DM Sans · UI</div>
             <div className="text-2xl font-semibold tracking-tight">The quick brown fox</div>
             <div className="text-sm text-muted-foreground">
               ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz · 0123456789

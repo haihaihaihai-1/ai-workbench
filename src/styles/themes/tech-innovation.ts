@@ -22,8 +22,8 @@ export const techInnovation: Theme = {
     border: "#333333",
   },
   fonts: {
-    heading: '"DejaVu Sans", "Inter", system-ui, sans-serif',
-    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
+    heading: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "AI 产品、开发者工具、极客风格",
   isDark: true,

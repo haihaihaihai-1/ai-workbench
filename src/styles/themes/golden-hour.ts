@@ -22,8 +22,8 @@ export const goldenHour: Theme = {
     border: "#6a5a4a",
   },
   fonts: {
-    heading: '"FreeSans", "Inter", system-ui, sans-serif',
-    body: '"FreeSans", "Inter", system-ui, sans-serif',
+    heading: '"FreeSans", "DM Sans", system-ui, sans-serif',
+    body: '"FreeSans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "复古、暗色 + 暖色、咖啡店、阅读",
   isDark: true,

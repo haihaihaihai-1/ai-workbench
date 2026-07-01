@@ -22,8 +22,8 @@ export const arcticFrost: Theme = {
     border: "#d4e4f7",
   },
   fonts: {
-    heading: '"DejaVu Sans", "Inter", system-ui, sans-serif',
-    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
+    heading: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "数据展示、监控、报告、寒色系界面",
 };

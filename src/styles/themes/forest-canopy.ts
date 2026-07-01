@@ -23,7 +23,7 @@ export const forestCanopy: Theme = {
   },
   fonts: {
     heading: '"FreeSerif", "Source Serif Pro", Georgia, serif',
-    body: '"FreeSans", "Inter", system-ui, sans-serif',
+    body: '"FreeSans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "环保、可持续、自然、健康",
 };

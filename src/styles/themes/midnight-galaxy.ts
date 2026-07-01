@@ -22,8 +22,8 @@ export const midnightGalaxy: Theme = {
     border: "#3a2e4e",
   },
   fonts: {
-    heading: '"FreeSans", "Inter", system-ui, sans-serif',
-    body: '"FreeSans", "Inter", system-ui, sans-serif',
+    heading: '"FreeSans", "DM Sans", system-ui, sans-serif',
+    body: '"FreeSans", "DM Sans", system-ui, sans-serif',
   },
   useCase: "AI 产品、神秘感、夜晚、监控大屏",
   isDark: true,
