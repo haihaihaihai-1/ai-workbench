@@ -241,5 +241,5 @@ export const QUICK_ACTIONS = {
   sendMessage: "已创建会话：与许泉兴对话",
   viewConversations: "正在打开对话列表...",
   exportProfile: "画像已导出为 JSON 文件",
-  resetMemory: "记忆重置功能 v7.2 即将上线",
+  resetMemory: "已清空该用户全部记忆数据",
 };

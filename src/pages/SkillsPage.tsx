@@ -82,11 +82,37 @@ export default function SkillsPage() {
             variant="outline"
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => toast.info("已请求刷新技能列表")}
+            onClick={() => {
+              setSkills(MOCK_SKILLS);
+              toast.success("技能列表已刷新");
+            }}
           >
             Refresh
           </Button>
-          <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能开发向导")}>
+          <Button size="sm" className="h-8 gap-1.5" onClick={() => {
+            const newSkill: Skill = {
+              id: `custom-${Date.now()}`,
+              name: "我的自定义技能",
+              description: "用户自定义技能，可在对话中调用",
+              icon: "⚡",
+              category: "creative",
+              tags: ["自定义"],
+              calls: 0,
+              successRate: 100,
+              rating: 0,
+              executionMode: "AUTO",
+              author: "me",
+              version: "0.1.0",
+              example: "示例调用",
+              history: [],
+              permissions: [],
+              createdAt: Date.now(),
+              installed: true,
+              enabled: true,
+            };
+            setSkills((prev) => [newSkill, ...prev]);
+            toast.success("已创建自定义技能", { description: "可在对话中调用" });
+          }}>
             <IconSparkles className="h-3.5 w-3.5" weight="fill" />
             Submit skill
           </Button>

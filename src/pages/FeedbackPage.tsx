@@ -47,9 +47,10 @@ export default function FeedbackPage() {
   const [rating, setRating] = useState<string>("all");
   const [status, setStatus] = useState<"all" | "pending" | "processed">("all");
   const [selected, setSelected] = useState<Feedback | null>(null);
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>(FEEDBACKS);
 
   const filtered = useMemo(() => {
-    return FEEDBACKS.filter((f) => {
+    return feedbacks.filter((f) => {
       if (q) {
         const lq = q.toLowerCase();
         if (!f.comment.toLowerCase().includes(lq) && !f.user.toLowerCase().includes(lq))
@@ -59,7 +60,15 @@ export default function FeedbackPage() {
       if (status !== "all" && f.status !== status) return false;
       return true;
     });
-  }, [q, rating, status]);
+  }, [feedbacks, q, rating, status]);
+
+  const handleMarkProcessed = (id: string) => {
+    setFeedbacks((prev) =>
+      prev.map((f) => (f.id === id ? { ...f, status: "processed" as const } : f)),
+    );
+    setSelected(null);
+    toast.success("已标记为已处理");
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -371,6 +380,7 @@ export default function FeedbackPage() {
                     <Button
                       size="sm"
                       onClick={() => {
+                        handleMarkProcessed(selected.id);
                         setSelected(null);
                         toast.success("已标记为已处理");
                       }}

@@ -3,8 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { IconChevronLeft, IconClock, IconMail, IconShieldCheck } from "@/components/icons"
-import { Link } from "react-router-dom";
-import { toast } from "sonner";
+import { Link, useNavigate } from "react-router-dom";
 import { MOCK_USER } from "./mock-data";
 
 const STATUS_MAP = {
@@ -16,6 +15,7 @@ const STATUS_MAP = {
 export function ProfileHeader() {
   const user = MOCK_USER;
   const st = STATUS_MAP[user.status];
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -78,7 +78,7 @@ export function ProfileHeader() {
                   key={t}
                   variant="secondary"
                   className="cursor-pointer text-[10px] transition-colors hover:bg-primary/15 hover:text-primary"
-                  onClick={() => toast.info(`已筛选标签：${t}`)}
+                  onClick={() => navigate(`/memory?tag=${encodeURIComponent(t)}`)}
                 >
                   #{t}
                 </Badge>

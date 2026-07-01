@@ -40,14 +40,24 @@ export default function FlywheelPage() {
   const [scope, setScope] = useState("all");
   const [autoApply, setAutoApply] = useState(false);
 
+  const [analysisResults, setAnalysisResults] = useState<{
+    suggestions: number;
+    newIntents: number;
+    completedAt: number | null;
+  }>({ suggestions: 0, newIntents: 0, completedAt: null });
+
   const handleAnalyze = () => {
     setAnalyzing(true);
     toast.info("开始飞轮分析...", {
       description: `范围: ${range} · 置信度门槛: ${minConfidence}%`,
     });
     setTimeout(() => {
+      const suggestions = 5 + Math.floor(Math.random() * 5);
       setAnalyzing(false);
-      toast.success("分析完成", { description: "已生成 7 条优化建议。" });
+      setAnalysisResults((prev) => ({ ...prev, suggestions, completedAt: Date.now() }));
+      toast.success("分析完成", {
+        description: `已生成 ${suggestions} 条优化建议。${autoApply ? "已自动应用。" : ""}`,
+      });
     }, 1600);
   };
 
@@ -57,8 +67,12 @@ export default function FlywheelPage() {
       description: `范围: ${scope} · 最低置信度: ${minConfidence / 100}`,
     });
     setTimeout(() => {
+      const newIntents = 4 + Math.floor(Math.random() * 5);
       setAnalyzing(false);
-      toast.success("意图进化完成", { description: "发现 6 个新意图候选。" });
+      setAnalysisResults((prev) => ({ ...prev, newIntents, completedAt: Date.now() }));
+      toast.success("意图进化完成", {
+        description: `发现 ${newIntents} 个新意图候选。`,
+      });
     }, 1400);
   };
 
@@ -95,6 +109,16 @@ export default function FlywheelPage() {
           </Button>
         </div>
       </header>
+
+      {/* 分析结果摘要 */}
+      {analysisResults.completedAt && (
+        <div className="flex items-center gap-3 rounded-md border border-success/30 bg-success/5 p-3 text-sm">
+          <IconSparkles className="h-4 w-4 text-success" />
+          <span>
+            上次分析：生成 {analysisResults.suggestions} 条优化建议 · 发现 {analysisResults.newIntents} 个新意图
+          </span>
+        </div>
+      )}
 
       {/* 4 个健康度卡 */}
       <HealthOverview />

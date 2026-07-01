@@ -18,13 +18,18 @@ export default function EvaluationPage() {
 
   const current = TEST_SETS.find((ts) => ts.id === currentSetId) as TestSet;
 
+  const [evalResults, setEvalResults] = useState<{
+    passRate: number;
+    avgScore: number;
+    completedAt: number | null;
+  }>({ passRate: 0, avgScore: 0, completedAt: null });
+
   const handleRun = () => {
     setRunning(true);
     setProgress(0);
     toast.info("开始离线评估...", {
       description: `${current.name} · 共 ${current.caseCount} 条用例`,
     });
-    // 模拟进度
     let tick = 0;
     const total = 22;
     const timer = setInterval(() => {
@@ -33,8 +38,11 @@ export default function EvaluationPage() {
       if (tick >= total) {
         clearInterval(timer);
         setRunning(false);
+        const passRate = 82 + Math.floor(Math.random() * 12);
+        const avgScore = 84 + Math.floor(Math.random() * 8);
+        setEvalResults({ passRate, avgScore, completedAt: Date.now() });
         toast.success("评估完成", {
-          description: "通过率 87.5% · 平均分 88.4",
+          description: `通过率 ${passRate}% · 平均分 ${avgScore}`,
         });
       }
     }, 80);
@@ -92,6 +100,16 @@ export default function EvaluationPage() {
           <p className="mt-2 text-[10px] text-muted-foreground">
             {Math.round((progress / 100) * current.caseCount)} / {current.caseCount} 条用例已完成
           </p>
+        </div>
+      )}
+
+      {/* 评估结果摘要 */}
+      {evalResults.completedAt && !running && (
+        <div className="flex items-center gap-3 rounded-md border border-success/30 bg-success/5 p-3 text-sm">
+          <IconTarget className="h-4 w-4 text-success" />
+          <span>
+            上次评估结果：通过率 {evalResults.passRate}% · 平均分 {evalResults.avgScore}
+          </span>
         </div>
       )}
 

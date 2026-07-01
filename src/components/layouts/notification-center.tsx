@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { IconBell, IconCheckCheck, IconInbox, IconX } from "@/components/icons"
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { type FilterKey, NotificationFilters } from "./notification-filters";
 import { NotificationItem } from "./notification-item";
 import type { Notification, NotificationType } from "./notification-mock-data";
@@ -21,6 +22,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
   const markAllRead = useNotifications((s) => s.markAllRead);
   const [filter, setFilter] = useState<FilterKey>("all");
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const filtered = useMemo(() => {
     if (filter === "all") return items;
@@ -31,9 +33,7 @@ export function NotificationCenter({ open, onOpenChange }: Props) {
     markRead(n.id);
     if (n.url) {
       onOpenChange(false);
-      if (typeof window !== "undefined") {
-        window.history.pushState({}, "", n.url);
-      }
+      navigate(n.url);
     }
   };
 

@@ -101,11 +101,41 @@ export default function SkillsAdminPage() {
             variant="outline"
             size="sm"
             className="h-8 gap-1.5"
-            onClick={() => toast.info("已请求刷新技能列表")}
+            onClick={() => {
+              setSkills(MOCK_ADMIN_SKILLS);
+              toast.success("技能列表已刷新");
+            }}
           >
             Refresh
           </Button>
-          <Button size="sm" className="h-8 gap-1.5" onClick={() => toast.info("打开技能创建向导")}>
+          <Button
+            size="sm"
+            className="h-8 gap-1.5"
+            onClick={() =>
+              setEdit({
+                id: `sk_${Math.random().toString(36).slice(2, 8)}`,
+                name: "",
+                description: "",
+                author: "admin",
+                category: "tool",
+                icon: "🔧",
+                status: "pending",
+                executionMode: "AUTO",
+                version: "0.1.0",
+                tags: [],
+                calls: 0,
+                errorRate: 0,
+                p50LatencyMs: 0,
+                permissions: [],
+                permissionLevel: "admin_only",
+                allowedRoles: [],
+                allowedUsers: [],
+                lastAudit: Date.now(),
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+              })
+            }
+          >
             <IconWrench className="h-3.5 w-3.5" />
             New skill
           </Button>

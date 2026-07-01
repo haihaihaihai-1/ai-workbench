@@ -189,14 +189,27 @@ const TREND = Array.from({ length: 14 }, (_, i) => ({
 export default function SafetyPage() {
   const [severity, setSeverity] = useState<Severity | "all">("all");
   const [type, setType] = useState<EventType | "all">("all");
+  const [archivedIds, setArchivedIds] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
     return EVENTS.filter((e) => {
+      if (archivedIds.has(e.id)) return false;
       if (severity !== "all" && e.severity !== severity) return false;
       if (type !== "all" && e.type !== type) return false;
       return true;
     });
-  }, [severity, type]);
+  }, [severity, type, archivedIds]);
+
+  const handleArchive = () => {
+    const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    const toArchive = EVENTS.filter((e) => e.createdAt < cutoff).map((e) => e.id);
+    if (toArchive.length === 0) {
+      toast.info("没有 30 天前的归档数据");
+      return;
+    }
+    setArchivedIds((prev) => new Set([...prev, ...toArchive]));
+    toast.success(`已清空 ${toArchive.length} 条 30 天前的归档`);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -238,7 +251,7 @@ export default function SafetyPage() {
             variant="ghost"
             size="sm"
             className="h-8 gap-1.5 text-destructive"
-            onClick={() => toast.warning("已清空 30 天前的归档")}
+            onClick={handleArchive}
           >
             <IconTrash2 className="h-3.5 w-3.5" />
             清空归档

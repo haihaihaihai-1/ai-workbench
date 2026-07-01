@@ -24,7 +24,8 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn, relativeTime } from "@/lib/utils";
-import { useState } from "react";
+import { exportToJSON } from "@/lib/export";
+import { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -382,7 +383,21 @@ export default function ProfilePage() {
             <SettingsCard title="数据与隐私" icon={IconFileText}>
               <SettingRow label="允许数据用于模型训练" />
               <SettingRow label="允许匿名使用统计" defaultChecked />
-              <Button variant="outline" size="sm" className="mt-3 text-xs">
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-3 text-xs"
+                onClick={() => {
+                  const data = {
+                    profile,
+                    favorites,
+                    feedbacks,
+                    exportedAt: new Date().toISOString(),
+                  };
+                  exportToJSON([data], "my-data-export.json");
+                  toast.success("数据已导出为 JSON 文件");
+                }}
+              >
                 导出我的全部数据
               </Button>
             </SettingsCard>
@@ -564,10 +579,21 @@ function SettingsCard({
 
 function SettingRow({ label, defaultChecked }: { label: string; defaultChecked?: boolean }) {
   const [on, setOn] = useState(!!defaultChecked);
+  const storageKey = `pref:${label}`;
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored !== null) setOn(stored === "true");
+    } catch { /* noop */ }
+  }, [storageKey]);
+  const toggle = (v: boolean) => {
+    setOn(v);
+    try { localStorage.setItem(storageKey, String(v)); } catch { /* noop */ }
+  };
   return (
     <div className="flex items-center justify-between">
       <Label className="text-sm">{label}</Label>
-      <Switch checked={on} onCheckedChange={setOn} />
+      <Switch checked={on} onCheckedChange={toggle} />
     </div>
   );
 }

@@ -82,7 +82,7 @@ export default function ChatPage() {
       const k = e.key.toLowerCase();
       if (k === "o" && e.shiftKey) {
         e.preventDefault();
-        // TODO: 触发新建对话
+        setCurrentId(null);
       } else if (k === "s" && e.shiftKey) {
         e.preventDefault();
         setLeftCollapsed((v) => !v);

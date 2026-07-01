@@ -39,14 +39,14 @@ export function CustomSkillCta() {
             variant="outline"
             size="sm"
             className="h-8 text-xs"
-            onClick={() => toast.info("查看技能开发文档")}
+            onClick={() => window.open("https://developers.openai.com/docs/guides/gpt", "_blank")}
           >
             查看文档
           </Button>
           <Button
             size="sm"
             className="h-8 gap-1.5 text-xs"
-            onClick={() => toast.info("打开技能开发向导")}
+            onClick={() => toast.info("技能开发向导", { description: "请在代码编辑器中创建 src/skills/ 目录并编写 SKILL.md 文件" })}
           >
             立即创建
             <IconArrowRight className="h-3.5 w-3.5" />

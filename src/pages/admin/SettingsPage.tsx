@@ -347,20 +347,52 @@ function NotificationPanel({ onChange }: { onChange: () => void }) {
 }
 
 function ServicesPanel() {
-  const services = [
+  const { slo, setSLO } = useSettingsStore();
+  const [services, setServices] = useState([
     { name: "Supabase", status: "healthy", latency: 24, last: "刚刚" },
     { name: "Redis", status: "healthy", latency: 3, last: "刚刚" },
     { name: "Claude API", status: "healthy", latency: 480, last: "刚刚" },
     { name: "OpenAI API", status: "degraded", latency: 1240, last: "2 分钟前" },
     { name: "Langfuse", status: "healthy", latency: 156, last: "刚刚" },
     { name: "邮件服务", status: "down", latency: -1, last: "12 分钟前" },
-  ];
+  ]);
+
+  const handleRetry = (name: string) => {
+    toast.info(`正在重试连接 ${name}...`);
+    setTimeout(() => {
+      setServices((prev) =>
+        prev.map((s) =>
+          s.name === name
+            ? {
+                ...s,
+                status: "healthy" as const,
+                latency: Math.floor(Math.random() * 200 + 20),
+                last: "刚刚",
+              }
+            : s,
+        ),
+      );
+      toast.success(`${name} 已恢复连接`);
+    }, 1500);
+  };
+
+  const unhealthyCount = services.filter((s) => s.status !== "healthy").length;
+
   return (
     <div className="space-y-6">
       <Section title="健康度总览">
-        <div className="flex items-center gap-3 rounded-md border border-warning/30 bg-warning/5 p-3 text-sm">
-          <span className="h-2 w-2 rounded-full bg-warning" />
-          <span>部分服务异常：邮件服务离线、OpenAI 响应慢</span>
+        <div className={cn(
+          "flex items-center gap-3 rounded-md border p-3 text-sm",
+          unhealthyCount > 0
+            ? "border-warning/30 bg-warning/5"
+            : "border-success/30 bg-success/5",
+        )}>
+          <span className={cn("h-2 w-2 rounded-full", unhealthyCount > 0 ? "bg-warning" : "bg-success")} />
+          <span>
+            {unhealthyCount > 0
+              ? `部分服务异常：${services.filter((s) => s.status !== "healthy").map((s) => s.name).join("、")}`
+              : "所有服务运行正常"}
+          </span>
         </div>
       </Section>
       <Separator />
@@ -399,7 +431,7 @@ function ServicesPanel() {
                 variant="ghost"
                 size="sm"
                 className="h-6 text-xs"
-                onClick={() => toast.info(`重试连接 ${s.name}`)}
+                onClick={() => handleRetry(s.name)}
               >
                 重试
               </Button>
@@ -411,31 +443,31 @@ function ServicesPanel() {
       <Section title="SLO 阈值">
         <SliderRow
           label="错误率阈值"
-          value={1.0}
+          value={slo.errorRateThreshold}
           min={0.1}
           max={5}
           step={0.1}
-          onChange={() => {}}
+          onChange={(v) => setSLO({ errorRateThreshold: v })}
           suffix="%"
           hint="超过触发告警"
         />
         <SliderRow
           label="P99 延迟阈值"
-          value={2000}
+          value={slo.p99LatencyThreshold}
           min={500}
           max={10000}
           step={100}
-          onChange={() => {}}
+          onChange={(v) => setSLO({ p99LatencyThreshold: v })}
           suffix="ms"
           hint="超过触发告警"
         />
         <SliderRow
           label="可用性阈值"
-          value={99.5}
+          value={slo.availabilityThreshold}
           min={95}
           max={99.99}
           step={0.1}
-          onChange={() => {}}
+          onChange={(v) => setSLO({ availabilityThreshold: v })}
           suffix="%"
           hint="月可用性"
         />

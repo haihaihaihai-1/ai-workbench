@@ -177,7 +177,10 @@ function CaseRow({
             size="xs"
             onClick={(e) => {
               e.stopPropagation();
-              toast.info(`查看 ${c.id} 的 Trace`);
+              toast.info(`查看 ${c.id} 的 Trace`, {
+                description: c.query.slice(0, 80) + (c.query.length > 80 ? "..." : ""),
+              });
+              onToggle();
             }}
             className="h-6"
           >

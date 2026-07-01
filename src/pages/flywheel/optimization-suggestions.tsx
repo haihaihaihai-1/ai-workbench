@@ -40,10 +40,22 @@ export function OptimizationSuggestions() {
     ]);
   };
 
+  const [appliedIds, setAppliedIds] = useState<Set<string>>(new Set());
+
   const handleApply = (id: string) => {
-    toast.info(`已加入待办：${id}`, {
-      description: "工单中心可查看进展。",
-    });
+    if (appliedIds.has(id)) {
+      toast.info(`已撤回待办：${id}`);
+      setAppliedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    } else {
+      setAppliedIds((prev) => new Set(prev).add(id));
+      toast.success(`已加入待办：${id}`, {
+        description: "工单中心可查看进展。",
+      });
+    }
   };
 
   return (
