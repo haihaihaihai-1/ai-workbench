@@ -63,7 +63,7 @@ export default function EvaluationPage() {
       {/* 顶部 · Langfuse 招牌：蓝色 (#3B82F6) logo + 紧凑监控 */}
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#3B82F6] text-white shadow-vercel">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-white shadow-vercel">
             <IconTarget className="h-4 w-4" weight="bold" />
           </div>
           <div>
