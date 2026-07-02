@@ -67,7 +67,7 @@ export default function SkillsPage() {
       {/* 顶部 · OpenAI GPT Store 招牌：黑高对比 logo + 紧凑 hero */}
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-primary to-[#8B5CF6] text-white shadow-vercel">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-[#10A37F] to-[#1A7F64] text-white shadow-vercel">
             <IconSparkles className="h-4 w-4" weight="fill" />
           </div>
           <div>

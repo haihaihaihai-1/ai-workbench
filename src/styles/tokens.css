@@ -164,27 +164,25 @@
     --space-16: 4rem;      /* 64px */
     --space-20: 5rem;      /* 80px */
 
-    /* --- 字体族（frontend-design-pro：使用有个性的字体） --- */
-    --font-sans:   "DM Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    --font-display: "DM Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    /* --- 字体族（深借皮各家招牌） --- */
+    --font-sans:   "Inter", "Inter Variable", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-display: "Inter Display", "Inter", -apple-system, sans-serif;
     --font-mono:   "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", Consolas, monospace;
-    --font-serif:  "Instrument Serif", "Noto Serif SC", Georgia, serif;
-    /* DM Sans 用于 UI，Instrument Serif 用于记忆/文档类标题，Vercel 未来可切 Geist */
+    --font-serif:  "Source Serif Pro", "Noto Serif SC", Georgia, serif;
+    /* ChatGPT 偏好 Inter，Notion 偏好衬线/中文，Vercel 偏好 Geist（未来可加） */
 
-    /* --- 字号（Tailwind 拓展 · v8 抬升一档） --- */
-    --text-xs:   0.75rem;   /* 12px - 仅表格/徽章 */
-    --text-sm:   0.875rem;  /* 14px - 原 13px 抬升 */
-    --text-base: 0.9375rem; /* 15px - 原 14px 抬升，正文基线 */
-    --text-md:   1rem;      /* 16px */
-    --text-lg:   1.125rem;  /* 18px */
-    --text-xl:   1.25rem;   /* 20px */
-    --text-2xl:  1.5rem;    /* 24px */
-    --text-3xl:  1.875rem;  /* 30px */
-    --text-4xl:  2.25rem;   /* 36px */
-    --text-5xl:  2.5rem;    /* 40px */
+    /* --- 字号（Tailwind 拓展） --- */
+    --text-xs:   0.75rem;   /* 12px */
+    --text-sm:   0.8125rem; /* 13px Linear */
+    --text-base: 0.875rem;  /* 14px Linear 默认 */
+    --text-md:   0.9375rem; /* 15px */
+    --text-lg:   1rem;      /* 16px */
+    --text-xl:   1.125rem;  /* 18px */
+    --text-2xl:  1.25rem;   /* 20px */
+    --text-3xl:  1.5rem;    /* 24px */
+    --text-4xl:  1.875rem;  /* 30px */
+    --text-5xl:  2.25rem;   /* 36px */
     --text-6xl:  3rem;      /* 48px */
-    --text-display:  2.5rem;   /* 40px - 页面 hero 标题 */
-    --text-display-sm: 1.875rem; /* 30px - 页面 h1 */
   }
 
   /* --- 暗色主题（产品默认） --- */
@@ -311,8 +309,8 @@
   --theme-text: #36454f;
   --theme-text-muted: #708090;
   --theme-border: #e5e5e5;
-  --theme-heading-font: "DM Sans", "PingFang SC", system-ui, sans-serif;
-  --theme-body-font: "DM Sans", "PingFang SC", system-ui, sans-serif;
+  --theme-heading-font: "Inter", system-ui, sans-serif;
+  --theme-body-font: "Inter", system-ui, sans-serif;
 }
 
 @layer utilities {

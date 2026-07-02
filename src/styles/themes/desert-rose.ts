@@ -22,8 +22,8 @@ export const desertRose: Theme = {
     border: "#d4a5a5",
   },
   fonts: {
-    heading: '"FreeSans", "DM Sans", system-ui, sans-serif',
-    body: '"FreeSans", "DM Sans", system-ui, sans-serif',
+    heading: '"FreeSans", "Inter", system-ui, sans-serif',
+    body: '"FreeSans", "Inter", system-ui, sans-serif',
   },
   useCase: "时尚、艺术、复古风格、社交内容",
 };

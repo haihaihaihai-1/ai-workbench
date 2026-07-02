@@ -23,7 +23,7 @@ export const botanicalGarden: Theme = {
   },
   fonts: {
     heading: '"DejaVu Serif", "Source Serif Pro", Georgia, serif',
-    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
   },
   useCase: "生命科学、有机品牌、博客、阅读型产品",
 };

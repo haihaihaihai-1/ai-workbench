@@ -81,7 +81,7 @@ export default function FlywheelPage() {
       {/* 顶部 · LangSmith 风格：紧凑监控顶栏 */}
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-primary to-[#8B5CF6] text-white shadow-vercel">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-[#FF6B6B] to-[#C44569] text-white shadow-vercel">
             <IconChartLine className="h-4 w-4" weight="bold" />
           </div>
           <div>
@@ -128,14 +128,14 @@ export default function FlywheelPage() {
         <TabsList className="h-9 rounded-none border-b border-border bg-transparent p-0">
           <TabsTrigger
             value="health"
-            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-[#FF6B6B] data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
           >
             <IconWorkflow className="mr-1.5 h-3.5 w-3.5" />
             Flywheel Health
           </TabsTrigger>
           <TabsTrigger
             value="evolve"
-            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
+            className="h-9 rounded-none border-b-2 border-transparent bg-transparent px-4 text-xs data-[state=active]:border-[#FF6B6B] data-[state=active]:bg-transparent data-[state=active]:text-foreground text-muted-foreground"
           >
             <IconCompass className="mr-1.5 h-3.5 w-3.5" />
             Intent Evolution

@@ -23,7 +23,7 @@ export const sunsetBoulevard: Theme = {
   },
   fonts: {
     heading: '"DejaVu Serif", "Source Serif Pro", Georgia, serif',
-    body: '"DejaVu Sans", "DM Sans", system-ui, sans-serif',
+    body: '"DejaVu Sans", "Inter", system-ui, sans-serif',
   },
   useCase: "营销、活动、温暖暖色、品牌",
 };
